@@ -1,5 +1,7 @@
-﻿using SimpleImageCharts.PieChart;
+﻿using SimpleImageCharts.HorzBarChart;
+using SimpleImageCharts.PieChart;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -21,7 +23,7 @@ namespace WindowsFormsChart
                 entries[i] = new PieEntry
                 {
                     Value = (float)rand.Next(10, 40) / 10,
-                    Color = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)),
+                    Color = Color.FromArgb(rand.Next(0, 200), rand.Next(0, 200), rand.Next(0, 200)),
                     Label = "Data " + i
                 };
             }
@@ -60,6 +62,37 @@ namespace WindowsFormsChart
             var bitmap = chart.CreateImage();
 
             pictureBox1.Image = bitmap;
+        }
+
+        private void BtnHorzBarChart_Click(object sender, EventArgs e)
+        {
+            var chart = new HorzBarChart
+            {
+                Width = pictureBox1.Width,
+                Height = pictureBox1.Height,
+                Categories = new[] { "A", "Product B", "Product C" },
+                DataSets = new[]
+                {
+                    new HorzBarSeries
+                    {
+                        Color = Color.Green,
+                        Data = new[] { -5f, 10f, 15f },
+                    },
+                    new HorzBarSeries
+                    {
+                        Color = Color.Red,
+                        Data = new[] { 1f, -2f, 3f },
+                    }
+                    ,
+                    new HorzBarSeries
+                    {
+                        Color = Color.Blue,
+                        Data = new[] { 5f, 20f, -13f },
+                    }
+                }
+            };
+
+            pictureBox1.Image = chart.Paint();
         }
     }
 }
