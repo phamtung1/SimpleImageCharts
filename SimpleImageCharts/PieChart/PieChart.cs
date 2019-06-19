@@ -24,6 +24,8 @@ namespace SimpleImageCharts.PieChart
 
         public Color TextColor { get; set; } = Color.White;
 
+        public bool IsDonut { get; set; } = false;
+
         public Bitmap CreateImage()
         {
             if (Entries == null || Entries.Length == 0)
@@ -57,6 +59,12 @@ namespace SimpleImageCharts.PieChart
 
                 DrawValues(graphic, total);
                 DrawLegend(graphic);
+
+                if (IsDonut)
+                {
+                    var x = Height / 4;
+                    graphic.FillEllipse(Brushes.White, x, x, Height / 2, Height / 2);
+                }
             }
 
             return bitmap;

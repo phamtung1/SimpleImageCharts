@@ -12,10 +12,9 @@ namespace WindowsFormsChart
             InitializeComponent();
         }
 
-        private void btnPieChart_Click(object sender, EventArgs e)
+        private static PieEntry[] CreatePieEntries()
         {
             var rand = new Random();
-
             var entries = new PieEntry[10];
             for (int i = 0; i < entries.Length; i++)
             {
@@ -27,11 +26,35 @@ namespace WindowsFormsChart
                 };
             }
 
+            return entries;
+        }
+
+        private void btnPieChart_Click(object sender, EventArgs e)
+        {
+            PieEntry[] entries = CreatePieEntries();
+
             var chart = new PieChart
             {
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 Entries = entries
+            };
+
+            var bitmap = chart.CreateImage();
+
+            pictureBox1.Image = bitmap;
+        }
+
+        private void BtnDonutChart_Click(object sender, EventArgs e)
+        {
+            PieEntry[] entries = CreatePieEntries();
+
+            var chart = new PieChart
+            {
+                Width = pictureBox1.Width,
+                Height = pictureBox1.Height,
+                Entries = entries,
+                IsDonut = true
             };
 
             var bitmap = chart.CreateImage();
