@@ -22,13 +22,15 @@ namespace WindowsFormsChart
                 entries[i] = new PieEntry
                 {
                     Value = (float)rand.Next(10, 40) / 10,
-                    Color = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256))
+                    Color = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)),
+                    Label = "Data " + i
                 };
             }
 
             var chart = new PieChart
             {
-                Radius = pictureBox1.Height,
+                Width = pictureBox1.Width,
+                Height = pictureBox1.Height,
                 Entries = entries
             };
 

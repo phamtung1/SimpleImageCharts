@@ -38,13 +38,13 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(20, 21);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(562, 371);
+            this.pictureBox1.Size = new System.Drawing.Size(876, 371);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // btnPieChart
             // 
-            this.btnPieChart.Location = new System.Drawing.Point(602, 21);
+            this.btnPieChart.Location = new System.Drawing.Point(955, 21);
             this.btnPieChart.Name = "btnPieChart";
             this.btnPieChart.Size = new System.Drawing.Size(118, 36);
             this.btnPieChart.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 450);
+            this.ClientSize = new System.Drawing.Size(1140, 450);
             this.Controls.Add(this.btnPieChart);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
