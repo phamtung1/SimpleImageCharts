@@ -32,6 +32,7 @@
             this.btnPieChart = new System.Windows.Forms.Button();
             this.btnDonutChart = new System.Windows.Forms.Button();
             this.btnHorzBarChart = new System.Windows.Forms.Button();
+            this.btnVertBar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,11 +75,22 @@
             this.btnHorzBarChart.UseVisualStyleBackColor = true;
             this.btnHorzBarChart.Click += new System.EventHandler(this.BtnHorzBarChart_Click);
             // 
+            // btnVertBar
+            // 
+            this.btnVertBar.Location = new System.Drawing.Point(955, 211);
+            this.btnVertBar.Name = "btnVertBar";
+            this.btnVertBar.Size = new System.Drawing.Size(118, 36);
+            this.btnVertBar.TabIndex = 4;
+            this.btnVertBar.Text = "Vert Bar Chart";
+            this.btnVertBar.UseVisualStyleBackColor = true;
+            this.btnVertBar.Click += new System.EventHandler(this.BtnVertBar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1140, 450);
+            this.Controls.Add(this.btnVertBar);
             this.Controls.Add(this.btnHorzBarChart);
             this.Controls.Add(this.btnDonutChart);
             this.Controls.Add(this.btnPieChart);
@@ -96,6 +108,7 @@
         private System.Windows.Forms.Button btnPieChart;
         private System.Windows.Forms.Button btnDonutChart;
         private System.Windows.Forms.Button btnHorzBarChart;
+        private System.Windows.Forms.Button btnVertBar;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using SimpleImageCharts.HorzBarChart;
 using SimpleImageCharts.PieChart;
+using SimpleImageCharts.VertBarChart;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -90,6 +91,38 @@ namespace WindowsFormsChart
                         Data = new[] { 5f, 20f, -13f },
                     }
                 }
+            };
+
+            pictureBox1.Image = chart.CreateImage();
+        }
+
+        private void BtnVertBar_Click(object sender, EventArgs e)
+        {
+            var categories = new[] { "A", "Product B", "Product C", "Product D", "Product E" };
+            var rand = new Random();
+            var datasets = new VertBarSeries[4];
+            for (int i = 0; i < datasets.Length; i++)
+            {
+                var data = new float[categories.Length];
+                for (int j = 0; j < categories.Length; j++)
+                {
+                    data[j] = rand.Next(20) - 10;
+                }
+
+                var dataset = new VertBarSeries
+                {
+                    Color = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)),
+                    Data = data
+                };
+                datasets[i] = dataset;
+            }
+
+            var chart = new VertBarChart
+            {
+                Width = pictureBox1.Width,
+                Height = pictureBox1.Height,
+                Categories = categories,
+                DataSets = datasets
             };
 
             pictureBox1.Image = chart.CreateImage();

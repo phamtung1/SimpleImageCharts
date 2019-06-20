@@ -89,5 +89,39 @@ var chart = new HorzBarChart
     }
 };
 
-pictureBox1.Image = chart.CreateImage();
+var bitmap = chart.CreateImage();
+```
+
+## 4. Vertical Bar Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/vertBar.jpg" />
+
+```csharp
+var categories = new[] { "A", "Product B", "Product C", "Product D", "Product E" };
+var rand = new Random();
+var datasets = new VertBarSeries[4];
+for (int i = 0; i < datasets.Length; i++)
+{
+    var data = new float[categories.Length];
+    for (int j = 0; j < categories.Length; j++)
+    {
+        data[j] = rand.Next(20) - 10;
+    }
+
+    var dataset = new VertBarSeries
+    {
+        Color = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)),
+        Data = data
+    };
+    datasets[i] = dataset;
+}
+
+var chart = new VertBarChart
+{
+    Width = 600,
+    Height = 300,
+    Categories = categories,
+    DataSets = datasets
+};
+
+var bitmap = chart.CreateImage();
 ```
