@@ -94,6 +94,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\horzBar.jpg");
         }
 
         private void BtnStackedHorzBar_Click(object sender, EventArgs e)
@@ -120,6 +121,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedHorzBar.jpg");
         }
 
         private void BtnVertBar_Click(object sender, EventArgs e)

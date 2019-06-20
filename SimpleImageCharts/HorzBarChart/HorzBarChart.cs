@@ -61,8 +61,9 @@ namespace SimpleImageCharts.HorzBarChart
                 // X axis line
                 graphic.DrawLine(Pens.Black, _rootX, MarginTop, _rootX, Height - MarginBottom);
 
-                // DrawHorizontalLines(graphic);
+                DrawHorizontalLines(graphic);
                 DrawVerticalLines(graphic);
+                DrawVerticalValueLabels(graphic);
                 var offsetY = IsStacked ? 0 : -(DataSets.Length * BarHeight) / 2;
                 foreach (var data in DataSets)
                 {
@@ -115,10 +116,42 @@ namespace SimpleImageCharts.HorzBarChart
             }
         }
 
+        private void DrawVerticalValueLabels(Graphics graphic)
+        {
+            var x = _rootX;
+            var realStepSize = StepSize * _widthUnit;
+            using(var font = new Font("Arial", 10))
+            using (var stringFormat = new StringFormat())
+            {
+                stringFormat.Alignment = StringAlignment.Center;
+
+                graphic.DrawString("0", font, Brushes.Gray, _rootX, Height - MarginBottom, stringFormat);
+
+                for (int i = 0; i < _maxValue; i += StepSize)
+                {
+                    x += realStepSize;
+                    if (x < Width - MarginRight)
+                    {
+                        graphic.DrawString((i + StepSize).ToString(), font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
+                    }
+                }
+
+                x = _rootX;
+                for (int i = 0; i > _minValue; i -= StepSize)
+                {
+                    x -= realStepSize;
+                    if (Math.Abs(x) > MarginLeft)
+                    {
+                        graphic.DrawString((i - StepSize).ToString(), font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
+                    }
+                }
+            }
+        }
+
         private void DrawCategoyLabels(Graphics graphic)
         {
             var y = MarginTop + _categoryHeight / 2;
-            using(var font = new Font("Arial", 10))
+            using (var font = new Font("Arial", 10))
             using (StringFormat stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Far;
