@@ -34,6 +34,7 @@
             this.btnHorzBarChart = new System.Windows.Forms.Button();
             this.btnVertBar = new System.Windows.Forms.Button();
             this.btnHorzBarDoubleAxis = new System.Windows.Forms.Button();
+            this.btnStackedHorzBar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +59,7 @@
             // 
             // btnDonutChart
             // 
-            this.btnDonutChart.Location = new System.Drawing.Point(955, 83);
+            this.btnDonutChart.Location = new System.Drawing.Point(955, 79);
             this.btnDonutChart.Name = "btnDonutChart";
             this.btnDonutChart.Size = new System.Drawing.Size(118, 36);
             this.btnDonutChart.TabIndex = 2;
@@ -68,7 +69,7 @@
             // 
             // btnHorzBarChart
             // 
-            this.btnHorzBarChart.Location = new System.Drawing.Point(955, 147);
+            this.btnHorzBarChart.Location = new System.Drawing.Point(955, 137);
             this.btnHorzBarChart.Name = "btnHorzBarChart";
             this.btnHorzBarChart.Size = new System.Drawing.Size(118, 36);
             this.btnHorzBarChart.TabIndex = 3;
@@ -78,7 +79,7 @@
             // 
             // btnVertBar
             // 
-            this.btnVertBar.Location = new System.Drawing.Point(955, 211);
+            this.btnVertBar.Location = new System.Drawing.Point(955, 311);
             this.btnVertBar.Name = "btnVertBar";
             this.btnVertBar.Size = new System.Drawing.Size(118, 36);
             this.btnVertBar.TabIndex = 4;
@@ -88,7 +89,7 @@
             // 
             // btnHorzBarDoubleAxis
             // 
-            this.btnHorzBarDoubleAxis.Location = new System.Drawing.Point(955, 273);
+            this.btnHorzBarDoubleAxis.Location = new System.Drawing.Point(955, 253);
             this.btnHorzBarDoubleAxis.Name = "btnHorzBarDoubleAxis";
             this.btnHorzBarDoubleAxis.Size = new System.Drawing.Size(118, 36);
             this.btnHorzBarDoubleAxis.TabIndex = 5;
@@ -96,11 +97,22 @@
             this.btnHorzBarDoubleAxis.UseVisualStyleBackColor = true;
             this.btnHorzBarDoubleAxis.Click += new System.EventHandler(this.BtnHorzBarDoubleAxis_Click);
             // 
+            // btnStackedHorzBar
+            // 
+            this.btnStackedHorzBar.Location = new System.Drawing.Point(955, 195);
+            this.btnStackedHorzBar.Name = "btnStackedHorzBar";
+            this.btnStackedHorzBar.Size = new System.Drawing.Size(118, 36);
+            this.btnStackedHorzBar.TabIndex = 6;
+            this.btnStackedHorzBar.Text = "Horz Bar Chart";
+            this.btnStackedHorzBar.UseVisualStyleBackColor = true;
+            this.btnStackedHorzBar.Click += new System.EventHandler(this.BtnStackedHorzBar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1140, 450);
+            this.Controls.Add(this.btnStackedHorzBar);
             this.Controls.Add(this.btnHorzBarDoubleAxis);
             this.Controls.Add(this.btnVertBar);
             this.Controls.Add(this.btnHorzBarChart);
@@ -122,6 +134,7 @@
         private System.Windows.Forms.Button btnHorzBarChart;
         private System.Windows.Forms.Button btnVertBar;
         private System.Windows.Forms.Button btnHorzBarDoubleAxis;
+        private System.Windows.Forms.Button btnStackedHorzBar;
     }
 }
 

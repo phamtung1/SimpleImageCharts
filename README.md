@@ -9,8 +9,9 @@ This is a simple charting library for rendering charts as images.
 1. [Pie Chart](#1-pie-chart)
 2. [Donut Chart](#2-donut-chart)
 3. [Horizontal Bar Chart](#3-horizontal-bar-chart)
-4. [Horizontal Bar Double Axis Chart](#4-horizontal-bar-double-axis-chart)
-5. [Vertical Bar Chart](#5-vertical-bar-chart)
+4. [Stacked Horizontal Bar Chart](#4-stacked-horizontal-bar-chart)
+5. [Horizontal Bar Double Axis Chart](#5-horizontal-bar-double-axis-chart)
+6. [Vertical Bar Chart](#6-vertical-bar-chart)
 
 ## 1. Pie Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/pie.jpg" />
@@ -59,7 +60,7 @@ var chart = new PieChart
     Width = 300,
     Height = 600,
     Entries = entries,
-    IsDonut = true // the only difference
+    IsDonut = true // default: false
 };
 
 var bitmap = chart.CreateImage();
@@ -97,9 +98,35 @@ var chart = new HorzBarChart
 
 var bitmap = chart.CreateImage();
 ```
+## 4. Stacked Horizontal Bar Chart:
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/StackedHorzBar.jpg" />
 
+```csharp
+var chart = new HorzBarChart
+{
+    Width = 600,
+    Height = 300,
+    IsStacked = true, // default: false
+    Categories = new[] { "Product A", "Product B", "Product C" },
+    DataSets = new[]
+    {
+        new HorzBarSeries
+        {
+            Color = Color.Green,
+            Data = new[] { -5f, -10f, -1f },
+        },
+        new HorzBarSeries
+        {
+            Color = Color.Red,
+            Data = new[] { 10f, 20f, 5f },
+        }
+    }
+};
 
-## 4. Horizontal Bar Double Axis Chart
+var bitmap = chart.CreateImage();
+```
+
+## 5. Horizontal Bar Double Axis Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/HorzBarDoubleAxis.jpg" />
 
 ```csharp
@@ -123,7 +150,7 @@ var chart = new HorzBarDoubleAxisChart
 var bitmap = chart.CreateImage();
 ```
 
-## 5. Vertical Bar Chart
+## 6. Vertical Bar Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/vertBar.jpg" />
 
 ```csharp

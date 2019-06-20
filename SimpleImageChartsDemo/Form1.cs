@@ -96,6 +96,32 @@ namespace WindowsFormsChart
             pictureBox1.Image = chart.CreateImage();
         }
 
+        private void BtnStackedHorzBar_Click(object sender, EventArgs e)
+        {
+            var chart = new HorzBarChart
+            {
+                Width = pictureBox1.Width,
+                Height = pictureBox1.Height,
+                IsStacked = true,
+                Categories = new[] { "Product A", "Product B", "Product C" },
+                DataSets = new[]
+                {
+                    new HorzBarSeries
+                    {
+                        Color = Color.Green,
+                        Data = new[] { -5f, -10f, -1f },
+                    },
+                    new HorzBarSeries
+                    {
+                        Color = Color.Red,
+                        Data = new[] { 10f, 20f, 5f },
+                    }
+                }
+            };
+
+            pictureBox1.Image = chart.CreateImage();
+        }
+
         private void BtnVertBar_Click(object sender, EventArgs e)
         {
             var categories = new[] { "A", "Product B", "Product C", "Product D", "Product E" };
@@ -149,5 +175,6 @@ namespace WindowsFormsChart
             pictureBox1.Image = chart.CreateImage();
             pictureBox1.Image.Save("D:\\HorzBarDoubleAxis.jpg"); ;
         }
+
     }
 }

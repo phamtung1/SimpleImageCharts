@@ -16,6 +16,8 @@ namespace SimpleImageCharts.HorzBarChart
 
         private const int BarHeight = 15;
 
+        public bool IsStacked { get; set; } = false;
+
         public int StepSize { get; set; } = 5;
 
         public int Width { get; set; } = 600;
@@ -61,11 +63,14 @@ namespace SimpleImageCharts.HorzBarChart
 
                 // DrawHorizontalLines(graphic);
                 DrawVerticalLines(graphic);
-                var offsetY = -(DataSets.Length * BarHeight) / 2;
+                var offsetY = IsStacked ? 0 : -(DataSets.Length * BarHeight) / 2;
                 foreach (var data in DataSets)
                 {
                     DrawBarSeries(graphic, data, offsetY);
-                    offsetY += BarHeight;
+                    if (!IsStacked)
+                    {
+                        offsetY += BarHeight;
+                    }
                 }
 
                 DrawCategoyLabels(graphic);
@@ -113,12 +118,14 @@ namespace SimpleImageCharts.HorzBarChart
         private void DrawCategoyLabels(Graphics graphic)
         {
             var y = MarginTop + _categoryHeight / 2;
+            using(var font = new Font("Arial", 10))
             using (StringFormat stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Far;
+
                 foreach (var item in Categories)
                 {
-                    graphic.DrawString(item, new Font("Arial", 10), Brushes.Gray, MarginLeft - 10, y, stringFormat);
+                    graphic.DrawString(item, font, Brushes.Gray, MarginLeft - 10, y, stringFormat);
                     y += _categoryHeight;
                 }
             }
