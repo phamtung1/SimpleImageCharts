@@ -1,8 +1,8 @@
 ﻿using SimpleImageCharts.HorzBarChart;
+using SimpleImageCharts.HorzBarDoubleAxisChart;
 using SimpleImageCharts.PieChart;
 using SimpleImageCharts.VertBarChart;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -126,6 +126,28 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
+        }
+
+        private void BtnHorzBarDoubleAxis_Click(object sender, EventArgs e)
+        {
+            var chart = new HorzBarDoubleAxisChart
+            {
+                Width = pictureBox1.Width,
+                Height = pictureBox1.Height,
+                Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
+                FirstDataSet = new HorzBarDoubleAxisSeries { 
+                        Color = Color.Green,
+                        Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
+                    },
+                SecondDataSet = new HorzBarDoubleAxisSeries
+                {
+                    Color = Color.Red,
+                    Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
+                }
+            };
+
+            pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image.Save("D:\\HorzBarDoubleAxis.jpg"); ;
         }
     }
 }

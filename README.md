@@ -92,7 +92,32 @@ var chart = new HorzBarChart
 var bitmap = chart.CreateImage();
 ```
 
-## 4. Vertical Bar Chart
+
+## 4. Horizontal Bar Double Axis Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/HorzBarDoubleAxis.jpg" />
+
+```csharp
+var chart = new HorzBarDoubleAxisChart
+{
+    Width = 300,
+    Height = 600,
+    Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
+    FirstDataSet = new HorzBarDoubleAxisSeries 
+    { 
+        Color = Color.Green,
+        Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
+    },
+    SecondDataSet = new HorzBarDoubleAxisSeries
+    {
+        Color = Color.Red,
+        Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
+    }
+};
+
+var bitmap = chart.CreateImage();
+```
+
+## 5. Vertical Bar Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/vertBar.jpg" />
 
 ```csharp
