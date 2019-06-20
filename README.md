@@ -6,6 +6,12 @@ This is a simple charting library for rendering charts as images.
 .NET Standard 2.0
 
 # Available Charts
+1. [Pie Chart](#1-pie-chart)
+2. [Donut Chart](#2-donut-chart)
+3. [Horizontal Bar Chart](#3-horizontal-bar-chart)
+4. [Horizontal Bar Double Axis Chart](#4-horizontal-bar-double-axis-chart)
+5. [Vertical Bar Chart](#5-vertical-bar-chart)
+
 ## 1. Pie Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/pie.jpg" />
 
