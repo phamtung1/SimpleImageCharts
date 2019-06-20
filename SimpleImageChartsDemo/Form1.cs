@@ -175,7 +175,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save("D:\\HorzBarDoubleAxis.jpg"); ;
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\HorzBarDoubleAxis.jpg"); ;
         }
 
     }

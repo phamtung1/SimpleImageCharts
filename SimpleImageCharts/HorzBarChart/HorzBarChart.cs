@@ -14,7 +14,7 @@ namespace SimpleImageCharts.HorzBarChart
 
         private const int MarginBottom = 50;
 
-        private const int BarHeight = 15;
+        private const int BarSize = 20;
 
         public bool IsStacked { get; set; } = false;
 
@@ -64,13 +64,13 @@ namespace SimpleImageCharts.HorzBarChart
                 DrawHorizontalLines(graphic);
                 DrawVerticalLines(graphic);
                 DrawVerticalValueLabels(graphic);
-                var offsetY = IsStacked ? 0 : -(DataSets.Length * BarHeight) / 2;
+                var offsetY = IsStacked ? 0 : -(DataSets.Length * BarSize) / 2;
                 foreach (var data in DataSets)
                 {
                     DrawBarSeries(graphic, data, offsetY);
                     if (!IsStacked)
                     {
-                        offsetY += BarHeight;
+                        offsetY += BarSize;
                     }
                 }
 
@@ -175,11 +175,11 @@ namespace SimpleImageCharts.HorzBarChart
                     var length = _widthUnit * value;
                     if (length >= 0)
                     {
-                        graphics.FillRectangle(brush, _rootX, y, length, BarHeight);
+                        graphics.FillRectangle(brush, _rootX, y, length, BarSize);
                     }
                     else
                     {
-                        graphics.FillRectangle(brush, _rootX + length, y, Math.Abs(length), BarHeight);
+                        graphics.FillRectangle(brush, _rootX + length, y, Math.Abs(length), BarSize);
                     }
 
                     y += spaceY;

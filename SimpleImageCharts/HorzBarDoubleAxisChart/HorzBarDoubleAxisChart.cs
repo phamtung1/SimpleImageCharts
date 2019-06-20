@@ -12,7 +12,7 @@ namespace SimpleImageCharts.HorzBarDoubleAxisChart
 
         private const int MarginBottom = 50;
 
-        private const int BarHeight = 15;
+        private const int BarSize = 20;
 
         public int StepSize { get; set; } = 5;
 
@@ -104,13 +104,13 @@ namespace SimpleImageCharts.HorzBarDoubleAxisChart
         private void DrawFirstBarSeries(Graphics graphics, HorzBarDoubleAxisSeries series)
         {
             var spaceY = _categoryHeight;
-            var y = MarginTop + (spaceY / 2);
+            var y = MarginTop + ((spaceY - BarSize) / 2);
             using (var brush = new SolidBrush(series.Color))
             {
                 foreach (var value in series.Data)
                 {
                     var length = _widthUnit * value;
-                    graphics.FillRectangle(brush, MarginLeft, y, length, BarHeight);
+                    graphics.FillRectangle(brush, MarginLeft, y, length, BarSize);
 
                     y += spaceY;
                 }
@@ -120,13 +120,13 @@ namespace SimpleImageCharts.HorzBarDoubleAxisChart
         private void DrawSecondBarSeries(Graphics graphics, HorzBarDoubleAxisSeries series)
         {
             var spaceY = _categoryHeight;
-            var y = MarginTop + (spaceY / 2);
+            var y = MarginTop + ((spaceY - BarSize) / 2);
             using (var brush = new SolidBrush(series.Color))
             {
                 foreach (var value in series.Data)
                 {
                     var length = _widthUnit * value;
-                    graphics.FillRectangle(brush, Width - MarginRight - length, y, length, BarHeight);
+                    graphics.FillRectangle(brush, Width - MarginRight - length, y, length, BarSize);
 
                     y += spaceY;
                 }
