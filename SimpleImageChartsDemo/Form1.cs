@@ -92,7 +92,7 @@ namespace WindowsFormsChart
                 }
             };
 
-            pictureBox1.Image = chart.Paint();
+            pictureBox1.Image = chart.CreateImage();
         }
     }
 }

@@ -58,3 +58,36 @@ var chart = new PieChart
 
 var bitmap = chart.CreateImage();
 ```
+
+## 3. Horizontal Bar Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/horzBar.jpg" />
+
+```csharp
+var chart = new HorzBarChart
+{
+    Width = 300,
+    Height = 600,
+    Categories = new[] { "A", "Product B", "Product C" },
+    DataSets = new[]
+    {
+        new HorzBarSeries
+        {
+            Color = Color.Green,
+            Data = new[] { -5f, 10f, 15f },
+        },
+        new HorzBarSeries
+        {
+            Color = Color.Red,
+            Data = new[] { 1f, -2f, 3f },
+        }
+        ,
+        new HorzBarSeries
+        {
+            Color = Color.Blue,
+            Data = new[] { 5f, 20f, -13f },
+        }
+    }
+};
+
+pictureBox1.Image = chart.CreateImage();
+```

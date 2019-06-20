@@ -36,7 +36,7 @@ namespace SimpleImageCharts.HorzBarChart
 
         private float _minValue;
 
-        public Bitmap Paint()
+        public Bitmap CreateImage()
         {
             _categoryHeight = (Height - MarginTop - MarginBottom) / Categories.Length;
 
@@ -127,7 +127,7 @@ namespace SimpleImageCharts.HorzBarChart
         private void DrawBarSeries(Graphics graphics, HorzBarSeries series, int offsetY)
         {
             var spaceY = _categoryHeight;
-            var y = 10 + (spaceY / 2) + offsetY;
+            var y = MarginTop + (spaceY / 2) + offsetY;
             using (var brush = new SolidBrush(series.Color))
             {
                 foreach (var value in series.Data)
