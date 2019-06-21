@@ -14,11 +14,11 @@ namespace SimpleImageCharts.BarChart
 
         private const int MarginBottom = 50;
 
-        private const int BarSize = 20;
+        public int BarSize { get; set; } = 20;
 
         public bool IsStacked { get; set; } = false;
 
-        public int StepSize { get; set; } = 5;
+        public int StepSize { get; set; } = 0;
 
         public int Width { get; set; } = 600;
 
@@ -45,6 +45,12 @@ namespace SimpleImageCharts.BarChart
             _maxValue = DataSets.SelectMany(x => x.Data).Max(x => x) * 1.1f;
             _minValue = DataSets.SelectMany(x => x.Data).Min(x => x) * 1.1f;
 
+            if (StepSize == 0)
+            {
+                var range = _maxValue - _minValue;
+                StepSize = (int)(range / 4);
+            }
+
             if (_minValue > 0)
             {
                 _minValue = 0;
@@ -59,12 +65,12 @@ namespace SimpleImageCharts.BarChart
             {
                 graphic.Clear(Color.White);
                 // X axis line
-                graphic.DrawLine(Pens.Black, _rootX, MarginTop, _rootX, Height - MarginBottom);
+                graphic.DrawLine(Pens.LightGray, _rootX, MarginTop, _rootX, Height - MarginBottom);
 
                 DrawHorizontalLines(graphic);
                 DrawVerticalLines(graphic);
                 DrawVerticalValueLabels(graphic);
-                var offsetY = IsStacked ? 0 : -(DataSets.Length * BarSize) / 2;
+                var offsetY = IsStacked ? -BarSize / 2 : -(DataSets.Length * BarSize) / 2;
                 foreach (var data in DataSets)
                 {
                     DrawBarSeries(graphic, data, offsetY);
@@ -120,7 +126,7 @@ namespace SimpleImageCharts.BarChart
         {
             var x = _rootX;
             var realStepSize = StepSize * _widthUnit;
-            using(var font = new Font("Arial", 10))
+            using (var font = new Font("Arial", 10))
             using (var stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Center;
@@ -166,8 +172,7 @@ namespace SimpleImageCharts.BarChart
 
         private void DrawBarSeries(Graphics graphics, BarSeries series, int offsetY)
         {
-            var spaceY = _categoryHeight;
-            var y = MarginTop + (spaceY / 2) + offsetY;
+            var y = MarginTop + (_categoryHeight / 2) + offsetY;
             using (var brush = new SolidBrush(series.Color))
             {
                 foreach (var value in series.Data)
@@ -182,7 +187,7 @@ namespace SimpleImageCharts.BarChart
                         graphics.FillRectangle(brush, _rootX + length, y, Math.Abs(length), BarSize);
                     }
 
-                    y += spaceY;
+                    y += _categoryHeight;
                 }
             }
         }

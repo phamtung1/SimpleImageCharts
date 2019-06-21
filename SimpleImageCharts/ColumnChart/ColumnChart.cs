@@ -14,7 +14,7 @@ namespace SimpleImageCharts.ColumnChart
 
         private const int MarginBottom = 100;
 
-        private const int BarWidth = 15;
+        private const int ColumnSize = 15;
 
         public int StepSize { get; set; } = 5;
 
@@ -60,11 +60,11 @@ namespace SimpleImageCharts.ColumnChart
                 graphic.DrawLine(Pens.Black, MarginLeft, _rootY, Width - MarginRight, _rootY);
 
                 DrawVerticalLines(graphic);
-                var offsetX = -(DataSets.Length * BarWidth) / 2;
+                var offsetX = -(DataSets.Length * ColumnSize) / 2;
                 foreach (var data in DataSets)
                 {
                     DrawBarSeries(graphic, data, offsetX);
-                    offsetX += BarWidth;
+                    offsetX += ColumnSize;
                 }
 
                 DrawCategoyLabels(graphic);
@@ -104,18 +104,24 @@ namespace SimpleImageCharts.ColumnChart
             var spaceX = _categoryWidth;
             var x = MarginLeft + (spaceX / 2) + offsetX;
             using (var brush = new SolidBrush(series.Color))
+            using (var stringFormat = new StringFormat())
             {
+                stringFormat.Alignment = StringAlignment.Center;
                 foreach (var value in series.Data)
                 {
                     var length = _heightUnit * value;
+                    var text = value.ToString("0.##");
                     if (length >= 0)
                     {
-                        graphics.FillRectangle(brush, x, _rootY - length, BarWidth, length);
+                        graphics.FillRectangle(brush, x, _rootY - length, ColumnSize, length);
+                        graphics.DrawString(text, new Font("Arial", 10), Brushes.Black, x, _rootY - length - 15, stringFormat);
                     }
                     else
                     {
-                        graphics.FillRectangle(brush, x, _rootY, BarWidth, Math.Abs(length));
+                        graphics.FillRectangle(brush, x, _rootY, ColumnSize, Math.Abs(length));
                     }
+
+
 
                     x += spaceX;
                 }

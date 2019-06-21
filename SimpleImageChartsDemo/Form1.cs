@@ -1,7 +1,7 @@
 ﻿using SimpleImageCharts.BarChart;
+using SimpleImageCharts.ColumnChart;
 using SimpleImageCharts.DoubleAxisBarChart;
 using SimpleImageCharts.PieChart;
-using SimpleImageCharts.ColumnChart;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -104,18 +104,18 @@ namespace WindowsFormsChart
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 IsStacked = true,
-                Categories = new[] { "Product A", "Product B", "Product C" },
+                Categories = new[] { "A", "Product B", "Product C", "A", "Product B", "Product C", "A", "Product B", "Product C" },
                 DataSets = new[]
                 {
                     new BarSeries
                     {
                         Color = Color.Green,
-                        Data = new[] { -5f, -10f, -1f },
+                        Data = new[] { -5f, -10f, -1f , -5f, -10f, -1f , -5f, -10f, -1f },
                     },
                     new BarSeries
                     {
                         Color = Color.Red,
-                        Data = new[] { 10f, 20f, 5f },
+                        Data = new[] { 10f, 20f, 5f, 10f, 20f, 5f, 10f, 20f, 5f },
                     }
                 }
             };
@@ -124,7 +124,30 @@ namespace WindowsFormsChart
             pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBarChart.jpg");
         }
 
-        private void BtnColumnBar_Click(object sender, EventArgs e)
+        private void BtnDoubleAxisBar_Click(object sender, EventArgs e)
+        {
+            var chart = new DoubleAxisBarChart
+            {
+                Width = pictureBox1.Width,
+                Height = pictureBox1.Height,
+                Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
+                FirstDataSet = new DoubleAxisBarSeries
+                {
+                    Color = Color.Green,
+                    Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
+                },
+                SecondDataSet = new DoubleAxisBarSeries
+                {
+                    Color = Color.Red,
+                    Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
+                }
+            };
+
+            pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
+        }
+
+        private void BtnColumnChart_Click(object sender, EventArgs e)
         {
             var categories = new[] { "A", "Product B", "Product C", "Product D", "Product E" };
             var rand = new Random();
@@ -156,28 +179,5 @@ namespace WindowsFormsChart
             pictureBox1.Image = chart.CreateImage();
             pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\ColumnChart.jpg");
         }
-
-        private void BtnDoubleAxisBar_Click(object sender, EventArgs e)
-        {
-            var chart = new DoubleAxisBarChart
-            {
-                Width = pictureBox1.Width,
-                Height = pictureBox1.Height,
-                Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
-                FirstDataSet = new DoubleAxisBarSeries { 
-                        Color = Color.Green,
-                        Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
-                    },
-                SecondDataSet = new DoubleAxisBarSeries
-                {
-                    Color = Color.Red,
-                    Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
-                }
-            };
-
-            pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
-        }
-
     }
 }

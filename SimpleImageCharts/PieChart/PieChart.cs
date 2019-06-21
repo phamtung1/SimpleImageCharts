@@ -86,6 +86,11 @@ namespace SimpleImageCharts.PieChart
                 var startAngle = InitialAngle;
                 foreach (var entry in Entries)
                 {
+                    if(entry.Value == 0)
+                    {
+                        continue;
+                    }
+
                     var endAngle = entry.Value * 360f / total;
 
                     var labelAngle = Math.PI * (startAngle + endAngle / 2f) / 180f;
