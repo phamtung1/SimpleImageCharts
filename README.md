@@ -74,22 +74,25 @@ var chart = new BarChart
 {
     Width = 600,
     Height = 300,
-    Categories = new[] { "A", "Product B", "Product C" },
+    Categories = new[] { "Product A", "Product B", "Product C" },
     DataSets = new[]
     {
         new BarSeries
         {
+            Label = "Green",
             Color = Color.Green,
             Data = new[] { -5f, 10f, 15f },
         },
         new BarSeries
         {
+            Label = "Red",
             Color = Color.Red,
             Data = new[] { 1f, -2f, 3f },
         }
         ,
         new BarSeries
         {
+            Label = "Blue",
             Color = Color.Blue,
             Data = new[] { 5f, 20f, -13f },
         }
@@ -107,18 +110,20 @@ var chart = new BarChart
     Width = 600,
     Height = 300,
     IsStacked = true, // default: false
-    Categories = new[] { "Product A", "Product B", "Product C" },
+    Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
     DataSets = new[]
     {
         new BarSeries
         {
+            Label = "Yesterday",
             Color = Color.Green,
-            Data = new[] { -5f, -10f, -1f },
+            Data = new[] { -5f, -10f, -1f , -5f, -10f, -1f , -5f, -10f, -1f },
         },
         new BarSeries
         {
+            Label = "Today",
             Color = Color.Red,
-            Data = new[] { 10f, 20f, 5f },
+            Data = new[] { 10f, 20f, 5f, 10f, 20f, 5f, 10f, 20f, 5f },
         }
     }
 };

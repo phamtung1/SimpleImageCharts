@@ -113,14 +113,12 @@ namespace SimpleImageCharts.PieChart
 
             using (var textBrush = new SolidBrush(Color.FromArgb(100, 100, 100)))
             {
-                var font = new Font("Arial", 12);
-
                 foreach (var entry in Entries)
                 {
                     using (var brush = new SolidBrush(entry.Color))
                     {
                         graphic.FillRectangle(brush, left, top, Width, Height);
-                        graphic.DrawString(entry.Label, font, textBrush, left + Width + 5, top);
+                        graphic.DrawString(entry.Label, Font, textBrush, left + Width + 5, top);
                     }
 
                     top += 20;

@@ -71,22 +71,25 @@ namespace WindowsFormsChart
             {
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
-                Categories = new[] { "A", "Product B", "Product C" },
+                Categories = new[] { "Product A", "Product B", "Product C" },
                 DataSets = new[]
                 {
                     new BarSeries
                     {
+                        Label = "Green",
                         Color = Color.Green,
                         Data = new[] { -5f, 10f, 15f },
                     },
                     new BarSeries
                     {
+                        Label = "Red",
                         Color = Color.Red,
                         Data = new[] { 1f, -2f, 3f },
                     }
                     ,
                     new BarSeries
                     {
+                        Label = "Blue",
                         Color = Color.Blue,
                         Data = new[] { 5f, 20f, -13f },
                     }
@@ -104,16 +107,18 @@ namespace WindowsFormsChart
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 IsStacked = true,
-                Categories = new[] { "A", "Product B", "Product C", "A", "Product B", "Product C", "A", "Product B", "Product C" },
+                Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
                 DataSets = new[]
                 {
                     new BarSeries
                     {
+                        Label = "Yesterday",
                         Color = Color.Green,
                         Data = new[] { -5f, -10f, -1f , -5f, -10f, -1f , -5f, -10f, -1f },
                     },
                     new BarSeries
                     {
+                        Label = "Today",
                         Color = Color.Red,
                         Data = new[] { 10f, 20f, 5f, 10f, 20f, 5f, 10f, 20f, 5f },
                     }
@@ -144,12 +149,12 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
+        //    pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
         }
 
         private void BtnColumnChart_Click(object sender, EventArgs e)
         {
-            var categories = new[] { "A", "Product B", "Product C", "Product D", "Product E" };
+            var categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E" };
             var rand = new Random();
             var datasets = new ColumnSeries[4];
             for (int i = 0; i < datasets.Length; i++)
@@ -177,7 +182,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\ColumnChart.jpg");
+         //   pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\ColumnChart.jpg");
         }
     }
 }

@@ -12,7 +12,10 @@ namespace SimpleImageCharts.BarChart
 
         private const int MarginTop = 10;
 
-        private const int MarginBottom = 50;
+        private const int MarginBottom = 100;
+
+        // use "0;0" for forcing positive value
+        public string FormatAxisValueString { get; set; } = string.Empty;
 
         public int BarSize { get; set; } = 20;
 
@@ -27,6 +30,8 @@ namespace SimpleImageCharts.BarChart
         public string[] Categories { get; set; }
 
         public BarSeries[] DataSets { get; set; }
+
+        public Font Font { get; set; } = new Font("Arial", 10);
 
         private int _categoryHeight;
 
@@ -64,12 +69,13 @@ namespace SimpleImageCharts.BarChart
             using (var graphic = Graphics.FromImage(bitmap))
             {
                 graphic.Clear(Color.White);
+
                 // X axis line
                 graphic.DrawLine(Pens.LightGray, _rootX, MarginTop, _rootX, Height - MarginBottom);
 
                 DrawHorizontalLines(graphic);
                 DrawVerticalLines(graphic);
-                DrawVerticalValueLabels(graphic);
+                DrawHorizontalAxisValues(graphic);
                 var offsetY = IsStacked ? -BarSize / 2 : -(DataSets.Length * BarSize) / 2;
                 foreach (var data in DataSets)
                 {
@@ -80,7 +86,8 @@ namespace SimpleImageCharts.BarChart
                     }
                 }
 
-                DrawCategoyLabels(graphic);
+                DrawCategoryLabels(graphic);
+                DrawLegend(graphic);
             }
 
             return bitmap;
@@ -122,23 +129,22 @@ namespace SimpleImageCharts.BarChart
             }
         }
 
-        private void DrawVerticalValueLabels(Graphics graphic)
+        private void DrawHorizontalAxisValues(Graphics graphic)
         {
             var x = _rootX;
             var realStepSize = StepSize * _widthUnit;
-            using (var font = new Font("Arial", 10))
             using (var stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Center;
 
-                graphic.DrawString("0", font, Brushes.Gray, _rootX, Height - MarginBottom, stringFormat);
+                graphic.DrawString("0", Font, Brushes.Gray, _rootX, Height - MarginBottom, stringFormat);
 
                 for (int i = 0; i < _maxValue; i += StepSize)
                 {
                     x += realStepSize;
                     if (x < Width - MarginRight)
                     {
-                        graphic.DrawString((i + StepSize).ToString(), font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
+                        graphic.DrawString((i + StepSize).ToString(FormatAxisValueString), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
                     }
                 }
 
@@ -148,23 +154,22 @@ namespace SimpleImageCharts.BarChart
                     x -= realStepSize;
                     if (Math.Abs(x) > MarginLeft)
                     {
-                        graphic.DrawString((i - StepSize).ToString(), font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
+                        graphic.DrawString((i - StepSize).ToString(FormatAxisValueString), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
                     }
                 }
             }
         }
 
-        private void DrawCategoyLabels(Graphics graphic)
+        private void DrawCategoryLabels(Graphics graphic)
         {
             var y = MarginTop + _categoryHeight / 2;
-            using (var font = new Font("Arial", 10))
             using (StringFormat stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Far;
 
                 foreach (var item in Categories)
                 {
-                    graphic.DrawString(item, font, Brushes.Gray, MarginLeft - 10, y, stringFormat);
+                    graphic.DrawString(item, Font, Brushes.Gray, MarginLeft - 10, y, stringFormat);
                     y += _categoryHeight;
                 }
             }
@@ -191,5 +196,31 @@ namespace SimpleImageCharts.BarChart
                 }
             }
         }
-    }
+
+        private void DrawLegend(Graphics graphic)
+        {
+            const int RectWidth = 25;
+            const int RectHeight = 15;
+
+            const int labelWidth = 130;
+            var legendWidth = labelWidth * DataSets.Length;
+
+            var left = MarginLeft + (Width - MarginLeft - MarginRight - legendWidth) / 2 + RectWidth;
+            var top = Height - MarginBottom / 2;
+
+            using (var textBrush = new SolidBrush(Color.FromArgb(100, 100, 100)))
+            {
+                foreach (var dataset in DataSets)
+                {
+                    using (var brush = new SolidBrush(dataset.Color))
+                    {
+                        graphic.FillRectangle(brush, left, top, RectWidth, RectHeight);
+                        graphic.DrawString(dataset.Label, Font, textBrush, left + RectWidth + 5, top);
+                    }
+
+                    left += labelWidth;
+                }
+            }
+            }
+        }
 }
