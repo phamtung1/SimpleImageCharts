@@ -107,6 +107,7 @@ namespace WindowsFormsChart
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 IsStacked = true,
+                FormatAxisValue = "0;0", // force positive values
                 Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
                 DataSets = new[]
                 {

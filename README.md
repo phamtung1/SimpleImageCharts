@@ -109,6 +109,7 @@ var chart = new BarChart
 {
     Width = 600,
     Height = 300,
+    FormatAxisValue = "0;0", // force positive values
     IsStacked = true, // default: false
     Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
     DataSets = new[]

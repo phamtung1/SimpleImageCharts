@@ -15,7 +15,7 @@ namespace SimpleImageCharts.BarChart
         private const int MarginBottom = 100;
 
         // use "0;0" for forcing positive value
-        public string FormatAxisValueString { get; set; } = string.Empty;
+        public string FormatAxisValue { get; set; } = string.Empty;
 
         public int BarSize { get; set; } = 20;
 
@@ -144,7 +144,7 @@ namespace SimpleImageCharts.BarChart
                     x += realStepSize;
                     if (x < Width - MarginRight)
                     {
-                        graphic.DrawString((i + StepSize).ToString(FormatAxisValueString), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
+                        graphic.DrawString((i + StepSize).ToString(FormatAxisValue), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
                     }
                 }
 
@@ -154,7 +154,7 @@ namespace SimpleImageCharts.BarChart
                     x -= realStepSize;
                     if (Math.Abs(x) > MarginLeft)
                     {
-                        graphic.DrawString((i - StepSize).ToString(FormatAxisValueString), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
+                        graphic.DrawString((i - StepSize).ToString(FormatAxisValue), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
                     }
                 }
             }
