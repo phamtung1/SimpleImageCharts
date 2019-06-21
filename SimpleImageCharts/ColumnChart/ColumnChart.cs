@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Linq;
 
-namespace SimpleImageCharts.VertBarChart
+namespace SimpleImageCharts.ColumnChart
 {
-    public class VertBarChart
+    public class ColumnChart
     {
         private const int MarginLeft = 30;
 
@@ -24,7 +24,7 @@ namespace SimpleImageCharts.VertBarChart
 
         public string[] Categories { get; set; }
 
-        public VertBarSeries[] DataSets { get; set; }
+        public ColumnSeries[] DataSets { get; set; }
 
         private int _categoryWidth;
 
@@ -99,7 +99,7 @@ namespace SimpleImageCharts.VertBarChart
             }
         }
 
-        private void DrawBarSeries(Graphics graphics, VertBarSeries series, int offsetX)
+        private void DrawBarSeries(Graphics graphics, ColumnSeries series, int offsetX)
         {
             var spaceX = _categoryWidth;
             var x = MarginLeft + (spaceX / 2) + offsetX;

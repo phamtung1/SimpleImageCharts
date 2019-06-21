@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 
-namespace SimpleImageCharts.VertBarChart
+namespace SimpleImageCharts.DoubleAxisBarChart
 {
-    public class VertBarSeries
+    public class DoubleAxisBarSeries
     {
         public Color Color { get; set; }
 

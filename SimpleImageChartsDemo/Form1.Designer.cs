@@ -31,10 +31,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnPieChart = new System.Windows.Forms.Button();
             this.btnDonutChart = new System.Windows.Forms.Button();
-            this.btnHorzBarChart = new System.Windows.Forms.Button();
-            this.btnVertBar = new System.Windows.Forms.Button();
-            this.btnHorzBarDoubleAxis = new System.Windows.Forms.Button();
-            this.btnStackedHorzBar = new System.Windows.Forms.Button();
+            this.btnBarChart = new System.Windows.Forms.Button();
+            this.btnColumnBar = new System.Windows.Forms.Button();
+            this.btnDoubleAxisBar = new System.Windows.Forms.Button();
+            this.btnStackedBar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,55 +67,55 @@
             this.btnDonutChart.UseVisualStyleBackColor = true;
             this.btnDonutChart.Click += new System.EventHandler(this.BtnDonutChart_Click);
             // 
-            // btnHorzBarChart
+            // btnBarChart
             // 
-            this.btnHorzBarChart.Location = new System.Drawing.Point(955, 137);
-            this.btnHorzBarChart.Name = "btnHorzBarChart";
-            this.btnHorzBarChart.Size = new System.Drawing.Size(118, 36);
-            this.btnHorzBarChart.TabIndex = 3;
-            this.btnHorzBarChart.Text = "Horz Bar Chart";
-            this.btnHorzBarChart.UseVisualStyleBackColor = true;
-            this.btnHorzBarChart.Click += new System.EventHandler(this.BtnHorzBarChart_Click);
+            this.btnBarChart.Location = new System.Drawing.Point(955, 137);
+            this.btnBarChart.Name = "btnBarChart";
+            this.btnBarChart.Size = new System.Drawing.Size(118, 36);
+            this.btnBarChart.TabIndex = 3;
+            this.btnBarChart.Text = "Bar Chart";
+            this.btnBarChart.UseVisualStyleBackColor = true;
+            this.btnBarChart.Click += new System.EventHandler(this.BtnBarChart_Click);
             // 
-            // btnVertBar
+            // btnColumnBar
             // 
-            this.btnVertBar.Location = new System.Drawing.Point(955, 311);
-            this.btnVertBar.Name = "btnVertBar";
-            this.btnVertBar.Size = new System.Drawing.Size(118, 36);
-            this.btnVertBar.TabIndex = 4;
-            this.btnVertBar.Text = "Vert Bar Chart";
-            this.btnVertBar.UseVisualStyleBackColor = true;
-            this.btnVertBar.Click += new System.EventHandler(this.BtnVertBar_Click);
+            this.btnColumnBar.Location = new System.Drawing.Point(955, 311);
+            this.btnColumnBar.Name = "btnColumnBar";
+            this.btnColumnBar.Size = new System.Drawing.Size(118, 36);
+            this.btnColumnBar.TabIndex = 4;
+            this.btnColumnBar.Text = "Column Chart";
+            this.btnColumnBar.UseVisualStyleBackColor = true;
+            this.btnColumnBar.Click += new System.EventHandler(this.BtnColumnBar_Click);
             // 
-            // btnHorzBarDoubleAxis
+            // btnDoubleAxisBar
             // 
-            this.btnHorzBarDoubleAxis.Location = new System.Drawing.Point(955, 253);
-            this.btnHorzBarDoubleAxis.Name = "btnHorzBarDoubleAxis";
-            this.btnHorzBarDoubleAxis.Size = new System.Drawing.Size(118, 36);
-            this.btnHorzBarDoubleAxis.TabIndex = 5;
-            this.btnHorzBarDoubleAxis.Text = "Horz Bar Chart (Double Axis)";
-            this.btnHorzBarDoubleAxis.UseVisualStyleBackColor = true;
-            this.btnHorzBarDoubleAxis.Click += new System.EventHandler(this.BtnHorzBarDoubleAxis_Click);
+            this.btnDoubleAxisBar.Location = new System.Drawing.Point(955, 253);
+            this.btnDoubleAxisBar.Name = "btnDoubleAxisBar";
+            this.btnDoubleAxisBar.Size = new System.Drawing.Size(118, 36);
+            this.btnDoubleAxisBar.TabIndex = 5;
+            this.btnDoubleAxisBar.Text = "Double Axis Bar Chart";
+            this.btnDoubleAxisBar.UseVisualStyleBackColor = true;
+            this.btnDoubleAxisBar.Click += new System.EventHandler(this.BtnDoubleAxisBar_Click);
             // 
-            // btnStackedHorzBar
+            // btnStackedBar
             // 
-            this.btnStackedHorzBar.Location = new System.Drawing.Point(955, 195);
-            this.btnStackedHorzBar.Name = "btnStackedHorzBar";
-            this.btnStackedHorzBar.Size = new System.Drawing.Size(118, 36);
-            this.btnStackedHorzBar.TabIndex = 6;
-            this.btnStackedHorzBar.Text = "Horz Bar Chart";
-            this.btnStackedHorzBar.UseVisualStyleBackColor = true;
-            this.btnStackedHorzBar.Click += new System.EventHandler(this.BtnStackedHorzBar_Click);
+            this.btnStackedBar.Location = new System.Drawing.Point(955, 195);
+            this.btnStackedBar.Name = "btnStackedBar";
+            this.btnStackedBar.Size = new System.Drawing.Size(118, 36);
+            this.btnStackedBar.TabIndex = 6;
+            this.btnStackedBar.Text = "Stacked Bar Chart";
+            this.btnStackedBar.UseVisualStyleBackColor = true;
+            this.btnStackedBar.Click += new System.EventHandler(this.BtnStackedBar_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1140, 450);
-            this.Controls.Add(this.btnStackedHorzBar);
-            this.Controls.Add(this.btnHorzBarDoubleAxis);
-            this.Controls.Add(this.btnVertBar);
-            this.Controls.Add(this.btnHorzBarChart);
+            this.Controls.Add(this.btnStackedBar);
+            this.Controls.Add(this.btnDoubleAxisBar);
+            this.Controls.Add(this.btnColumnBar);
+            this.Controls.Add(this.btnBarChart);
             this.Controls.Add(this.btnDonutChart);
             this.Controls.Add(this.btnPieChart);
             this.Controls.Add(this.pictureBox1);
@@ -131,10 +131,10 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnPieChart;
         private System.Windows.Forms.Button btnDonutChart;
-        private System.Windows.Forms.Button btnHorzBarChart;
-        private System.Windows.Forms.Button btnVertBar;
-        private System.Windows.Forms.Button btnHorzBarDoubleAxis;
-        private System.Windows.Forms.Button btnStackedHorzBar;
+        private System.Windows.Forms.Button btnBarChart;
+        private System.Windows.Forms.Button btnColumnBar;
+        private System.Windows.Forms.Button btnDoubleAxisBar;
+        private System.Windows.Forms.Button btnStackedBar;
     }
 }
 

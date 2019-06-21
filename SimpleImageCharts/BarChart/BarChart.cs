@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Linq;
 
-namespace SimpleImageCharts.HorzBarChart
+namespace SimpleImageCharts.BarChart
 {
-    public class HorzBarChart
+    public class BarChart
     {
         private const int MarginLeft = 100;
 
@@ -26,7 +26,7 @@ namespace SimpleImageCharts.HorzBarChart
 
         public string[] Categories { get; set; }
 
-        public HorzBarSeries[] DataSets { get; set; }
+        public BarSeries[] DataSets { get; set; }
 
         private int _categoryHeight;
 
@@ -164,7 +164,7 @@ namespace SimpleImageCharts.HorzBarChart
             }
         }
 
-        private void DrawBarSeries(Graphics graphics, HorzBarSeries series, int offsetY)
+        private void DrawBarSeries(Graphics graphics, BarSeries series, int offsetY)
         {
             var spaceY = _categoryHeight;
             var y = MarginTop + (spaceY / 2) + offsetY;

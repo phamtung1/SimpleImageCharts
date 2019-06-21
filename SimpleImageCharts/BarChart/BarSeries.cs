@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 
-namespace SimpleImageCharts.HorzBarDoubleAxisChart
+namespace SimpleImageCharts.BarChart
 {
-    public class HorzBarDoubleAxisSeries
+    public class BarSeries
     {
         public Color Color { get; set; }
 

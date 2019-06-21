@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 
-namespace SimpleImageCharts.HorzBarDoubleAxisChart
+namespace SimpleImageCharts.DoubleAxisBarChart
 {
-    public class HorzBarDoubleAxisChart
+    public class DoubleAxisBarChart
     {
         private const int MarginLeft = 100;
 
@@ -22,9 +22,9 @@ namespace SimpleImageCharts.HorzBarDoubleAxisChart
 
         public string[] Categories { get; set; }
 
-        public HorzBarDoubleAxisSeries FirstDataSet { get; set; }
+        public DoubleAxisBarSeries FirstDataSet { get; set; }
 
-        public HorzBarDoubleAxisSeries SecondDataSet { get; set; }
+        public DoubleAxisBarSeries SecondDataSet { get; set; }
 
         private int _categoryHeight;
 
@@ -101,7 +101,7 @@ namespace SimpleImageCharts.HorzBarDoubleAxisChart
             }
         }
 
-        private void DrawFirstBarSeries(Graphics graphics, HorzBarDoubleAxisSeries series)
+        private void DrawFirstBarSeries(Graphics graphics, DoubleAxisBarSeries series)
         {
             var spaceY = _categoryHeight;
             var y = MarginTop + ((spaceY - BarSize) / 2);
@@ -117,7 +117,7 @@ namespace SimpleImageCharts.HorzBarDoubleAxisChart
             }
         }
 
-        private void DrawSecondBarSeries(Graphics graphics, HorzBarDoubleAxisSeries series)
+        private void DrawSecondBarSeries(Graphics graphics, DoubleAxisBarSeries series)
         {
             var spaceY = _categoryHeight;
             var y = MarginTop + ((spaceY - BarSize) / 2);

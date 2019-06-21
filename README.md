@@ -8,10 +8,10 @@ This is a simple charting library for rendering charts as images.
 # Available Charts
 1. [Pie Chart](#1-pie-chart)
 2. [Donut Chart](#2-donut-chart)
-3. [Horizontal Bar Chart](#3-horizontal-bar-chart)
-4. [Stacked Horizontal Bar Chart](#4-stacked-horizontal-bar-chart)
-5. [Horizontal Bar Double Axis Chart](#5-horizontal-bar-double-axis-chart)
-6. [Vertical Bar Chart](#6-vertical-bar-chart)
+3. [Bar Chart](#3-bar-chart)
+4. [Stacked Bar Chart](#4-stacked-bar-chart)
+5. [Double Axis Bar Chart](#5-double-axis-bar-chart)
+6. [Column Chart](#6-column-chart)
 
 ## 1. Pie Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/pie.jpg" />
@@ -66,29 +66,29 @@ var chart = new PieChart
 var bitmap = chart.CreateImage();
 ```
 
-## 3. Horizontal Bar Chart
-<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/horzBar.jpg" />
+## 3. Bar Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/BarChart.jpg" />
 
 ```csharp
-var chart = new HorzBarChart
+var chart = new BarChart
 {
-    Width = 300,
-    Height = 600,
+    Width = 600,
+    Height = 300,
     Categories = new[] { "A", "Product B", "Product C" },
     DataSets = new[]
     {
-        new HorzBarSeries
+        new BarSeries
         {
             Color = Color.Green,
             Data = new[] { -5f, 10f, 15f },
         },
-        new HorzBarSeries
+        new BarSeries
         {
             Color = Color.Red,
             Data = new[] { 1f, -2f, 3f },
         }
         ,
-        new HorzBarSeries
+        new BarSeries
         {
             Color = Color.Blue,
             Data = new[] { 5f, 20f, -13f },
@@ -98,11 +98,11 @@ var chart = new HorzBarChart
 
 var bitmap = chart.CreateImage();
 ```
-## 4. Stacked Horizontal Bar Chart:
-<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/StackedHorzBar.jpg" />
+## 4. Stacked Bar Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/StackedBarChart.jpg" />
 
 ```csharp
-var chart = new HorzBarChart
+var chart = new BarChart
 {
     Width = 600,
     Height = 300,
@@ -110,12 +110,12 @@ var chart = new HorzBarChart
     Categories = new[] { "Product A", "Product B", "Product C" },
     DataSets = new[]
     {
-        new HorzBarSeries
+        new BarSeries
         {
             Color = Color.Green,
             Data = new[] { -5f, -10f, -1f },
         },
-        new HorzBarSeries
+        new BarSeries
         {
             Color = Color.Red,
             Data = new[] { 10f, 20f, 5f },
@@ -126,21 +126,21 @@ var chart = new HorzBarChart
 var bitmap = chart.CreateImage();
 ```
 
-## 5. Horizontal Bar Double Axis Chart
-<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/HorzBarDoubleAxis.jpg" />
+## 5. Double Axis Bar Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/DoubleAxisBarChart.jpg" />
 
 ```csharp
-var chart = new HorzBarDoubleAxisChart
+var chart = new DoubleAxisBarChart
 {
-    Width = 300,
-    Height = 600,
+    Width = 600,
+    Height = 300,
     Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
-    FirstDataSet = new HorzBarDoubleAxisSeries 
+    FirstDataSet = new DoubleAxisBarSeries 
     { 
         Color = Color.Green,
         Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
     },
-    SecondDataSet = new HorzBarDoubleAxisSeries
+    SecondDataSet = new DoubleAxisBarSeries
     {
         Color = Color.Red,
         Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
@@ -150,13 +150,13 @@ var chart = new HorzBarDoubleAxisChart
 var bitmap = chart.CreateImage();
 ```
 
-## 6. Vertical Bar Chart
-<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/vertBar.jpg" />
+## 6. Column Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/ColumnChart.jpg" />
 
 ```csharp
 var categories = new[] { "A", "Product B", "Product C", "Product D", "Product E" };
 var rand = new Random();
-var datasets = new VertBarSeries[4];
+var datasets = new ColumnSeries[4];
 for (int i = 0; i < datasets.Length; i++)
 {
     var data = new float[categories.Length];
@@ -165,7 +165,7 @@ for (int i = 0; i < datasets.Length; i++)
         data[j] = rand.Next(20) - 10;
     }
 
-    var dataset = new VertBarSeries
+    var dataset = new ColumnSeries
     {
         Color = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)),
         Data = data
@@ -173,7 +173,7 @@ for (int i = 0; i < datasets.Length; i++)
     datasets[i] = dataset;
 }
 
-var chart = new VertBarChart
+var chart = new ColumnChart
 {
     Width = 600,
     Height = 300,

@@ -1,7 +1,7 @@
-﻿using SimpleImageCharts.HorzBarChart;
-using SimpleImageCharts.HorzBarDoubleAxisChart;
+﻿using SimpleImageCharts.BarChart;
+using SimpleImageCharts.DoubleAxisBarChart;
 using SimpleImageCharts.PieChart;
-using SimpleImageCharts.VertBarChart;
+using SimpleImageCharts.ColumnChart;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -65,27 +65,27 @@ namespace WindowsFormsChart
             pictureBox1.Image = bitmap;
         }
 
-        private void BtnHorzBarChart_Click(object sender, EventArgs e)
+        private void BtnBarChart_Click(object sender, EventArgs e)
         {
-            var chart = new HorzBarChart
+            var chart = new BarChart
             {
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 Categories = new[] { "A", "Product B", "Product C" },
                 DataSets = new[]
                 {
-                    new HorzBarSeries
+                    new BarSeries
                     {
                         Color = Color.Green,
                         Data = new[] { -5f, 10f, 15f },
                     },
-                    new HorzBarSeries
+                    new BarSeries
                     {
                         Color = Color.Red,
                         Data = new[] { 1f, -2f, 3f },
                     }
                     ,
-                    new HorzBarSeries
+                    new BarSeries
                     {
                         Color = Color.Blue,
                         Data = new[] { 5f, 20f, -13f },
@@ -94,12 +94,12 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\horzBar.jpg");
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\BarChart.jpg");
         }
 
-        private void BtnStackedHorzBar_Click(object sender, EventArgs e)
+        private void BtnStackedBar_Click(object sender, EventArgs e)
         {
-            var chart = new HorzBarChart
+            var chart = new BarChart
             {
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
@@ -107,12 +107,12 @@ namespace WindowsFormsChart
                 Categories = new[] { "Product A", "Product B", "Product C" },
                 DataSets = new[]
                 {
-                    new HorzBarSeries
+                    new BarSeries
                     {
                         Color = Color.Green,
                         Data = new[] { -5f, -10f, -1f },
                     },
-                    new HorzBarSeries
+                    new BarSeries
                     {
                         Color = Color.Red,
                         Data = new[] { 10f, 20f, 5f },
@@ -121,14 +121,14 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedHorzBar.jpg");
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBarChart.jpg");
         }
 
-        private void BtnVertBar_Click(object sender, EventArgs e)
+        private void BtnColumnBar_Click(object sender, EventArgs e)
         {
             var categories = new[] { "A", "Product B", "Product C", "Product D", "Product E" };
             var rand = new Random();
-            var datasets = new VertBarSeries[4];
+            var datasets = new ColumnSeries[4];
             for (int i = 0; i < datasets.Length; i++)
             {
                 var data = new float[categories.Length];
@@ -137,7 +137,7 @@ namespace WindowsFormsChart
                     data[j] = rand.Next(20) - 10;
                 }
 
-                var dataset = new VertBarSeries
+                var dataset = new ColumnSeries
                 {
                     Color = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256)),
                     Data = data
@@ -145,7 +145,7 @@ namespace WindowsFormsChart
                 datasets[i] = dataset;
             }
 
-            var chart = new VertBarChart
+            var chart = new ColumnChart
             {
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
@@ -154,20 +154,21 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\ColumnChart.jpg");
         }
 
-        private void BtnHorzBarDoubleAxis_Click(object sender, EventArgs e)
+        private void BtnDoubleAxisBar_Click(object sender, EventArgs e)
         {
-            var chart = new HorzBarDoubleAxisChart
+            var chart = new DoubleAxisBarChart
             {
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
-                FirstDataSet = new HorzBarDoubleAxisSeries { 
+                FirstDataSet = new DoubleAxisBarSeries { 
                         Color = Color.Green,
                         Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
                     },
-                SecondDataSet = new HorzBarDoubleAxisSeries
+                SecondDataSet = new DoubleAxisBarSeries
                 {
                     Color = Color.Red,
                     Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
@@ -175,7 +176,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\HorzBarDoubleAxis.jpg"); ;
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
         }
 
     }
