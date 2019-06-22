@@ -109,8 +109,9 @@ var chart = new BarChart
 {
     Width = 600,
     Height = 300,
-    FormatAxisValue = "0;0", // force positive values
-    IsStacked = true, // default: false
+    IsStacked = true,
+    FormatAxisValue = "{0:0;0}", // force positive values
+    FormatBarValue = "{0:0;0}",
     Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
     DataSets = new[]
     {
@@ -140,6 +141,7 @@ var chart = new DoubleAxisBarChart
 {
     Width = 600,
     Height = 300,
+    FormatBarValue = "{0}%",
     Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
     FirstDataSet = new DoubleAxisBarSeries 
     { 

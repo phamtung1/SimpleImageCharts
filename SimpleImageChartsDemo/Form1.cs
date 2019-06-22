@@ -107,8 +107,8 @@ namespace WindowsFormsChart
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 IsStacked = true,
-                FormatAxisValue = "0;0", // force positive values
-                FormatBarValue = "0;0",
+                FormatAxisValue = "{0:0;0}", // force positive values
+                FormatBarValue = "{0:0;0}",
                 Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
                 DataSets = new[]
                 {
@@ -135,6 +135,7 @@ namespace WindowsFormsChart
         {
             var chart = new DoubleAxisBarChart
             {
+                FormatBarValue = "{0}%",
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
@@ -151,7 +152,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-        //    pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
         }
 
         private void BtnColumnChart_Click(object sender, EventArgs e)

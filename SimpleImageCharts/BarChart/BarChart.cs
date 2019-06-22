@@ -14,7 +14,7 @@ namespace SimpleImageCharts.BarChart
 
         private const int MarginBottom = 100;
 
-        // use "0;0" for forcing positive value
+        // use "{0:0;0}" for forcing positive value
         public string FormatAxisValue { get; set; } = string.Empty;
 
         public string FormatBarValue { get; set; } = string.Empty;
@@ -146,7 +146,7 @@ namespace SimpleImageCharts.BarChart
                     x += realStepSize;
                     if (x < Width - MarginRight)
                     {
-                        graphic.DrawString((i + StepSize).ToString(FormatAxisValue), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
+                        graphic.DrawString(string.Format(FormatAxisValue, i + StepSize), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
                     }
                 }
 
@@ -156,7 +156,7 @@ namespace SimpleImageCharts.BarChart
                     x -= realStepSize;
                     if (Math.Abs(x) > MarginLeft)
                     {
-                        graphic.DrawString((i - StepSize).ToString(FormatAxisValue), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
+                        graphic.DrawString(string.Format(FormatAxisValue, i - StepSize), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
                     }
                 }
             }
@@ -195,12 +195,12 @@ namespace SimpleImageCharts.BarChart
                     if (length >= 0)
                     {
                         graphics.FillRectangle(brush, _rootX, y, length, BarSize);
-                        graphics.DrawString(value.ToString(FormatBarValue), Font, Brushes.Gray, _rootX + length + 2, y + (BarSize / 2), positiveNumberStringFormat);
+                        graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, _rootX + length + 2, y + (BarSize / 2), positiveNumberStringFormat);
                     }
                     else
                     {
                         graphics.FillRectangle(brush, _rootX + length, y, Math.Abs(length), BarSize);
-                        graphics.DrawString(value.ToString(FormatBarValue), Font, Brushes.Gray, _rootX + length - 2, y + (BarSize / 2), negativeNumberStringFormat);
+                        graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, _rootX + length - 2, y + (BarSize / 2), negativeNumberStringFormat);
                     }
 
                     y += _categoryHeight;
