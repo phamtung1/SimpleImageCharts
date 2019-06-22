@@ -160,13 +160,13 @@ namespace WindowsFormsChart
         {
             var categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E" };
             var rand = new Random();
-            var datasets = new ColumnSeries[4];
+            var datasets = new ColumnSeries[3];
             for (int i = 0; i < datasets.Length; i++)
             {
                 var data = new float[categories.Length];
                 for (int j = 0; j < categories.Length; j++)
                 {
-                    data[j] = rand.Next(20) - 10;
+                    data[j] = rand.Next(30) - 10;
                 }
 
                 var dataset = new ColumnSeries
@@ -179,6 +179,7 @@ namespace WindowsFormsChart
 
             var chart = new ColumnChart
             {
+                ColumnSize = 30,
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 Categories = categories,
@@ -186,7 +187,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-         //   pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\ColumnChart.jpg");
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\ColumnChart.jpg");
         }
 
         private void BtnRadarChart_Click(object sender, EventArgs e)
