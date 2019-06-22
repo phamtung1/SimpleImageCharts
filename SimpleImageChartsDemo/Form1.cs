@@ -2,6 +2,7 @@
 using SimpleImageCharts.ColumnChart;
 using SimpleImageCharts.DoubleAxisBarChart;
 using SimpleImageCharts.PieChart;
+using SimpleImageCharts.RadarChart;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -97,7 +98,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\BarChart.jpg");
+         //   pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\BarChart.jpg");
         }
 
         private void BtnStackedBar_Click(object sender, EventArgs e)
@@ -128,7 +129,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBarChart.jpg");
+        //    pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBarChart.jpg");
         }
 
         private void BtnDoubleAxisBar_Click(object sender, EventArgs e)
@@ -152,7 +153,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
+        //    pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
         }
 
         private void BtnColumnChart_Click(object sender, EventArgs e)
@@ -186,6 +187,15 @@ namespace WindowsFormsChart
 
             pictureBox1.Image = chart.CreateImage();
          //   pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\ColumnChart.jpg");
+        }
+
+        private void BtnRadarChart_Click(object sender, EventArgs e)
+        {
+            var chart = new RadarChart
+            {
+                NumberOfSides = 10
+            };
+            pictureBox1.Image = chart.CreateImage();
         }
     }
 }

@@ -46,15 +46,15 @@ namespace SimpleImageCharts.PieChart
                 var startAngle = InitialAngle;
                 foreach (var entry in Entries)
                 {
-                    var endAngle = entry.Value * 360f / total;
+                    var sweepAngle = entry.Value * 360f / total;
                     using (var brush = new SolidBrush(entry.Color))
                     {
-                        graphic.FillPie(brush, rect, startAngle, endAngle);
+                        graphic.FillPie(brush, rect, startAngle, sweepAngle);
                     }
 
-                    graphic.DrawPie(borderPen, rect, startAngle, endAngle);
+                    graphic.DrawPie(borderPen, rect, startAngle, sweepAngle);
 
-                    startAngle += endAngle;
+                    startAngle += sweepAngle;
                 }
 
                 DrawValues(graphic, total);
@@ -91,14 +91,14 @@ namespace SimpleImageCharts.PieChart
                         continue;
                     }
 
-                    var endAngle = entry.Value * 360f / total;
+                    var sweepAngle = entry.Value * 360f / total;
 
-                    var labelAngle = Math.PI * (startAngle + endAngle / 2f) / 180f;
+                    var labelAngle = Math.PI * (startAngle + sweepAngle / 2f) / 180f;
                     var x = centerX + (float)(labelRadius * Math.Cos(labelAngle));
                     var y = centerY + (float)(labelRadius * Math.Sin(labelAngle));
                     graphic.DrawString(entry.Value.ToString(LabelFormat), Font, labelBrush, x, y, stringFormat);
 
-                    startAngle += endAngle;
+                    startAngle += sweepAngle;
                 }
             }
         }

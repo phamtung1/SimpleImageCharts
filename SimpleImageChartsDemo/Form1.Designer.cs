@@ -35,6 +35,7 @@
             this.btnColumnChart = new System.Windows.Forms.Button();
             this.btnDoubleAxisBar = new System.Windows.Forms.Button();
             this.btnStackedBar = new System.Windows.Forms.Button();
+            this.btnRadarChart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,7 +65,7 @@
             // btnDonutChart
             // 
             this.btnDonutChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDonutChart.Location = new System.Drawing.Point(1045, 79);
+            this.btnDonutChart.Location = new System.Drawing.Point(1045, 80);
             this.btnDonutChart.Name = "btnDonutChart";
             this.btnDonutChart.Size = new System.Drawing.Size(118, 36);
             this.btnDonutChart.TabIndex = 2;
@@ -75,7 +76,7 @@
             // btnBarChart
             // 
             this.btnBarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBarChart.Location = new System.Drawing.Point(1045, 137);
+            this.btnBarChart.Location = new System.Drawing.Point(1045, 139);
             this.btnBarChart.Name = "btnBarChart";
             this.btnBarChart.Size = new System.Drawing.Size(118, 36);
             this.btnBarChart.TabIndex = 3;
@@ -86,7 +87,7 @@
             // btnColumnChart
             // 
             this.btnColumnChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnColumnChart.Location = new System.Drawing.Point(1045, 311);
+            this.btnColumnChart.Location = new System.Drawing.Point(1045, 316);
             this.btnColumnChart.Name = "btnColumnChart";
             this.btnColumnChart.Size = new System.Drawing.Size(118, 36);
             this.btnColumnChart.TabIndex = 4;
@@ -97,7 +98,7 @@
             // btnDoubleAxisBar
             // 
             this.btnDoubleAxisBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDoubleAxisBar.Location = new System.Drawing.Point(1045, 253);
+            this.btnDoubleAxisBar.Location = new System.Drawing.Point(1045, 257);
             this.btnDoubleAxisBar.Name = "btnDoubleAxisBar";
             this.btnDoubleAxisBar.Size = new System.Drawing.Size(118, 36);
             this.btnDoubleAxisBar.TabIndex = 5;
@@ -108,7 +109,7 @@
             // btnStackedBar
             // 
             this.btnStackedBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStackedBar.Location = new System.Drawing.Point(1045, 195);
+            this.btnStackedBar.Location = new System.Drawing.Point(1045, 198);
             this.btnStackedBar.Name = "btnStackedBar";
             this.btnStackedBar.Size = new System.Drawing.Size(118, 36);
             this.btnStackedBar.TabIndex = 6;
@@ -116,11 +117,23 @@
             this.btnStackedBar.UseVisualStyleBackColor = true;
             this.btnStackedBar.Click += new System.EventHandler(this.BtnStackedBar_Click);
             // 
+            // btnRadarChart
+            // 
+            this.btnRadarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRadarChart.Location = new System.Drawing.Point(1045, 375);
+            this.btnRadarChart.Name = "btnRadarChart";
+            this.btnRadarChart.Size = new System.Drawing.Size(118, 36);
+            this.btnRadarChart.TabIndex = 7;
+            this.btnRadarChart.Text = "Radar Chart";
+            this.btnRadarChart.UseVisualStyleBackColor = true;
+            this.btnRadarChart.Click += new System.EventHandler(this.BtnRadarChart_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1230, 601);
+            this.Controls.Add(this.btnRadarChart);
             this.Controls.Add(this.btnStackedBar);
             this.Controls.Add(this.btnDoubleAxisBar);
             this.Controls.Add(this.btnColumnChart);
@@ -144,6 +157,7 @@
         private System.Windows.Forms.Button btnColumnChart;
         private System.Windows.Forms.Button btnDoubleAxisBar;
         private System.Windows.Forms.Button btnStackedBar;
+        private System.Windows.Forms.Button btnRadarChart;
     }
 }
 
