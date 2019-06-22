@@ -17,7 +17,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 
         public Font Font { get; set; } = new Font("Arial", 10);
 
-        public string FormatBarValue { get; set; } = string.Empty;
+        public string FormatBarValue { get; set; } = "{0}";
 
         public int StepSize { get; set; } = 5;
 

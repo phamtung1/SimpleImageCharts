@@ -15,9 +15,9 @@ namespace SimpleImageCharts.BarChart
         private const int MarginBottom = 100;
 
         // use "{0:0;0}" for forcing positive value
-        public string FormatAxisValue { get; set; } = string.Empty;
+        public string FormatAxisValue { get; set; } = "{0}";
 
-        public string FormatBarValue { get; set; } = string.Empty;
+        public string FormatBarValue { get; set; } = "{0}";
 
         public int BarSize { get; set; } = 30;
 
