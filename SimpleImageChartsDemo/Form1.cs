@@ -76,21 +76,21 @@ namespace WindowsFormsChart
                 {
                     new BarSeries
                     {
-                        Label = "Green",
-                        Color = Color.Green,
+                        Label = "LightBlue",
+                        Color = Color.LightBlue,
                         Data = new[] { -5f, 10f, 15f },
                     },
                     new BarSeries
                     {
-                        Label = "Red",
-                        Color = Color.Red,
+                        Label = "LightCoral",
+                        Color = Color.LightCoral,
                         Data = new[] { 1f, -2f, 3f },
                     }
                     ,
                     new BarSeries
                     {
-                        Label = "Blue",
-                        Color = Color.Blue,
+                        Label = "LightGreen",
+                        Color = Color.LightGreen,
                         Data = new[] { 5f, 20f, -13f },
                     }
                 }
@@ -108,19 +108,20 @@ namespace WindowsFormsChart
                 Height = pictureBox1.Height,
                 IsStacked = true,
                 FormatAxisValue = "0;0", // force positive values
+                FormatBarValue = "0;0",
                 Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
                 DataSets = new[]
                 {
                     new BarSeries
                     {
                         Label = "Yesterday",
-                        Color = Color.Green,
+                        Color = Color.LightBlue,
                         Data = new[] { -5f, -10f, -1f , -5f, -10f, -1f , -5f, -10f, -1f },
                     },
                     new BarSeries
                     {
                         Label = "Today",
-                        Color = Color.Red,
+                        Color = Color.LightCoral,
                         Data = new[] { 10f, 20f, 5f, 10f, 20f, 5f, 10f, 20f, 5f },
                     }
                 }
@@ -139,12 +140,12 @@ namespace WindowsFormsChart
                 Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
                 FirstDataSet = new DoubleAxisBarSeries
                 {
-                    Color = Color.Green,
+                    Color = Color.LightBlue,
                     Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
                 },
                 SecondDataSet = new DoubleAxisBarSeries
                 {
-                    Color = Color.Red,
+                    Color = Color.LightCoral,
                     Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
                 }
             };

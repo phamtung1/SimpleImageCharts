@@ -46,14 +46,14 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(20, 21);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(876, 371);
+            this.pictureBox1.Size = new System.Drawing.Size(966, 522);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // btnPieChart
             // 
             this.btnPieChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPieChart.Location = new System.Drawing.Point(955, 21);
+            this.btnPieChart.Location = new System.Drawing.Point(1045, 21);
             this.btnPieChart.Name = "btnPieChart";
             this.btnPieChart.Size = new System.Drawing.Size(118, 36);
             this.btnPieChart.TabIndex = 1;
@@ -64,7 +64,7 @@
             // btnDonutChart
             // 
             this.btnDonutChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDonutChart.Location = new System.Drawing.Point(955, 79);
+            this.btnDonutChart.Location = new System.Drawing.Point(1045, 79);
             this.btnDonutChart.Name = "btnDonutChart";
             this.btnDonutChart.Size = new System.Drawing.Size(118, 36);
             this.btnDonutChart.TabIndex = 2;
@@ -75,7 +75,7 @@
             // btnBarChart
             // 
             this.btnBarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBarChart.Location = new System.Drawing.Point(955, 137);
+            this.btnBarChart.Location = new System.Drawing.Point(1045, 137);
             this.btnBarChart.Name = "btnBarChart";
             this.btnBarChart.Size = new System.Drawing.Size(118, 36);
             this.btnBarChart.TabIndex = 3;
@@ -86,7 +86,7 @@
             // btnColumnChart
             // 
             this.btnColumnChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnColumnChart.Location = new System.Drawing.Point(955, 311);
+            this.btnColumnChart.Location = new System.Drawing.Point(1045, 311);
             this.btnColumnChart.Name = "btnColumnChart";
             this.btnColumnChart.Size = new System.Drawing.Size(118, 36);
             this.btnColumnChart.TabIndex = 4;
@@ -97,7 +97,7 @@
             // btnDoubleAxisBar
             // 
             this.btnDoubleAxisBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDoubleAxisBar.Location = new System.Drawing.Point(955, 253);
+            this.btnDoubleAxisBar.Location = new System.Drawing.Point(1045, 253);
             this.btnDoubleAxisBar.Name = "btnDoubleAxisBar";
             this.btnDoubleAxisBar.Size = new System.Drawing.Size(118, 36);
             this.btnDoubleAxisBar.TabIndex = 5;
@@ -108,7 +108,7 @@
             // btnStackedBar
             // 
             this.btnStackedBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStackedBar.Location = new System.Drawing.Point(955, 195);
+            this.btnStackedBar.Location = new System.Drawing.Point(1045, 195);
             this.btnStackedBar.Name = "btnStackedBar";
             this.btnStackedBar.Size = new System.Drawing.Size(118, 36);
             this.btnStackedBar.TabIndex = 6;
@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1140, 450);
+            this.ClientSize = new System.Drawing.Size(1230, 601);
             this.Controls.Add(this.btnStackedBar);
             this.Controls.Add(this.btnDoubleAxisBar);
             this.Controls.Add(this.btnColumnChart);

@@ -17,7 +17,9 @@ namespace SimpleImageCharts.BarChart
         // use "0;0" for forcing positive value
         public string FormatAxisValue { get; set; } = string.Empty;
 
-        public int BarSize { get; set; } = 20;
+        public string FormatBarValue { get; set; } = string.Empty;
+
+        public int BarSize { get; set; } = 30;
 
         public bool IsStacked { get; set; } = false;
 
@@ -178,18 +180,27 @@ namespace SimpleImageCharts.BarChart
         private void DrawBarSeries(Graphics graphics, BarSeries series, int offsetY)
         {
             var y = MarginTop + (_categoryHeight / 2) + offsetY;
+            using(var positiveNumberStringFormat = new StringFormat())
+            using (var negativeNumberStringFormat = new StringFormat())
             using (var brush = new SolidBrush(series.Color))
             {
+                positiveNumberStringFormat.LineAlignment = StringAlignment.Center;
+
+                negativeNumberStringFormat.LineAlignment = StringAlignment.Center;
+                negativeNumberStringFormat.Alignment = StringAlignment.Far;
+
                 foreach (var value in series.Data)
                 {
                     var length = _widthUnit * value;
                     if (length >= 0)
                     {
                         graphics.FillRectangle(brush, _rootX, y, length, BarSize);
+                        graphics.DrawString(value.ToString(FormatBarValue), Font, Brushes.Gray, _rootX + length + 2, y + (BarSize / 2), positiveNumberStringFormat);
                     }
                     else
                     {
                         graphics.FillRectangle(brush, _rootX + length, y, Math.Abs(length), BarSize);
+                        graphics.DrawString(value.ToString(FormatBarValue), Font, Brushes.Gray, _rootX + length - 2, y + (BarSize / 2), negativeNumberStringFormat);
                     }
 
                     y += _categoryHeight;
