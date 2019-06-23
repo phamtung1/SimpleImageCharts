@@ -14,7 +14,9 @@ namespace SimpleImageCharts.ColumnChart
 
         private const int MarginBottom = 100;
 
-        public int ColumnSize {get; set;} = 20;
+        public string FormatColumnValue { get; set; } = "{0}";
+
+        public int ColumnSize { get; set; } = 20;
 
         public Font Font { get; set; } = new Font("Arial", 10);
 
@@ -96,7 +98,7 @@ namespace SimpleImageCharts.ColumnChart
                 stringFormat.Alignment = StringAlignment.Center;
                 foreach (var item in Categories)
                 {
-                   // graphic.DrawString(item, this.Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
+                    // graphic.DrawString(item, this.Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
                     DrawRotatedText(graphic, item, x, Height - MarginBottom / 2);
                     x += _categoryWidth;
                 }
@@ -107,33 +109,35 @@ namespace SimpleImageCharts.ColumnChart
         {
             var spaceX = _categoryWidth;
             var x = MarginLeft + (spaceX / 2) + offsetX;
-            using (var brush = new SolidBrush(series.Color))
             using (var stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Center;
-                foreach (var value in series.Data)
+                for (int i = 0; i < series.Data.Length; i++)
                 {
-                    var length = _heightUnit * value;
-                    var text = value.ToString("0.##");
-                    if (length >= 0)
+                    var color = series.Colors == null ? series.Color : series.Colors[i];
+                    using (var brush = new SolidBrush(color))
                     {
-                        graphics.FillRectangle(brush, x, _rootY - length, ColumnSize, length);
-                        graphics.DrawString(text, this.Font, Brushes.Gray, x + ColumnSize / 2, _rootY - length - 15, stringFormat);
+                        var value = series.Data[i];
+                        var length = _heightUnit * value;
+                        var text = string.Format(FormatColumnValue, value);
+                        if (length >= 0)
+                        {
+                            graphics.FillRectangle(brush, x, _rootY - length, ColumnSize, length);
+                            graphics.DrawString(text, this.Font, Brushes.Gray, x + ColumnSize / 2, _rootY - length - 15, stringFormat);
+                        }
+                        else
+                        {
+                            graphics.FillRectangle(brush, x, _rootY, ColumnSize, Math.Abs(length));
+                            graphics.DrawString(text, this.Font, Brushes.Gray, x + ColumnSize / 2, _rootY - length, stringFormat);
+                        }
+
+                        x += spaceX;
                     }
-                    else
-                    {
-                        graphics.FillRectangle(brush, x, _rootY, ColumnSize, Math.Abs(length));
-                        graphics.DrawString(text, this.Font, Brushes.Gray, x + ColumnSize / 2, _rootY - length, stringFormat);
-                    }
-
-
-
-                    x += spaceX;
                 }
             }
         }
 
-        private void DrawRotatedText(Graphics graphic, string text, float x , float y)
+        private void DrawRotatedText(Graphics graphic, string text, float x, float y)
         {
             using (var format = new StringFormat())
             {
@@ -142,8 +146,8 @@ namespace SimpleImageCharts.ColumnChart
                 graphic.TranslateTransform(x, y);
                 graphic.RotateTransform(-45);
                 var size = graphic.MeasureString(text, this.Font);
-                graphic.DrawString(text, Font, Brushes.Black, 0, 0, format);
-                                                                            
+                graphic.DrawString(text, Font, Brushes.Gray, 0, 0, format);
+
                 graphic.ResetTransform();
             }
         }

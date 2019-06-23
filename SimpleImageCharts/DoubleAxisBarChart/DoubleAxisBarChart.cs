@@ -1,11 +1,10 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace SimpleImageCharts.DoubleAxisBarChart
 {
     public class DoubleAxisBarChart
     {
-        private const int MarginLeft = 100;
+        private const int MarginLeft = 150;
 
         private const int MarginRight = 30;
 
@@ -30,8 +29,6 @@ namespace SimpleImageCharts.DoubleAxisBarChart
         public DoubleAxisBarSeries FirstDataSet { get; set; }
 
         public DoubleAxisBarSeries SecondDataSet { get; set; }
-
-        public Func<int> Get { get; set; }
 
         private int _categoryHeight;
 
@@ -113,15 +110,19 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             var spaceY = _categoryHeight;
             var y = MarginTop + ((spaceY - BarSize) / 2);
             using (var stringFormat = new StringFormat())
-            using (var brush = new SolidBrush(series.Color))
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
-                foreach (var value in series.Data)
+                for (int i = 0; i < series.Data.Length; i++)
                 {
-                    var length = _widthUnit * value;
-                    graphics.FillRectangle(brush, MarginLeft, y, length, BarSize);
-                    graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, MarginLeft + length + 2, y + (BarSize / 2), stringFormat);
-                    y += spaceY;
+                    var value = series.Data[i];
+                    var color = series.Colors == null ? series.Color : series.Colors[i];
+                    using (var brush = new SolidBrush(color))
+                    {
+                        var length = _widthUnit * value;
+                        graphics.FillRectangle(brush, MarginLeft, y, length, BarSize);
+                        graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, MarginLeft + length + 2, y + (BarSize / 2), stringFormat);
+                        y += spaceY;
+                    }
                 }
             }
         }
@@ -131,25 +132,24 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             var spaceY = _categoryHeight;
             var y = MarginTop + ((spaceY - BarSize) / 2);
             using (var stringFormat = new StringFormat())
-            using (var brush = new SolidBrush(series.Color))
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
                 stringFormat.Alignment = StringAlignment.Far;
 
-                foreach (var value in series.Data)
+                for (int i = 0; i < series.Data.Length; i++)
                 {
-                    var length = _widthUnit * value;
-                    var x = Width - MarginRight - length;
-                    graphics.FillRectangle(brush, x, y, length, BarSize);
-
-                    x -= 2;
-                    if(Get != null)
+                    var value = series.Data[i];
+                    var color = series.Colors == null ? series.Color : series.Colors[i];
+                    using (var brush = new SolidBrush(color))
                     {
-                        x += Get();
-                    }
+                        var length = _widthUnit * value;
+                        var x = Width - MarginRight - length;
+                        graphics.FillRectangle(brush, x, y, length, BarSize);
 
-                    graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, x, y + (BarSize / 2), stringFormat);
-                     y += spaceY;
+                        x -= 2;
+                        graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, x, y + (BarSize / 2), stringFormat);
+                        y += spaceY;
+                    }
                 }
             }
         }
