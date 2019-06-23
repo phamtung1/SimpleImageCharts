@@ -192,12 +192,12 @@ namespace SimpleImageCharts.BarChart
                 foreach (var value in series.Data)
                 {
                     var length = _widthUnit * value;
-                    if (length >= 0)
+                    if (length > 0)
                     {
                         graphics.FillRectangle(brush, _rootX, y, length, BarSize);
                         graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, _rootX + length + 2, y + (BarSize / 2), positiveNumberStringFormat);
                     }
-                    else
+                    else if(length < 0)
                     {
                         graphics.FillRectangle(brush, _rootX + length, y, Math.Abs(length), BarSize);
                         graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, _rootX + length - 2, y + (BarSize / 2), negativeNumberStringFormat);
