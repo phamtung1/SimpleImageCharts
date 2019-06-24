@@ -6,6 +6,6 @@ namespace SimpleImageCharts.RadarChart
     {
         public Color Color { get; set; }
 
-        public float[] Data { get; set; }
+        public int[] Data { get; set; }
     }
 }
