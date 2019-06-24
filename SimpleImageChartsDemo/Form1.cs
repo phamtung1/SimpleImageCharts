@@ -98,7 +98,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-         //   pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\BarChart.jpg");
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\BarChart.jpg");
         }
 
         private void BtnStackedBar_Click(object sender, EventArgs e)
@@ -129,7 +129,7 @@ namespace WindowsFormsChart
             };
 
             pictureBox1.Image = chart.CreateImage();
-        //    pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBarChart.jpg");
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBarChart.jpg");
         }
 
         private void BtnDoubleAxisBar_Click(object sender, EventArgs e)
@@ -142,18 +142,20 @@ namespace WindowsFormsChart
                 Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
                 FirstDataSet = new DoubleAxisBarSeries
                 {
+                    Label = "Income",
                     Color = Color.LightBlue,
                     Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
                 },
                 SecondDataSet = new DoubleAxisBarSeries
                 {
+                    Label = "Outcome",
                     Color = Color.LightCoral,
                     Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
                 }
             };
 
             pictureBox1.Image = chart.CreateImage();
-        //    pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
         }
 
         private void BtnColumnChart_Click(object sender, EventArgs e)
@@ -194,6 +196,8 @@ namespace WindowsFormsChart
         {
             var chart = new RadarChart
             {
+                Width = pictureBox1.Width,
+                Height = pictureBox1.Height,
                 NumberOfSides = 10
             };
             pictureBox1.Image = chart.CreateImage();

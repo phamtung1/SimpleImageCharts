@@ -20,6 +20,8 @@ namespace SimpleImageCharts.ColumnChart
 
         public Font Font { get; set; } = new Font("Arial", 10);
 
+        public Font ColumnValueFont { get; set; } = new Font("Arial", 10, FontStyle.Bold);
+
         public int StepSize { get; set; } = 5;
 
         public int Width { get; set; } = 600;
@@ -68,7 +70,7 @@ namespace SimpleImageCharts.ColumnChart
                 var offsetX = -(DataSets.Length * ColumnSize) / 2;
                 foreach (var data in DataSets)
                 {
-                    DrawBarSeries(graphic, data, offsetX);
+                    DrawColumnSeries(graphic, data, offsetX);
                     offsetX += ColumnSize;
                 }
 
@@ -105,7 +107,7 @@ namespace SimpleImageCharts.ColumnChart
             }
         }
 
-        private void DrawBarSeries(Graphics graphics, ColumnSeries series, int offsetX)
+        private void DrawColumnSeries(Graphics graphics, ColumnSeries series, int offsetX)
         {
             var spaceX = _categoryWidth;
             var x = MarginLeft + (spaceX / 2) + offsetX;
@@ -123,12 +125,12 @@ namespace SimpleImageCharts.ColumnChart
                         if (length >= 0)
                         {
                             graphics.FillRectangle(brush, x, _rootY - length, ColumnSize, length);
-                            graphics.DrawString(text, this.Font, Brushes.Gray, x + ColumnSize / 2, _rootY - length - 15, stringFormat);
+                            graphics.DrawString(text, this.ColumnValueFont, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length - 15, stringFormat);
                         }
                         else
                         {
                             graphics.FillRectangle(brush, x, _rootY, ColumnSize, Math.Abs(length));
-                            graphics.DrawString(text, this.Font, Brushes.Gray, x + ColumnSize / 2, _rootY - length, stringFormat);
+                            graphics.DrawString(text, this.ColumnValueFont, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length, stringFormat);
                         }
 
                         x += spaceX;

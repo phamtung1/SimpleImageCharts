@@ -35,6 +35,8 @@ namespace SimpleImageCharts.BarChart
 
         public Font Font { get; set; } = new Font("Arial", 10);
 
+        public Font BarValueFont { get; set; } = new Font("Arial", 10, FontStyle.Bold);
+
         private int _categoryHeight;
 
         private float _rootX;
@@ -195,12 +197,12 @@ namespace SimpleImageCharts.BarChart
                     if (length > 0)
                     {
                         graphics.FillRectangle(brush, _rootX, y, length, BarSize);
-                        graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, _rootX + length + 2, y + (BarSize / 2), positiveNumberStringFormat);
+                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.Gray, _rootX + length + 2, y + (BarSize / 2), positiveNumberStringFormat);
                     }
                     else if(length < 0)
                     {
                         graphics.FillRectangle(brush, _rootX + length, y, Math.Abs(length), BarSize);
-                        graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, _rootX + length - 2, y + (BarSize / 2), negativeNumberStringFormat);
+                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.Gray, _rootX + length - 2, y + (BarSize / 2), negativeNumberStringFormat);
                     }
 
                     y += _categoryHeight;

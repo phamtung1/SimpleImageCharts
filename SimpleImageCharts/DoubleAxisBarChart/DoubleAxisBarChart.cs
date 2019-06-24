@@ -16,6 +16,8 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 
         public Font Font { get; set; } = new Font("Arial", 10);
 
+        public Font BarValueFont { get; set; } = new Font("Arial", 10, FontStyle.Bold);
+
         public string FormatBarValue { get; set; } = "{0}";
 
         public int StepSize { get; set; } = 5;
@@ -119,6 +121,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             using (var stringFormat = new StringFormat())
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
+                stringFormat.Alignment = StringAlignment.Far;
                 for (int i = 0; i < series.Data.Length; i++)
                 {
                     var value = series.Data[i];
@@ -127,7 +130,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                     {
                         var length = _widthUnit * value;
                         graphics.FillRectangle(brush, MarginLeft, y, length, BarSize);
-                        graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, MarginLeft + length + 2, y + (BarSize / 2), stringFormat);
+                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.White, MarginLeft + length - 2, y + (BarSize / 2), stringFormat);
                         y += spaceY;
                     }
                 }
@@ -141,11 +144,13 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             using (var stringFormat = new StringFormat())
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
-                stringFormat.Alignment = StringAlignment.Far;
+                //stringFormat.Alignment = StringAlignment.Far;
 
                 for (int i = 0; i < series.Data.Length; i++)
                 {
                     var value = series.Data[i];
+
+                    stringFormat.Alignment = value <= 1 ? StringAlignment.Far : StringAlignment.Near;
                     var color = series.Colors == null ? series.Color : series.Colors[i];
                     using (var brush = new SolidBrush(color))
                     {
@@ -154,7 +159,17 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                         graphics.FillRectangle(brush, x, y, length, BarSize);
 
                         x -= 2;
-                        graphics.DrawString(string.Format(FormatBarValue, value), Font, Brushes.Gray, x, y + (BarSize / 2), stringFormat);
+                        Brush textBrush;
+                        if(value <= 1)
+                        {
+                            textBrush = Brushes.DarkBlue;
+                        }
+                        else
+                        {
+                            textBrush = Brushes.White;
+                        }
+
+                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, textBrush, x + 2, y + (BarSize / 2), stringFormat);
                         y += spaceY;
                     }
                 }

@@ -38,6 +38,7 @@ namespace SimpleImageCharts.PieChart
             using (var borderPen = new Pen(BorderColor, BorderWidth))
             using (var graphic = Graphics.FromImage(bitmap))
             {
+                graphic.Clear(Color.White);
                 graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 graphic.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
@@ -96,7 +97,7 @@ namespace SimpleImageCharts.PieChart
                     var labelAngle = Math.PI * (startAngle + sweepAngle / 2f) / 180f;
                     var x = centerX + (float)(labelRadius * Math.Cos(labelAngle));
                     var y = centerY + (float)(labelRadius * Math.Sin(labelAngle));
-                    graphic.DrawString(entry.Value.ToString(LabelFormat), Font, labelBrush, x, y, stringFormat);
+                    graphic.DrawString(string.Format(LabelFormat, entry.Value), Font, labelBrush, x, y, stringFormat);
 
                     startAngle += sweepAngle;
                 }
