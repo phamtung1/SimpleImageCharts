@@ -12,5 +12,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
         public Color[] Colors { get; set; }
 
         public float[] Data { get; set; }
+
+        public string Label { get; set; }
     }
 }

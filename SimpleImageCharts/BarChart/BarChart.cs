@@ -12,7 +12,7 @@ namespace SimpleImageCharts.BarChart
 
         private const int MarginTop = 10;
 
-        private const int MarginBottom = 100;
+        public int MarginBottom { get; set; } = 100;
 
         // use "{0:0;0}" for forcing positive value
         public string FormatAxisValue { get; set; } = "{0}";
@@ -223,6 +223,11 @@ namespace SimpleImageCharts.BarChart
             {
                 foreach (var dataset in DataSets)
                 {
+                    if (string.IsNullOrEmpty(dataset.Label))
+                    {
+                        continue;
+                    }
+
                     using (var brush = new SolidBrush(dataset.Color))
                     {
                         graphic.FillRectangle(brush, left, top, RectWidth, RectHeight);

@@ -4,13 +4,13 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 {
     public class DoubleAxisBarChart
     {
-        private const int MarginLeft = 150;
+        public int MarginLeft { get; set; } = 150;
 
-        private const int MarginRight = 30;
+        public int MarginRight { get; set; } = 30;
 
-        private const int MarginTop = 10;
+        public int MarginBottom { get; set; } = 50;
 
-        private const int MarginBottom = 50;
+        public int MarginTop { get; set; } = 40;
 
         private const int BarSize = 30;
 
@@ -46,13 +46,20 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 
             var bitmap = new Bitmap(Width, Height);
             using (var graphic = Graphics.FromImage(bitmap))
+            using (var axisFont = new Font("Arial", 13, FontStyle.Bold))
             {
                 graphic.Clear(Color.White);
                 // Left X axis
                 graphic.DrawLine(Pens.LightGray, MarginLeft, MarginTop, MarginLeft, Height - MarginBottom);
+                graphic.DrawString(FirstDataSet.Label, axisFont, Brushes.Gray, MarginLeft, 10);
 
                 // Second X axis
                 graphic.DrawLine(Pens.LightGray, Width - MarginRight, MarginTop, Width - MarginRight, Height - MarginBottom);
+                using (var stringFormat = new StringFormat())
+                {
+                    stringFormat.Alignment = StringAlignment.Far;
+                    graphic.DrawString(SecondDataSet.Label, axisFont, Brushes.Gray, Width - MarginRight, 10, stringFormat);
+                }
 
                 DrawHorizontalLines(graphic);
 
@@ -69,7 +76,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             var maxValue = 0f;
             for (int i = 0; i < FirstDataSet.Data.Length; i++)
             {
-                var value = FirstDataSet.Data[i] + SecondDataSet.Data[i];
+                var value = FirstDataSet.Data[i] + (SecondDataSet.Data.Length >= i + 1 ? SecondDataSet.Data[i] : 0);
                 if (value > maxValue)
                 {
                     maxValue = value;
