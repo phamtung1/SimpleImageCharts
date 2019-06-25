@@ -26,6 +26,8 @@ namespace SimpleImageCharts.RadarChart
 
         public int Height { get; set; } = 300;
 
+        public int StepSize { get; set; } = 0;
+
         public string[] Categories { get; set; }
 
         public RadarChartSeries[] DataSets { get; set; }
@@ -37,8 +39,6 @@ namespace SimpleImageCharts.RadarChart
         private PointF _centerPoint;
 
         private float _unitPixel;
-
-        private float _stepSize;
 
         public Bitmap CreateImage()
         {
@@ -56,16 +56,25 @@ namespace SimpleImageCharts.RadarChart
                 var firstDigit = MathHelper.GetFirstDigit(maxDataValue);
                 // test again with value <= 10
                 var numberOfStep = firstDigit + 1;
+
                 var roundMaxValue = int.Parse(firstDigit.ToString().PadRight(maxDataValue.ToString().Length, '0'));
-                _stepSize = roundMaxValue / firstDigit;
+                if (StepSize == 0)
+                {
+                    StepSize = roundMaxValue / firstDigit;
+                    
+                }else
+                {
+                    numberOfStep = roundMaxValue / StepSize + 1;
+                }
+
                 _maxRadius = Math.Min(Width - MarginLeft - MarginRight, Height - MarginTop - MarginBottom) / 2;
                 _centerPoint = new PointF(MarginLeft + _maxRadius, MarginTop + _maxRadius);
                 // remove this variable
                 _stepSizeInPixel = _maxRadius / numberOfStep;
-                _unitPixel = _maxRadius / (roundMaxValue + _stepSize);
+                _unitPixel = _maxRadius / (roundMaxValue + StepSize);
                 for (int i = 0; i <= numberOfStep; i++)
                 {
-                    DrawGridLine(graphic, i * _stepSize * _unitPixel, _centerPoint);
+                    DrawGridLine(graphic, i * StepSize * _unitPixel, _centerPoint);
                 }
 
                 DrawCategories(graphic);
@@ -110,7 +119,7 @@ namespace SimpleImageCharts.RadarChart
                 stringFormat.Alignment = StringAlignment.Far;
                 for (int i = 0; i <= numberOfStep; i++)
                 {
-                    graphic.DrawString((i * _stepSize).ToString(), this.ValueFont, Brushes.DarkBlue, root.X - 4, root.Y - i * _stepSizeInPixel + 2, stringFormat);
+                    graphic.DrawString((i * StepSize).ToString(), this.ValueFont, Brushes.DarkBlue, root.X - 4, root.Y - i * _stepSizeInPixel + 2, stringFormat);
                 }
             }
         }
@@ -156,9 +165,9 @@ namespace SimpleImageCharts.RadarChart
         private void DrawLegends(Graphics graphics)
         {
             const int LabelHeight = 30;
-            var left = MarginLeft + _maxRadius * 2 + 50;
+            var left = MarginLeft + _maxRadius * 2 + 70;
             var legendAreaHeight = LabelHeight * DataSets.Length;
-            var top = (Height - MarginTop - MarginBottom - legendAreaHeight) / 2;
+            var top = (Height - legendAreaHeight) / 2;
             foreach (var dataset in DataSets)
             {
                 if (string.IsNullOrEmpty(dataset.Label))

@@ -8,7 +8,7 @@ namespace SimpleImageCharts.PieChart
     {
         private const float InitialAngle = -90;
 
-        public string LabelFormat { get; set; } = "0.##";
+        public string LabelFormat { get; set; } = "{0}";
 
         public int Width { get; set; } = 600;
 
