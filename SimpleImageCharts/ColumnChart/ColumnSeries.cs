@@ -4,6 +4,8 @@ namespace SimpleImageCharts.ColumnChart
 {
     public class ColumnSeries
     {
+        public int OffsetX { get; set; }
+
         public Color Color { get; set; }
 
         /// <summary>

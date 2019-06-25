@@ -179,6 +179,7 @@ namespace WindowsFormsChart
                 datasets[i] = dataset;
             }
 
+            datasets[0].OffsetX = 10;
             var chart = new ColumnChart
             {
                 ColumnSize = 30,

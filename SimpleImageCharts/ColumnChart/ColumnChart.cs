@@ -67,10 +67,10 @@ namespace SimpleImageCharts.ColumnChart
                 graphic.DrawLine(Pens.Black, MarginLeft, _rootY, Width - MarginRight, _rootY);
 
                 DrawVerticalLines(graphic);
-                var offsetX = -(DataSets.Length * ColumnSize) / 2;
+                var offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
                 foreach (var data in DataSets)
                 {
-                    DrawColumnSeries(graphic, data, offsetX);
+                    DrawColumnSeries(graphic, data, offsetX + data.OffsetX);
                     offsetX += ColumnSize;
                 }
 
