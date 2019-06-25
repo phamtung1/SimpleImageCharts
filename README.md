@@ -12,6 +12,7 @@ This is a simple charting library for rendering charts as images.
 4. [Stacked Bar Chart](#4-stacked-bar-chart)
 5. [Double Axis Bar Chart](#5-double-axis-bar-chart)
 6. [Column Chart](#6-column-chart)
+7. [Radar Chart](#7-radar-chart)
 
 ## 1. Pie Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/pie.jpg" />
@@ -196,7 +197,7 @@ var bitmap = chart.CreateImage();
 
 ```csharp
 var random = new Random();
-var categories = new[] { "Eating", "Sleeping", "Dying", "Playing", "Relaxing", "Watching" };
+var categories = new[] { "Eating", "Sleeping", "Doing Nothing", "Playing", "Relaxing", "Watching" };
 var chart = new RadarChart
 {
     Width = 600,
