@@ -194,30 +194,35 @@ namespace WindowsFormsChart
 
         private void BtnRadarChart_Click(object sender, EventArgs e)
         {
-            
+            var random = new Random();
+            var categories = new[] { "Eating", "Sleeping", "Doing Nothing", "Playing", "Relaxing", "Watching" };
             var chart = new RadarChart
             {
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
-                Categories = new[] {"Superman", "Batman", "Wonder Woman", "Iron man",
-                    "Thor", "Supergirl", "Hulk", "Aquaman", "Deadpool", "Wolverine"},
-                NumberOfSides = 10,
+                Categories = categories,
                 DataSets = new[]
                 {
                     new RadarChartSeries
                     {
-                        Color = Color.Red,
-                        Data = new[] { 5, 12, 13, 14, 15, 16, 17, 18, 19, 20 }
-                        //GenerateRandomArray(10, 10, 60)
+                        Label = "My Life",
+                        Color = Color.LightCoral,
+                        Data = GenerateRandomArray(random, categories.Length, 10, 60),
+                    },
+                    new RadarChartSeries
+                    {
+                        Label = "My Wife Life",
+                        Color = Color.LightBlue,
+                        Data = GenerateRandomArray(random, categories.Length, 10, 70),
                     }
                 }
             };
             pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\RadarChart.jpg");
         }
 
-        private int[] GenerateRandomArray(int length, int min, int max)
+        private int[] GenerateRandomArray(Random random, int length, int min, int max)
         {
-            var random = new Random();
             var result = new int[length];
             for (int i = 0; i < length; i++)
             {

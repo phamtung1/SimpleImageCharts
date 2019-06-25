@@ -6,6 +6,8 @@ namespace SimpleImageCharts.RadarChart
     {
         public Color Color { get; set; }
 
+        public string Label { get; set; }
+
         public int[] Data { get; set; }
     }
 }

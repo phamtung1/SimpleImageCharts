@@ -191,3 +191,33 @@ var chart = new ColumnChart
 
 var bitmap = chart.CreateImage();
 ```
+## 7. Radar Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/RadarChart.jpg" />
+
+```csharp
+var random = new Random();
+var categories = new[] { "Eating", "Sleeping", "Dying", "Playing", "Relaxing", "Watching" };
+var chart = new RadarChart
+{
+    Width = 600,
+    Height = 300,
+    Categories = categories,
+    DataSets = new[]
+    {
+        new RadarChartSeries
+        {
+            Label = "My Life",
+            Color = Color.LightCoral,
+            Data = GenerateRandomArray(random, categories.Length, 10, 60),
+        },
+        new RadarChartSeries
+        {
+            Label = "My Wife Life",
+            Color = Color.LightBlue,
+            Data = GenerateRandomArray(random, categories.Length, 10, 70),
+        }
+    }
+};
+
+var bitmap = chart.CreateImage();
+```

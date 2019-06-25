@@ -1,14 +1,14 @@
-﻿using System;
+﻿using SimpleImageCharts.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using SimpleImageCharts.Helpers;
 
 namespace SimpleImageCharts.RadarChart
 {
     public class RadarChart
     {
-        private const int InitAngle = -90;
+        private const int InitAngle = 90;
 
         private const int MarginLeft = 100;
 
@@ -26,8 +26,6 @@ namespace SimpleImageCharts.RadarChart
 
         public int Height { get; set; } = 300;
 
-        public int NumberOfSides { get; set; } = 3;
-
         public string[] Categories { get; set; }
 
         public RadarChartSeries[] DataSets { get; set; }
@@ -41,11 +39,12 @@ namespace SimpleImageCharts.RadarChart
         private float _unitPixel;
 
         private float _stepSize;
+
         public Bitmap CreateImage()
         {
-            if (NumberOfSides < 3)
+            if (Categories.Length < 3)
             {
-                throw new ArgumentException("Invalid Number of sides");
+                throw new ArgumentException("Invalid data");
             }
 
             var maxDataValue = DataSets.SelectMany(x => x.Data).Max();
@@ -53,7 +52,6 @@ namespace SimpleImageCharts.RadarChart
             using (var graphic = Graphics.FromImage(bitmap))
             {
                 graphic.Clear(Color.White);
-
                 graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 var firstDigit = MathHelper.GetFirstDigit(maxDataValue);
                 // test again with value <= 10
@@ -67,36 +65,42 @@ namespace SimpleImageCharts.RadarChart
                 _unitPixel = _maxRadius / (roundMaxValue + _stepSize);
                 for (int i = 0; i <= numberOfStep; i++)
                 {
-                    DrawPolygon(graphic, i * _stepSize * _unitPixel, _centerPoint);
+                    DrawGridLine(graphic, i * _stepSize * _unitPixel, _centerPoint);
                 }
 
-                DrawValueTexts(graphic, numberOfStep, _centerPoint);
                 DrawCategories(graphic);
                 foreach (var dataset in DataSets)
                 {
-                    DrawPathValues(graphic, dataset.Data);
+                    DrawPathValues(graphic, dataset);
                 }
+
+                DrawValueTexts(graphic, numberOfStep, _centerPoint);
+                DrawLegends(graphic);
             }
 
             return bitmap;
         }
 
-        private void DrawPathValues(Graphics graphics, int[] values)
+        private void DrawPathValues(Graphics graphics, RadarChartSeries dataset)
         {
-            var step = 360.0f / NumberOfSides;
+            var step = 360.0f / Categories.Length;
             var startAngle = 90;
             float angle = startAngle;
-            
-            var points = new PointF[values.Length];
-            for (var i = 0; i < values.Length; i++)
+
+            var points = new PointF[dataset.Data.Length];
+
+            for (var i = 0; i < dataset.Data.Length; i++)
             {
-                var radius = values[i] * _unitPixel;
+                var radius = dataset.Data[i] * _unitPixel;
                 points[i] = MathHelper.DegreeToPoint(angle, radius, _centerPoint);
-                
+
                 angle -= step;
             }
 
-            graphics.DrawPolygon(Pens.Red, points);
+            using (var pen = new Pen(dataset.Color, 3))
+            {
+                graphics.DrawPolygon(pen, points);
+            }
         }
 
         private void DrawValueTexts(Graphics graphic, int numberOfStep, PointF root)
@@ -111,26 +115,26 @@ namespace SimpleImageCharts.RadarChart
             }
         }
 
-        private void DrawPolygon(Graphics graphic, float radius, PointF center)
+        private void DrawGridLine(Graphics graphic, float radius, PointF center)
         {
-            var verticies = CalculateVertices(NumberOfSides, radius, InitAngle, center);
-            graphic.DrawPolygon(Pens.Gray, verticies);
+            var verticies = CalculateVertices(Categories.Length, radius, InitAngle, center);
+            graphic.DrawPolygon(Pens.LightGray, verticies);
         }
 
         private void DrawCategories(Graphics graphics)
         {
-            var vertices = CalculateVertices(NumberOfSides, _maxRadius, InitAngle, _centerPoint);
-            
-            for (int i = 0; i < NumberOfSides; i++)
+            var vertices = CalculateVertices(Categories.Length, _maxRadius, InitAngle, _centerPoint);
+
+            for (int i = 0; i < Categories.Length; i++)
             {
                 using (var stringFormat = new StringFormat())
                 {
                     var point = vertices[i];
-                    if(point.X == _centerPoint.X)
+                    if (point.X == _centerPoint.X)
                     {
                         stringFormat.Alignment = StringAlignment.Center;
                     }
-                    else if(point.X > _centerPoint.X)
+                    else if (point.X > _centerPoint.X)
                     {
                         stringFormat.Alignment = StringAlignment.Near;
                     }
@@ -139,15 +143,7 @@ namespace SimpleImageCharts.RadarChart
                         stringFormat.Alignment = StringAlignment.Far;
                     }
 
-                    if (point.Y == _centerPoint.Y)
-                    {
-                        
-                    }
-                    else if (point.Y > _centerPoint.Y)
-                    {
-                        
-                    }
-                    else
+                    if (point.Y < _centerPoint.Y)
                     {
                         point.Y -= 15;
                     }
@@ -157,16 +153,41 @@ namespace SimpleImageCharts.RadarChart
             }
         }
 
-        private PointF[] CalculateVertices(int sides, float radius, int startAngle, PointF center)
+        private void DrawLegends(Graphics graphics)
+        {
+            const int LabelHeight = 30;
+            var left = MarginLeft + _maxRadius * 2 + 50;
+            var legendAreaHeight = LabelHeight * DataSets.Length;
+            var top = (Height - MarginTop - MarginBottom - legendAreaHeight) / 2;
+            foreach (var dataset in DataSets)
+            {
+                if (string.IsNullOrEmpty(dataset.Label))
+                {
+                    continue;
+                }
+
+                using (var pen = new Pen(dataset.Color, 3))
+                using (var stringFormat = new StringFormat())
+                {
+                    stringFormat.LineAlignment = StringAlignment.Center;
+
+                    graphics.DrawLine(pen, left, top, left + 30, top);
+                    graphics.DrawString(dataset.Label, this.Font, Brushes.Gray, left + 35, top, stringFormat);
+                }
+
+                top += LabelHeight;
+            }
+        }
+
+        private static PointF[] CalculateVertices(int sides, float radius, int startAngle, PointF center)
         {
             var points = new List<PointF>();
             var step = 360.0f / sides;
-
             float angle = startAngle;
-            for (float i = startAngle; i < startAngle + 360.0; i += step)
+            for (var i = 0; i < sides; i++)
             {
                 points.Add(MathHelper.DegreeToPoint(angle, radius, center));
-                angle += step;
+                angle -= step;
             }
 
             return points.ToArray();
