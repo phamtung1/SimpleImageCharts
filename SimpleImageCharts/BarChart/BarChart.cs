@@ -33,9 +33,9 @@ namespace SimpleImageCharts.BarChart
 
         public BarSeries[] DataSets { get; set; }
 
-        public Font Font { get; set; } = new Font("Arial", 10);
+        public Font Font { get; set; } = new Font("Arial", 12);
 
-        public Font BarValueFont { get; set; } = new Font("Arial", 10, FontStyle.Bold);
+        public Font BarValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
 
         private int _categoryHeight;
 

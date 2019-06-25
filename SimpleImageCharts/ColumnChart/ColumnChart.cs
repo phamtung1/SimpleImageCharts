@@ -12,15 +12,15 @@ namespace SimpleImageCharts.ColumnChart
 
         private const int MarginTop = 50;
 
-        private const int MarginBottom = 100;
+        private const int MarginBottom = 120;
 
         public string FormatColumnValue { get; set; } = "{0}";
 
         public int ColumnSize { get; set; } = 20;
 
-        public Font Font { get; set; } = new Font("Arial", 10);
+        public Font Font { get; set; } = new Font("Arial", 12);
 
-        public Font ColumnValueFont { get; set; } = new Font("Arial", 10, FontStyle.Bold);
+        public Font ColumnValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
 
         public int StepSize { get; set; } = 5;
 

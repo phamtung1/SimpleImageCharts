@@ -18,9 +18,9 @@ namespace SimpleImageCharts.RadarChart
 
         private const int MarginBottom = 50;
 
-        public Font Font { get; set; } = new Font("Arial", 10);
+        public Font Font { get; set; } = new Font("Arial", 12);
 
-        public Font ValueFont { get; set; } = new Font("Arial", 10, FontStyle.Bold);
+        public Font ValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
 
         public int Width { get; set; } = 600;
 
@@ -157,7 +157,7 @@ namespace SimpleImageCharts.RadarChart
                         point.Y -= 15;
                     }
 
-                    graphics.DrawString(Categories[i], this.Font, Brushes.Gray, point, stringFormat);
+                    graphics.DrawString(Categories[i], this.Font, Brushes.Black, point, stringFormat);
                 }
             }
         }

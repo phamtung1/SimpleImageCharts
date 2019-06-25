@@ -14,9 +14,9 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 
         private const int BarSize = 30;
 
-        public Font Font { get; set; } = new Font("Arial", 10);
+        public Font Font { get; set; } = new Font("Arial", 12);
 
-        public Font BarValueFont { get; set; } = new Font("Arial", 10, FontStyle.Bold);
+        public Font BarValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
 
         public string FormatBarValue { get; set; } = "{0}";
 
