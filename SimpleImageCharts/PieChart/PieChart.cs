@@ -20,7 +20,7 @@ namespace SimpleImageCharts.PieChart
 
         public byte BorderWidth { get; set; } = 2;
 
-        public Font Font { get; set; } = new Font("Arial", 10);
+        public Font Font { get; set; } = new Font("Arial", 12);
 
         public Color TextColor { get; set; } = Color.White;
 
@@ -106,13 +106,14 @@ namespace SimpleImageCharts.PieChart
 
         private void DrawLegend(Graphics graphic)
         {
+            graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
             const int Width = 25;
             const int Height = 15;
 
             var left = this.Height + 30;
             var top = 10;
 
-            using (var textBrush = new SolidBrush(Color.FromArgb(100, 100, 100)))
+            using (var textBrush = new SolidBrush(Color.FromArgb(70, 70, 70)))
             {
                 foreach (var entry in Entries)
                 {
@@ -125,6 +126,7 @@ namespace SimpleImageCharts.PieChart
                     top += 20;
                 }
             }
+            graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
         }
     }
 }
