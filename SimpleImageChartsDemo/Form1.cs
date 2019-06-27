@@ -44,6 +44,11 @@ namespace WindowsFormsChart
                 Entries = entries
             };
 
+            chart.AfterDraw = graphics =>
+            {
+                graphics.DrawString("sssss", chart.Font, Brushes.Red, 100, 100);
+            };
+
             var bitmap = chart.CreateImage();
 
             pictureBox1.Image = bitmap;
@@ -105,6 +110,7 @@ namespace WindowsFormsChart
         {
             var chart = new BarChart
             {
+                ChartCaption = "aaaaaaaaaa ccccccccdddddddddddddddddcccc",
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 IsStacked = true,

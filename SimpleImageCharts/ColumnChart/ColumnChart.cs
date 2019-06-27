@@ -6,13 +6,13 @@ namespace SimpleImageCharts.ColumnChart
 {
     public class ColumnChart
     {
-        private const int MarginLeft = 30;
-
         private const int MarginRight = 30;
 
         private const int MarginTop = 50;
 
         private const int MarginBottom = 120;
+
+        public int MarginLeft { get; set; } = 30;
 
         public string FormatColumnValue { get; set; } = "{0}";
 
@@ -74,6 +74,14 @@ namespace SimpleImageCharts.ColumnChart
                     offsetX += ColumnSize;
                 }
 
+                // draw column values after draw all columns so that if the column will not overlap the texts
+                offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
+                foreach (var data in DataSets)
+                {
+                    DrawColumnSeriesValues(graphic, data, offsetX + data.OffsetX);
+                    offsetX += ColumnSize;
+                }
+
                 DrawCategoyLabels(graphic);
             }
 
@@ -125,16 +133,40 @@ namespace SimpleImageCharts.ColumnChart
                         if (length >= 0)
                         {
                             graphics.FillRectangle(brush, x, _rootY - length, ColumnSize, length);
-                            graphics.DrawString(text, this.ColumnValueFont, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length - 15, stringFormat);
                         }
                         else
                         {
                             graphics.FillRectangle(brush, x, _rootY, ColumnSize, Math.Abs(length));
-                            graphics.DrawString(text, this.ColumnValueFont, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length, stringFormat);
                         }
 
                         x += spaceX;
                     }
+                }
+            }
+        }
+
+        private void DrawColumnSeriesValues(Graphics graphics, ColumnSeries series, int offsetX)
+        {
+            var spaceX = _categoryWidth;
+            var x = MarginLeft + (spaceX / 2) + offsetX;
+            using (var stringFormat = new StringFormat())
+            {
+                stringFormat.Alignment = StringAlignment.Center;
+                for (int i = 0; i < series.Data.Length; i++)
+                {
+                    var value = series.Data[i];
+                    var length = _heightUnit * value;
+                    var text = string.Format(FormatColumnValue, value);
+                    if (length >= 0)
+                    {
+                        graphics.DrawString(text, this.ColumnValueFont, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length - 15, stringFormat);
+                    }
+                    else
+                    {
+                        graphics.DrawString(text, this.ColumnValueFont, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length, stringFormat);
+                    }
+
+                    x += spaceX;
                 }
             }
         }

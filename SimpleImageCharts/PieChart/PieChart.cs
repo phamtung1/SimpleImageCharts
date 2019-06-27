@@ -26,6 +26,8 @@ namespace SimpleImageCharts.PieChart
 
         public bool IsDonut { get; set; } = false;
 
+        public Action<Graphics> AfterDraw { get; set; }
+
         public Bitmap CreateImage()
         {
             if (Entries == null || Entries.Length == 0)
@@ -66,6 +68,11 @@ namespace SimpleImageCharts.PieChart
                     var x = Height / 4;
                     graphic.FillEllipse(Brushes.White, x, x, Height / 2, Height / 2);
                 }
+
+                if(AfterDraw != null)
+                {
+                    AfterDraw(graphic);
+                }
             }
 
             return bitmap;
@@ -87,7 +94,7 @@ namespace SimpleImageCharts.PieChart
                 var startAngle = InitialAngle;
                 foreach (var entry in Entries)
                 {
-                    if(entry.Value == 0)
+                    if (entry.Value == 0)
                     {
                         continue;
                     }
@@ -107,8 +114,8 @@ namespace SimpleImageCharts.PieChart
         private void DrawLegend(Graphics graphic)
         {
             graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            const int Width = 25;
-            const int Height = 15;
+            const int BoxWidth = 25;
+            const int BoxHeight = 15;
 
             var left = this.Height + 30;
             var top = 10;
@@ -119,13 +126,14 @@ namespace SimpleImageCharts.PieChart
                 {
                     using (var brush = new SolidBrush(entry.Color))
                     {
-                        graphic.FillRectangle(brush, left, top, Width, Height);
-                        graphic.DrawString(entry.Label, Font, textBrush, left + Width + 5, top);
+                        graphic.FillRectangle(brush, left, top, BoxWidth, BoxHeight);
+                        graphic.DrawString(entry.Label, Font, textBrush, left + BoxWidth + 5, top);
                     }
 
                     top += 20;
                 }
             }
+
             graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
         }
     }

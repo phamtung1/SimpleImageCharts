@@ -126,8 +126,11 @@ namespace SimpleImageCharts.RadarChart
 
         private void DrawGridLine(Graphics graphic, float radius, PointF center)
         {
-            var verticies = CalculateVertices(Categories.Length, radius, InitAngle, center);
-            graphic.DrawPolygon(Pens.LightGray, verticies);
+            using (var pen = new Pen(ColorTranslator.FromHtml("#C4C4C4")))
+            {
+                var verticies = CalculateVertices(Categories.Length, radius, InitAngle, center);
+                graphic.DrawPolygon(pen, verticies);
+            }
         }
 
         private void DrawCategories(Graphics graphics)

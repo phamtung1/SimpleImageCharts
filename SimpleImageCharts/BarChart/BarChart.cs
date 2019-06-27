@@ -14,6 +14,8 @@ namespace SimpleImageCharts.BarChart
 
         public int MarginBottom { get; set; } = 100;
 
+        public string ChartCaption { get; set; }
+
         // use "{0:0;0}" for forcing positive value
         public string FormatAxisValue { get; set; } = "{0}";
 
@@ -92,9 +94,24 @@ namespace SimpleImageCharts.BarChart
 
                 DrawCategoryLabels(graphic);
                 DrawLegend(graphic);
+                DrawChartCaption(graphic);
             }
 
             return bitmap;
+        }
+
+        private void DrawChartCaption(Graphics graphics)
+        {
+            if (!string.IsNullOrWhiteSpace(ChartCaption))
+            {
+                using (var stringFormat = new StringFormat())
+                {
+                    stringFormat.Alignment = StringAlignment.Center;
+                    var x = MarginLeft + (Width - MarginLeft - MarginRight) / 2;
+
+                    graphics.DrawString(ChartCaption, this.Font, Brushes.Black, x, Height - (int)(MarginBottom * 0.3), stringFormat);
+                }
+            }
         }
 
         private void DrawHorizontalLines(Graphics graphic)
@@ -182,7 +199,7 @@ namespace SimpleImageCharts.BarChart
         private void DrawBarSeries(Graphics graphics, BarSeries series, int offsetY)
         {
             var y = MarginTop + (_categoryHeight / 2) + offsetY;
-            using(var positiveNumberStringFormat = new StringFormat())
+            using (var positiveNumberStringFormat = new StringFormat())
             using (var negativeNumberStringFormat = new StringFormat())
             using (var brush = new SolidBrush(series.Color))
             {
@@ -199,7 +216,7 @@ namespace SimpleImageCharts.BarChart
                         graphics.FillRectangle(brush, _rootX, y, length, BarSize);
                         graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.Gray, _rootX + length + 2, y + (BarSize / 2), positiveNumberStringFormat);
                     }
-                    else if(length < 0)
+                    else if (length < 0)
                     {
                         graphics.FillRectangle(brush, _rootX + length, y, Math.Abs(length), BarSize);
                         graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.Gray, _rootX + length - 2, y + (BarSize / 2), negativeNumberStringFormat);
@@ -219,7 +236,7 @@ namespace SimpleImageCharts.BarChart
             var legendWidth = labelWidth * DataSets.Length;
 
             var left = MarginLeft + (Width - MarginLeft - MarginRight - legendWidth) / 2 + RectWidth;
-            var top = Height - MarginBottom / 2;
+            var top = Height - (int)(string.IsNullOrWhiteSpace(ChartCaption) ? MarginBottom * 0.5  : MarginBottom * 0.8);
 
             using (var textBrush = new SolidBrush(Color.FromArgb(100, 100, 100)))
             {
@@ -239,6 +256,6 @@ namespace SimpleImageCharts.BarChart
                     left += labelWidth;
                 }
             }
-            }
         }
+    }
 }
