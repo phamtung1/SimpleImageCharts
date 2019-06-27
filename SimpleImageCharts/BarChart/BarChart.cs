@@ -104,12 +104,13 @@ namespace SimpleImageCharts.BarChart
         {
             if (!string.IsNullOrWhiteSpace(ChartCaption))
             {
+                using (var font = new Font("Arial", 12, FontStyle.Bold))
                 using (var stringFormat = new StringFormat())
                 {
                     stringFormat.Alignment = StringAlignment.Center;
                     var x = MarginLeft + (Width - MarginLeft - MarginRight) / 2;
 
-                    graphics.DrawString(ChartCaption, this.Font, Brushes.Black, x, Height - (int)(MarginBottom * 0.3), stringFormat);
+                    graphics.DrawString(ChartCaption, font, Brushes.DarkBlue, x, Height - (int)(MarginBottom * 0.3), stringFormat);
                 }
             }
         }

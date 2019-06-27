@@ -157,7 +157,7 @@ namespace SimpleImageCharts.RadarChart
 
                     if (point.Y < _centerPoint.Y)
                     {
-                        point.Y -= 15;
+                        point.Y -= 20;
                     }
 
                     graphics.DrawString(Categories[i], this.Font, Brushes.Black, point, stringFormat);
