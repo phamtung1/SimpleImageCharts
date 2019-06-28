@@ -104,13 +104,14 @@ namespace SimpleImageCharts.BarChart
         {
             if (!string.IsNullOrWhiteSpace(ChartCaption))
             {
+                using(var brush = new SolidBrush(ColorTranslator.FromHtml("#1F3864")))
                 using (var font = new Font("Arial", 12, FontStyle.Bold))
                 using (var stringFormat = new StringFormat())
                 {
                     stringFormat.Alignment = StringAlignment.Center;
                     var x = MarginLeft + (Width - MarginLeft - MarginRight) / 2;
 
-                    graphics.DrawString(ChartCaption, font, Brushes.DarkBlue, x, Height - (int)(MarginBottom * 0.3), stringFormat);
+                    graphics.DrawString(ChartCaption, font, brush, x, Height - (int)(MarginBottom * 0.3), stringFormat);
                 }
             }
         }
@@ -237,7 +238,7 @@ namespace SimpleImageCharts.BarChart
             var legendWidth = labelWidth * DataSets.Length;
 
             var left = MarginLeft + (Width - MarginLeft - MarginRight - legendWidth) / 2 + RectWidth;
-            var top = Height - (int)(string.IsNullOrWhiteSpace(ChartCaption) ? MarginBottom * 0.5  : MarginBottom * 0.8);
+            var top = Height - (int)(string.IsNullOrWhiteSpace(ChartCaption) ? MarginBottom * 0.5  : (float)MarginBottom * 0.65);
 
             using (var textBrush = new SolidBrush(Color.FromArgb(100, 100, 100)))
             {

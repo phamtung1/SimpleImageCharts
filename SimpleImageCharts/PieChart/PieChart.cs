@@ -135,11 +135,10 @@ namespace SimpleImageCharts.PieChart
             graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
             const int BoxWidth = 25;
             const int BoxHeight = 15;
-            const int LineHeight = 25;
-            var totalHeight = LineHeight * Entries.Length;
-
+            const int LineHeight = 20;
+            
             var left = PieAligment == PositionAlignment.Left ? this.Height + 40 : Width - Height - 150;
-            var top = (Height - totalHeight) / 2;
+            var top = 20;
 
             using (var textBrush = new SolidBrush(Color.FromArgb(70, 70, 70)))
             {
