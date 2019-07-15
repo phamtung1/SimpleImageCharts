@@ -201,6 +201,8 @@ namespace WindowsFormsChart
             var categories = new[] { "Eating", "Sleeping", "Doing Nothing", "Playing", "Relaxing", "Watching" };
             var chart = new RadarChart
             {
+                MaxDataValue = 100,
+                StepSize = 10,
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 Categories = categories,

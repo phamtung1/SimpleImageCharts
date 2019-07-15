@@ -28,6 +28,8 @@ namespace SimpleImageCharts.RadarChart
 
         public int StepSize { get; set; } = 0;
 
+        public int MaxDataValue { get; set; } = 0;
+
         public string[] Categories { get; set; }
 
         public RadarChartSeries[] DataSets { get; set; }
@@ -47,22 +49,24 @@ namespace SimpleImageCharts.RadarChart
                 throw new ArgumentException("Invalid data");
             }
 
-            var maxDataValue = DataSets.SelectMany(x => x.Data).Max();
+            var maxDataValue = MaxDataValue > 0 ? MaxDataValue : DataSets.SelectMany(x => x.Data).Max();
             var bitmap = new Bitmap(Width, Height);
             using (var graphic = Graphics.FromImage(bitmap))
             {
                 graphic.Clear(Color.White);
                 graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                var numberOfStep = 0;
+
                 var firstDigit = MathHelper.GetFirstDigit(maxDataValue);
                 // test again with value <= 10
-                var numberOfStep = firstDigit + 1;
+                numberOfStep = firstDigit + 1;
 
                 var roundMaxValue = int.Parse(firstDigit.ToString().PadRight(maxDataValue.ToString().Length, '0'));
                 if (StepSize == 0)
                 {
                     StepSize = roundMaxValue / firstDigit;
-                    
-                }else
+                }
+                else
                 {
                     numberOfStep = roundMaxValue / StepSize + 1;
                 }

@@ -6,11 +6,11 @@ namespace SimpleImageCharts.ColumnChart
 {
     public class ColumnChart
     {
-        private const int MarginRight = 30;
+        public int MarginRight { get; set; } = 30;
 
-        private const int MarginTop = 50;
+        public int MarginTop { get; set; } = 50;
 
-        private const int MarginBottom = 120;
+        public int MarginBottom { get; set; } = 120;
 
         public int MarginLeft { get; set; } = 30;
 
