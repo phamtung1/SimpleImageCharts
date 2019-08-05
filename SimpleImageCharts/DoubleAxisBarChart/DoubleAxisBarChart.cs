@@ -53,14 +53,18 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                 graphic.Clear(Color.White);
                 // Left X axis
                 graphic.DrawLine(Pens.LightGray, MarginLeft, MarginTop, MarginLeft, Height - MarginBottom);
-                graphic.DrawString(FirstDataSet.Label, axisFont, Brushes.Gray, MarginLeft, 10);
+                using (var labelBrush = new SolidBrush(FirstDataSet.LabelColor))
+                {
+                    graphic.DrawString(FirstDataSet.Label, axisFont, labelBrush, MarginLeft, 10);
+                }
 
                 // Second X axis
                 graphic.DrawLine(Pens.LightGray, Width - MarginRight, MarginTop, Width - MarginRight, Height - MarginBottom);
                 using (var stringFormat = new StringFormat())
+                using (var labelBrush = new SolidBrush(SecondDataSet.LabelColor))
                 {
                     stringFormat.Alignment = StringAlignment.Far;
-                    graphic.DrawString(SecondDataSet.Label, axisFont, Brushes.Gray, Width - MarginRight, 10, stringFormat);
+                    graphic.DrawString(SecondDataSet.Label, axisFont, labelBrush, Width - MarginRight, 10, stringFormat);
                 }
 
                 DrawHorizontalLines(graphic);
