@@ -51,6 +51,7 @@ namespace SimpleImageCharts.BarChart
 
         public Bitmap CreateImage()
         {
+            const int NumberOfColumns = 4;
             _categoryHeight = (Height - MarginTop - MarginBottom) / Categories.Length;
 
             _maxValue = DataSets.SelectMany(x => x.Data).Max(x => x) * 1.1f;
@@ -59,7 +60,14 @@ namespace SimpleImageCharts.BarChart
             if (StepSize == 0)
             {
                 var range = _maxValue - _minValue;
-                StepSize = (int)(range / 4);
+                if (range < NumberOfColumns)
+                {
+                    StepSize = 1;
+                }
+                else
+                {
+                    StepSize = (int)(range / NumberOfColumns);
+                }
             }
 
             if (_minValue > 0)
