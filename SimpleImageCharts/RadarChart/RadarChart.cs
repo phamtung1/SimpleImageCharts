@@ -1,4 +1,5 @@
-﻿using SimpleImageCharts.Helpers;
+﻿using SimpleImageCharts.Core;
+using SimpleImageCharts.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace SimpleImageCharts.RadarChart
 {
-    public class RadarChart
+    public class RadarChart : IImageChart
     {
         private const int InitAngle = 90;
 
@@ -42,7 +43,7 @@ namespace SimpleImageCharts.RadarChart
 
         private float _unitPixel;
 
-        public Bitmap CreateImage()
+        public virtual Bitmap CreateImage()
         {
             if (Categories.Length < 3)
             {

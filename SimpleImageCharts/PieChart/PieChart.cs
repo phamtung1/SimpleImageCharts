@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using SimpleImageCharts.Core;
 using SimpleImageCharts.Enum;
 
 namespace SimpleImageCharts.PieChart
 {
-    public class PieChart
+    public class PieChart : IImageChart
     {
         private const float InitialAngle = -90;
 
@@ -31,7 +32,7 @@ namespace SimpleImageCharts.PieChart
 
         public PositionAlignment PieAligment { get; set; } = PositionAlignment.Left;
 
-        public Bitmap CreateImage()
+        public virtual Bitmap CreateImage()
         {
             if (Entries == null || Entries.Length == 0)
             {

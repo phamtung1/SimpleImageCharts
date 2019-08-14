@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SimpleImageCharts.Core;
+using System;
 using System.Drawing;
 using System.Linq;
 
 namespace SimpleImageCharts.ColumnChart
 {
-    public class ColumnChart
+    public class ColumnChart : IImageChart
     {
         public int MarginRight { get; set; } = 30;
 
@@ -42,7 +43,7 @@ namespace SimpleImageCharts.ColumnChart
 
         private float _minValue;
 
-        public Bitmap CreateImage()
+        public virtual Bitmap CreateImage()
         {
             _categoryWidth = (Width - MarginLeft - MarginRight) / Categories.Length;
 

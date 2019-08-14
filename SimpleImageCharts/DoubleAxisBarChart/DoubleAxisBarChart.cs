@@ -1,8 +1,9 @@
-﻿using System.Drawing;
+﻿using SimpleImageCharts.Core;
+using System.Drawing;
 
 namespace SimpleImageCharts.DoubleAxisBarChart
 {
-    public class DoubleAxisBarChart
+    public class DoubleAxisBarChart : IImageChart
     {
         public int MarginLeft { get; set; } = 150;
 
@@ -38,7 +39,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 
         private float _maxValue;
 
-        public Bitmap CreateImage()
+        public virtual Bitmap CreateImage()
         {
             _categoryHeight = (Height - MarginTop - MarginBottom) / Categories.Length;
 

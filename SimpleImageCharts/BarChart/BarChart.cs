@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SimpleImageCharts.Core;
+using System;
 using System.Drawing;
 using System.Linq;
 
 namespace SimpleImageCharts.BarChart
 {
-    public class BarChart
+    public class BarChart : IImageChart
     {
         private const int MarginLeft = 100;
 
@@ -49,7 +50,7 @@ namespace SimpleImageCharts.BarChart
 
         private float _minValue;
 
-        public Bitmap CreateImage()
+        public virtual Bitmap CreateImage()
         {
             const int NumberOfColumns = 4;
             _categoryHeight = (Height - MarginTop - MarginBottom) / Categories.Length;
