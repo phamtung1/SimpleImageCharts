@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace SimpleImageCharts.DoubleAxisBarChart
 {
-    public class DoubleAxisBarChart : IImageChart
+    public class DoubleAxisBarChart : IDoubleAxisBarChart
     {
         public int MarginLeft { get; set; } = 150;
 
@@ -165,7 +165,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 
                         x -= 2;
                         Brush textBrush;
-                        if(value <= 1)
+                        if (value <= 1)
                         {
                             textBrush = Brushes.DarkBlue;
                         }

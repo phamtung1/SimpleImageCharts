@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SimpleImageCharts.ColumnChart
 {
-    public class ColumnChart : IImageChart
+    public class ColumnChart : IColumnChart
     {
         public int MarginRight { get; set; } = 30;
 

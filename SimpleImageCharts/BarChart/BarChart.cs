@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SimpleImageCharts.BarChart
 {
-    public class BarChart : IImageChart
+    public class BarChart : IBarChart
     {
         private const int MarginLeft = 100;
 
@@ -113,7 +113,7 @@ namespace SimpleImageCharts.BarChart
         {
             if (!string.IsNullOrWhiteSpace(ChartCaption))
             {
-                using(var brush = new SolidBrush(ColorTranslator.FromHtml("#1F3864")))
+                using (var brush = new SolidBrush(ColorTranslator.FromHtml("#1F3864")))
                 using (var font = new Font("Arial", 12, FontStyle.Bold))
                 using (var stringFormat = new StringFormat())
                 {
@@ -247,7 +247,7 @@ namespace SimpleImageCharts.BarChart
             var legendWidth = labelWidth * DataSets.Length;
 
             var left = MarginLeft + (Width - MarginLeft - MarginRight - legendWidth) / 2 + RectWidth;
-            var top = Height - (int)(string.IsNullOrWhiteSpace(ChartCaption) ? MarginBottom * 0.5  : (float)MarginBottom * 0.65);
+            var top = Height - (int)(string.IsNullOrWhiteSpace(ChartCaption) ? MarginBottom * 0.5 : (float)MarginBottom * 0.65);
 
             using (var textBrush = new SolidBrush(Color.FromArgb(100, 100, 100)))
             {

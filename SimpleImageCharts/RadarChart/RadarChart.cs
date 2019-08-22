@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SimpleImageCharts.RadarChart
 {
-    public class RadarChart : IImageChart
+    public class RadarChart : IRadarChart
     {
         private const int InitAngle = 90;
 

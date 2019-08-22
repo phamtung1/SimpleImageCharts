@@ -6,7 +6,7 @@ using SimpleImageCharts.Enum;
 
 namespace SimpleImageCharts.PieChart
 {
-    public class PieChart : IImageChart
+    public class PieChart : IPieChart
     {
         private const float InitialAngle = -90;
 
@@ -137,7 +137,7 @@ namespace SimpleImageCharts.PieChart
             const int BoxWidth = 25;
             const int BoxHeight = 15;
             const int LineHeight = 20;
-            
+
             var left = PieAligment == PositionAlignment.Left ? this.Height + 40 : Width - Height - 150;
             var top = 20;
 
