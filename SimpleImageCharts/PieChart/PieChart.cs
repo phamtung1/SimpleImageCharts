@@ -32,7 +32,7 @@ namespace SimpleImageCharts.PieChart
 
         public PositionAlignment PieAligment { get; set; } = PositionAlignment.Left;
 
-        public virtual Bitmap CreateImage()
+        public virtual Image CreateImage()
         {
             if (Entries == null || Entries.Length == 0)
             {

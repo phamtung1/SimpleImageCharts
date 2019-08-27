@@ -43,7 +43,7 @@ namespace SimpleImageCharts.ColumnChart
 
         private float _minValue;
 
-        public virtual Bitmap CreateImage()
+        public virtual Image CreateImage()
         {
             _categoryWidth = (Width - MarginLeft - MarginRight) / Categories.Length;
 

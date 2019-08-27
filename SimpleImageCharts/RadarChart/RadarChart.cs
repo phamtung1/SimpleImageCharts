@@ -43,7 +43,7 @@ namespace SimpleImageCharts.RadarChart
 
         private float _unitPixel;
 
-        public virtual Bitmap CreateImage()
+        public virtual Image CreateImage()
         {
             if (Categories.Length < 3)
             {

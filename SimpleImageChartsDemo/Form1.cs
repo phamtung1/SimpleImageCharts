@@ -44,9 +44,9 @@ namespace WindowsFormsChart
                 Entries = entries
             };
 
-            var bitmap = chart.CreateImage();
+            var image = chart.CreateImage();
 
-            pictureBox1.Image = bitmap;
+            pictureBox1.Image = image;
         }
 
         private void BtnDonutChart_Click(object sender, EventArgs e)
@@ -62,9 +62,9 @@ namespace WindowsFormsChart
                 PieAligment = SimpleImageCharts.Enum.PositionAlignment.Right
             };
 
-            var bitmap = chart.CreateImage();
+            var image = chart.CreateImage();
 
-            pictureBox1.Image = bitmap;
+            pictureBox1.Image = image;
         }
 
         private void BtnBarChart_Click(object sender, EventArgs e)
@@ -98,8 +98,9 @@ namespace WindowsFormsChart
                 }
             };
 
-            pictureBox1.Image = chart.CreateImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\BarChart.jpg");
+            var image = chart.CreateImage();
+            pictureBox1.Image = image;
+            image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\BarChart.jpg");
         }
 
         private void BtnStackedBar_Click(object sender, EventArgs e)
