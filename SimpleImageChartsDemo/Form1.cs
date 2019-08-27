@@ -46,7 +46,7 @@ namespace WindowsFormsChart
 
             var image = chart.CreateImage();
 
-            pictureBox1.Image = image;
+            pictureBox1.Image = image.GetImage();
         }
 
         private void BtnDonutChart_Click(object sender, EventArgs e)
@@ -64,7 +64,7 @@ namespace WindowsFormsChart
 
             var image = chart.CreateImage();
 
-            pictureBox1.Image = image;
+            pictureBox1.Image = image.GetImage();
         }
 
         private void BtnBarChart_Click(object sender, EventArgs e)
@@ -99,7 +99,7 @@ namespace WindowsFormsChart
             };
 
             var image = chart.CreateImage();
-            pictureBox1.Image = image;
+            pictureBox1.Image = image.GetImage();
             image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\BarChart.jpg");
         }
 
@@ -131,7 +131,7 @@ namespace WindowsFormsChart
                 }
             };
 
-            pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image = chart.CreateImage().GetImage();
             pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBarChart.jpg");
         }
 
@@ -157,7 +157,7 @@ namespace WindowsFormsChart
                 }
             };
 
-            pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image = chart.CreateImage().GetImage();
             pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\DoubleAxisBarChart.jpg");
         }
 
@@ -192,7 +192,7 @@ namespace WindowsFormsChart
                 DataSets = datasets
             };
 
-            pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image = chart.CreateImage().GetImage();
             pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\ColumnChart.jpg");
         }
 
@@ -223,7 +223,7 @@ namespace WindowsFormsChart
                     }
                 }
             };
-            pictureBox1.Image = chart.CreateImage();
+            pictureBox1.Image = chart.CreateImage().GetImage();
             pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\RadarChart.jpg");
         }
 

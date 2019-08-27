@@ -39,7 +39,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 
         private float _maxValue;
 
-        public virtual Image CreateImage()
+        public virtual IImageFile CreateImage()
         {
             _categoryHeight = (Height - MarginTop - MarginBottom) / Categories.Length;
 
@@ -75,7 +75,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                 DrawCategoyLabels(graphic);
             }
 
-            return bitmap;
+            return new ImageFile(bitmap);
         }
 
         private float FindMaxValueFromBothDataSets()

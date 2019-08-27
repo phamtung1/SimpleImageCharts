@@ -4,6 +4,6 @@ namespace SimpleImageCharts.Core
 {
     public interface IImageChart
     {
-        Image CreateImage();
+        IImageFile CreateImage();
     }
 }

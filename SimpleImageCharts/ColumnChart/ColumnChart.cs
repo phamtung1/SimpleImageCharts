@@ -43,7 +43,7 @@ namespace SimpleImageCharts.ColumnChart
 
         private float _minValue;
 
-        public virtual Image CreateImage()
+        public virtual IImageFile CreateImage()
         {
             _categoryWidth = (Width - MarginLeft - MarginRight) / Categories.Length;
 
@@ -86,7 +86,7 @@ namespace SimpleImageCharts.ColumnChart
                 DrawCategoyLabels(graphic);
             }
 
-            return bitmap;
+            return new ImageFile(bitmap);
         }
 
         private void DrawVerticalLines(Graphics graphic)

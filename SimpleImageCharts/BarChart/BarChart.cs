@@ -50,7 +50,7 @@ namespace SimpleImageCharts.BarChart
 
         private float _minValue;
 
-        public virtual Image CreateImage()
+        public virtual IImageFile CreateImage()
         {
             const int NumberOfColumns = 4;
             _categoryHeight = (Height - MarginTop - MarginBottom) / Categories.Length;
@@ -106,7 +106,7 @@ namespace SimpleImageCharts.BarChart
                 DrawChartCaption(graphic);
             }
 
-            return bitmap;
+            return new ImageFile(bitmap);
         }
 
         private void DrawChartCaption(Graphics graphics)

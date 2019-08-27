@@ -43,7 +43,7 @@ namespace SimpleImageCharts.RadarChart
 
         private float _unitPixel;
 
-        public virtual Image CreateImage()
+        public virtual IImageFile CreateImage()
         {
             if (Categories.Length < 3)
             {
@@ -92,7 +92,7 @@ namespace SimpleImageCharts.RadarChart
                 DrawLegends(graphic);
             }
 
-            return bitmap;
+            return new ImageFile(bitmap);
         }
 
         private void DrawPathValues(Graphics graphics, RadarChartSeries dataset)

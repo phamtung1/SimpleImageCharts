@@ -32,7 +32,7 @@ namespace SimpleImageCharts.PieChart
 
         public PositionAlignment PieAligment { get; set; } = PositionAlignment.Left;
 
-        public virtual Image CreateImage()
+        public virtual IImageFile CreateImage()
         {
             if (Entries == null || Entries.Length == 0)
             {
@@ -64,7 +64,7 @@ namespace SimpleImageCharts.PieChart
                 }
             }
 
-            return bitmap;
+            return new ImageFile(bitmap);
         }
 
         private void DrawPie(Graphics graphic, float total)
