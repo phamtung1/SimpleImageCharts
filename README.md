@@ -1,5 +1,5 @@
 # SimpleImageCharts
-This is a simple charting library for rendering charts as images. 
+This is a simple charting library for rendering charts as images using GDI+. 
 
 # Install 
 
