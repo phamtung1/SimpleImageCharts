@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using SimpleImageCharts.Enum;
+using System.Collections.Generic;
 using System.Drawing;
 
-namespace SimpleImageCharts.Core.Components
+namespace SimpleImageCharts.Core.Models
 {
     public class Legend
     {
@@ -16,5 +17,9 @@ namespace SimpleImageCharts.Core.Components
         public int MarginLeft { get; set; } = 0;
 
         public int MarginTop { get; set; } = 0;
+
+        public HorizontalAlign HorizontalAlign { get; set; } = HorizontalAlign.Center;
+
+        public VerticalAlign VerticalAlign { get; set; } = VerticalAlign.Bottom;
     }
 }

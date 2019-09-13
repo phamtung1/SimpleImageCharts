@@ -1,6 +1,6 @@
 ﻿using SimpleImageCharts.BarChart;
 using SimpleImageCharts.ColumnChart;
-using SimpleImageCharts.Core.Components;
+using SimpleImageCharts.Core.Models;
 using SimpleImageCharts.DoubleAxisBarChart;
 using SimpleImageCharts.PieChart;
 using SimpleImageCharts.RadarChart;
@@ -60,7 +60,7 @@ namespace WindowsFormsChart
                 Height = pictureBox1.Height,
                 Entries = entries,
                 IsDonut = true,
-                PieAligment = SimpleImageCharts.Enum.PositionAlignment.Right
+                PieAligment = SimpleImageCharts.Enum.PositionAlign.Right
             };
 
             var image = chart.CreateImage();
@@ -74,7 +74,12 @@ namespace WindowsFormsChart
             {
                 Legend = new Legend
                 {
-                    MarginTop = -40
+                    MarginTop = -40,
+                    HorizontalAlign = SimpleImageCharts.Enum.HorizontalAlign.Right
+                },
+                ChartGrid = new ChartGrid
+                {
+                    LineColor = Color.LightGreen
                 },
                 SubTitle = new SubTitle { Text = "AAAAAAA" },
                 Width = pictureBox1.Width,
@@ -115,7 +120,11 @@ namespace WindowsFormsChart
             {
                 Legend = new Legend
                 {
-                    MarginTop = - 50
+                    MarginTop = -50
+                },
+                ChartGrid = new ChartGrid
+                {
+                    LineColor = Color.LightGreen
                 },
                 SubTitle = new SubTitle { Text = "aaaaaaaaaa ccccccccdddddddddddddddddcccc" },
                 Width = pictureBox1.Width,

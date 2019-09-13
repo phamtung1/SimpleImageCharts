@@ -2,7 +2,8 @@
 using GdiSharp.Components.Base;
 using GdiSharp.Renderer;
 using SimpleImageCharts.Core;
-using SimpleImageCharts.Core.Components;
+using SimpleImageCharts.Core.Helpers;
+using SimpleImageCharts.Core.Models;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace SimpleImageCharts.BarChart
         public Font Font { get; set; } = new Font("Arial", 12);
 
         public Font BarValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
+
+        public ChartGrid ChartGrid { get; set; }
 
         private int _categoryHeight;
 
@@ -81,15 +84,13 @@ namespace SimpleImageCharts.BarChart
             _rootX = MarginLeft + (_widthUnit * Math.Abs(_minValue));
 
             var bitmap = new Bitmap(Width, Height);
-            var renderer = new GdiRenderer(bitmap);
             var container = new GdiRectangle
             {
                 Width = bitmap.Width,
                 Height = bitmap.Height,
                 Color = Color.White
             };
-            AddHorizontalLines(container);
-            AddVerticalLines(container);
+            AddChartGrid(container);
 
             var offsetY = IsStacked ? -BarSize / 2 : -(DataSets.Length * BarSize) / 2;
             foreach (var data in DataSets)
@@ -101,16 +102,11 @@ namespace SimpleImageCharts.BarChart
                 }
             }
 
-            renderer.Render(container);
+            CreateLegendItems();
+            base.AddLegend(container);
 
-            if (Legend != null && Legend.Items == null)
-            {
-                Legend.Items = DataSets.Select(x => new LegendItem
-                {
-                    Text = x.Label,
-                    Color = x.Color
-                }).ToArray();
-            }
+            var renderer = new GdiRenderer(bitmap);
+            renderer.Render(container);
 
             using (var graphic = renderer.GetGraphics())
             {
@@ -120,64 +116,56 @@ namespace SimpleImageCharts.BarChart
                 DrawHorizontalAxisValues(graphic);
 
                 DrawCategoryLabels(graphic);
-                base.DrawLegend(graphic);
                 base.DrawSubTitle(graphic);
             }
 
             return new ImageFile(bitmap);
         }
 
-        private void AddHorizontalLines(GdiContainer container)
+        private void CreateLegendItems()
         {
-            var y = MarginTop;
-            var numOfLines = Categories.Length + 1;
-            for (int i = 0; i < numOfLines; i++)
+            if (Legend != null && Legend.Items == null)
             {
-                var line = new GdiHozLine
+                Legend.Items = DataSets.Select(x => new LegendItem
                 {
-                    Color = Color.LightGray,
-                    X = MarginLeft,
-                    Y = y,
-                    Length = Width - MarginRight
-                };
-                container.AddChild(line);
-                y += _categoryHeight;
+                    Text = x.Label,
+                    Color = x.Color
+                }).ToArray();
             }
         }
 
-        private void AddVerticalLines(GdiContainer container)
+        private void AddChartGrid(GdiContainer container)
         {
-            var x = _rootX;
-            var realStepSize = StepSize * _widthUnit;
-            for (int i = 0; i < _maxValue; i += StepSize)
+            if (ChartGrid == null)
             {
-                x += realStepSize;
-                if (x < Width - MarginRight)
-                {
-                    container.AddChild(new GdiVerLine
-                    {
-                        Color = Color.LightGray,
-                        X = x,
-                        Y = MarginTop,
-                        Length = Height - MarginBottom
-                    });
-                }
+                return;
             }
 
-            x = _rootX;
-            for (int i = 0; i > _minValue; i -= StepSize)
+            if (_rootX > MarginLeft)
             {
-                x -= realStepSize;
-                if (Math.Abs(x) > MarginLeft)
-                {
-                    container.AddChild(new GdiVerLine
-                    {
-                        Color = Color.LightGray,
-                        X = x,
-                        Y = MarginTop,
-                        Length = Height - MarginBottom
-                    });
-                }
+                var leftGrid = GdiMapper.ToGdiGrid(ChartGrid);
+                leftGrid.CellHeight = _categoryHeight;
+                leftGrid.CellWidth = StepSize * _widthUnit;
+                leftGrid.Height = this.Height - MarginTop - MarginBottom;
+                leftGrid.Width = _rootX - MarginLeft;
+                leftGrid.X = MarginLeft;
+                leftGrid.Y = MarginTop;
+                leftGrid.IsDrawnFromRightToLeft = true;
+
+                container.AddChild(leftGrid);
+            }
+
+            if (_rootX < Width - MarginRight)
+            {
+                var rightGrid = GdiMapper.ToGdiGrid(ChartGrid);
+                rightGrid.CellHeight = _categoryHeight;
+                rightGrid.CellWidth = StepSize * _widthUnit;
+                rightGrid.Height = this.Height - MarginTop - MarginBottom;
+                rightGrid.Width = this.Width - _rootX - MarginRight;
+                rightGrid.X = _rootX;
+                rightGrid.Y = MarginTop;
+
+                container.AddChild(rightGrid);
             }
         }
 
@@ -247,7 +235,7 @@ namespace SimpleImageCharts.BarChart
                     Font = BarValueFont,
                     Color = Color.Gray,
                     X = bar.Width + 2,
-                    VerticalAlignment = GdiSharp.Enum.VerticalAlignment.Middle
+                    VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle
                 };
 
                 if (length > 0)
@@ -257,8 +245,8 @@ namespace SimpleImageCharts.BarChart
                 else if (length < 0)
                 {
                     bar.X = Width - _rootX;
-                    bar.HorizontalAlignment = GdiSharp.Enum.HorizontalAlignment.Right;
-                    text.HorizontalAlignment = GdiSharp.Enum.HorizontalAlignment.Right;
+                    bar.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
+                    text.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
                 }
 
                 bar.AddChild(text);

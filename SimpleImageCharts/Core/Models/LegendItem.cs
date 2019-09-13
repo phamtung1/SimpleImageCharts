@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace SimpleImageCharts.Core.Components
+namespace SimpleImageCharts.Core.Models
 {
     public class LegendItem
     {

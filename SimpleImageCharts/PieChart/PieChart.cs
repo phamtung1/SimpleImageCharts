@@ -30,7 +30,7 @@ namespace SimpleImageCharts.PieChart
 
         public Action<Graphics> AfterDraw { get; set; }
 
-        public PositionAlignment PieAligment { get; set; } = PositionAlignment.Left;
+        public PositionAlign PieAligment { get; set; } = PositionAlign.Left;
 
         public virtual IImageFile CreateImage()
         {
@@ -39,7 +39,7 @@ namespace SimpleImageCharts.PieChart
                 throw new ArgumentException("Invalid entries data");
             }
 
-            if (PieAligment == PositionAlignment.Top || PieAligment == PositionAlignment.Bottom)
+            if (PieAligment == PositionAlign.Top || PieAligment == PositionAlign.Bottom)
             {
                 throw new ArgumentException("Unsupported Position!");
             }
@@ -70,7 +70,7 @@ namespace SimpleImageCharts.PieChart
         private void DrawPie(Graphics graphic, float total)
         {
             var startAngle = InitialAngle;
-            var rect = PieAligment == PositionAlignment.Left ? new Rectangle(0, 0, Height, Height) :
+            var rect = PieAligment == PositionAlign.Left ? new Rectangle(0, 0, Height, Height) :
                 new Rectangle(Width - Height, 0, Height, Height);
             using (var borderPen = new Pen(BorderColor, BorderWidth))
             {
@@ -91,7 +91,7 @@ namespace SimpleImageCharts.PieChart
 
             if (IsDonut)
             {
-                var x = this.PieAligment == PositionAlignment.Left ? Height / 4 : Width - (Height / 4 * 3);
+                var x = this.PieAligment == PositionAlign.Left ? Height / 4 : Width - (Height / 4 * 3);
                 var y = Height / 4;
                 graphic.FillEllipse(Brushes.White, x, y, Height / 2, Height / 2);
             }
@@ -106,7 +106,7 @@ namespace SimpleImageCharts.PieChart
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
 
-                var centerX = PieAligment == PositionAlignment.Left ? Height / 2f : Width - Height / 2f;
+                var centerX = PieAligment == PositionAlign.Left ? Height / 2f : Width - Height / 2f;
                 var centerY = Height / 2f;
 
                 var labelRadius = Height * 0.4f;
@@ -138,7 +138,7 @@ namespace SimpleImageCharts.PieChart
             const int BoxHeight = 15;
             const int LineHeight = 20;
 
-            var left = PieAligment == PositionAlignment.Left ? this.Height + 40 : Width - Height - 150;
+            var left = PieAligment == PositionAlign.Left ? this.Height + 40 : Width - Height - 150;
             var top = 20;
 
             using (var textBrush = new SolidBrush(Color.FromArgb(70, 70, 70)))

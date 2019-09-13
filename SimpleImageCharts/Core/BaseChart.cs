@@ -1,4 +1,6 @@
-﻿using SimpleImageCharts.Core.Components;
+﻿using GdiSharp.Components.Base;
+using SimpleImageCharts.Core.GdiChartComponents;
+using SimpleImageCharts.Core.Models;
 using System.Drawing;
 using System.Linq;
 
@@ -40,43 +42,17 @@ namespace SimpleImageCharts.Core
             }
         }
 
-        protected virtual void DrawLegend(Graphics graphic)
+        protected virtual void AddLegend(GdiContainer container)
         {
             if (Legend == null || Legend.Items == null || !Legend.Items.Any())
             {
                 return;
             }
 
-            const int RectWidth = 25;
-            const int RectHeight = 15;
-
-            const int labelWidth = 130;
-            var legendWidth = labelWidth * Legend.Items.Count();
-            var legendHeight = RectHeight + 5;
-
-            // currently only support legend at center-bottom position
-            var left = MarginLeft + (Width - MarginLeft - MarginRight - legendWidth) / 2 + RectWidth + Legend.MarginLeft;
-            var top = Height - legendHeight + Legend.MarginTop;
-
-            using (var textBrush = new SolidBrush(Legend.TextColor))
-            using (var font = new Font(Legend.FontName, Legend.FontSize))
+            container.AddChild(new GdiLegend
             {
-                foreach (var item in Legend.Items)
-                {
-                    if (string.IsNullOrEmpty(item.Text))
-                    {
-                        continue;
-                    }
-
-                    using (var brush = new SolidBrush(item.Color))
-                    {
-                        graphic.FillRectangle(brush, left, top, RectWidth, RectHeight);
-                        graphic.DrawString(item.Text, font, textBrush, left + RectWidth + 5, top);
-                    }
-
-                    left += labelWidth;
-                }
-            }
+                Legend = Legend,
+            });
         }
     }
 }
