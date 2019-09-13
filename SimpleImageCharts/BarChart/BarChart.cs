@@ -104,6 +104,7 @@ namespace SimpleImageCharts.BarChart
 
             CreateLegendItems();
             base.AddLegend(container);
+            base.AddSubTitle(container);
 
             var renderer = new GdiRenderer(bitmap);
             renderer.Render(container);
@@ -116,7 +117,6 @@ namespace SimpleImageCharts.BarChart
                 DrawHorizontalAxisValues(graphic);
 
                 DrawCategoryLabels(graphic);
-                base.DrawSubTitle(graphic);
             }
 
             return new ImageFile(bitmap);

@@ -1,4 +1,5 @@
-﻿using GdiSharp.Components.Base;
+﻿using GdiSharp.Components;
+using GdiSharp.Components.Base;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
 using System.Drawing;
@@ -24,22 +25,23 @@ namespace SimpleImageCharts.Core
 
         public Legend Legend { get; set; }
 
-        protected virtual void DrawSubTitle(Graphics graphics)
+        protected virtual void AddSubTitle(GdiContainer container)
         {
             if (SubTitle == null || string.IsNullOrWhiteSpace(SubTitle.Text))
             {
                 return;
             }
 
-            using (var brush = new SolidBrush(SubTitle.Color))
-            using (var font = new Font(SubTitle.FontName, SubTitle.FontSize, FontStyle.Bold))
-            using (var stringFormat = new StringFormat())
+            var gdiText = new GdiText
             {
-                stringFormat.Alignment = StringAlignment.Center;
-                var x = MarginLeft + (Width - MarginLeft - MarginRight) / 2;
-
-                graphics.DrawString(SubTitle.Text, font, brush, x, Height - 30, stringFormat);
-            }
+                Content = SubTitle.Text,
+                Color = SubTitle.Color,
+                HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
+                VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
+                Y = 10,
+                Font = new Font(SubTitle.FontName, SubTitle.FontSize, FontStyle.Bold)
+            };
+            container.AddChild(gdiText);
         }
 
         protected virtual void AddLegend(GdiContainer container)
