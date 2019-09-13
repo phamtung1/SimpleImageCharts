@@ -1,5 +1,6 @@
 ﻿using SimpleImageCharts.BarChart;
 using SimpleImageCharts.ColumnChart;
+using SimpleImageCharts.Core.Components;
 using SimpleImageCharts.DoubleAxisBarChart;
 using SimpleImageCharts.PieChart;
 using SimpleImageCharts.RadarChart;
@@ -71,6 +72,11 @@ namespace WindowsFormsChart
         {
             var chart = new BarChart
             {
+                Legend = new Legend
+                {
+                    MarginTop = -40
+                },
+                SubTitle = new SubTitle { Text = "AAAAAAA" },
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 Categories = new[] { "Product A", "Product B", "Product C" },
@@ -107,9 +113,14 @@ namespace WindowsFormsChart
         {
             var chart = new BarChart
             {
-                ChartCaption = "aaaaaaaaaa ccccccccdddddddddddddddddcccc",
+                Legend = new Legend
+                {
+                    MarginTop = - 50
+                },
+                SubTitle = new SubTitle { Text = "aaaaaaaaaa ccccccccdddddddddddddddddcccc" },
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
+                MarginBottom = 100,
                 IsStacked = true,
                 FormatAxisValue = "{0:0;0}", // force positive values
                 FormatBarValue = "{0:0;0}",

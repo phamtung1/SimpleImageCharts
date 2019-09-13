@@ -8,7 +8,6 @@ namespace SimpleImageCharts.BarChart
         int BarSize { get; set; }
         Font BarValueFont { get; set; }
         string[] Categories { get; set; }
-        string ChartCaption { get; set; }
         BarSeries[] DataSets { get; set; }
         Font Font { get; set; }
         string FormatAxisValue { get; set; }

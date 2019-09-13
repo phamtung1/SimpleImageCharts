@@ -1,22 +1,16 @@
-﻿using SimpleImageCharts.Core;
+﻿using GdiSharp.Components;
+using GdiSharp.Components.Base;
+using GdiSharp.Renderer;
+using SimpleImageCharts.Core;
+using SimpleImageCharts.Core.Components;
 using System;
 using System.Drawing;
 using System.Linq;
 
 namespace SimpleImageCharts.BarChart
 {
-    public class BarChart : IBarChart
+    public class BarChart : BaseChart, IBarChart
     {
-        private const int MarginLeft = 100;
-
-        private const int MarginRight = 30;
-
-        private const int MarginTop = 10;
-
-        public int MarginBottom { get; set; } = 100;
-
-        public string ChartCaption { get; set; }
-
         // use "{0:0;0}" for forcing positive value
         public string FormatAxisValue { get; set; } = "{0}";
 
@@ -27,10 +21,6 @@ namespace SimpleImageCharts.BarChart
         public bool IsStacked { get; set; } = false;
 
         public int StepSize { get; set; } = 0;
-
-        public int Width { get; set; } = 600;
-
-        public int Height { get; set; } = 300;
 
         public string[] Categories { get; set; }
 
@@ -49,6 +39,16 @@ namespace SimpleImageCharts.BarChart
         private float _maxValue;
 
         private float _minValue;
+
+        public BarChart()
+        {
+            this.Width = 600;
+            this.Height = 300;
+            this.MarginLeft = 100;
+            this.MarginRight = 30;
+            this.MarginTop = 10;
+            this.MarginBottom = 100;
+        }
 
         public virtual IImageFile CreateImage()
         {
@@ -81,63 +81,71 @@ namespace SimpleImageCharts.BarChart
             _rootX = MarginLeft + (_widthUnit * Math.Abs(_minValue));
 
             var bitmap = new Bitmap(Width, Height);
-            using (var graphic = Graphics.FromImage(bitmap))
+            var renderer = new GdiRenderer(bitmap);
+            var container = new GdiRectangle
             {
-                graphic.Clear(Color.White);
+                Width = bitmap.Width,
+                Height = bitmap.Height,
+                Color = Color.White
+            };
+            AddHorizontalLines(container);
+            AddVerticalLines(container);
 
+            var offsetY = IsStacked ? -BarSize / 2 : -(DataSets.Length * BarSize) / 2;
+            foreach (var data in DataSets)
+            {
+                AddBarSeries(container, data, offsetY);
+                if (!IsStacked)
+                {
+                    offsetY += BarSize;
+                }
+            }
+
+            renderer.Render(container);
+
+            if (Legend != null && Legend.Items == null)
+            {
+                Legend.Items = DataSets.Select(x => new LegendItem
+                {
+                    Text = x.Label,
+                    Color = x.Color
+                }).ToArray();
+            }
+
+            using (var graphic = renderer.GetGraphics())
+            {
                 // X axis line
                 graphic.DrawLine(Pens.LightGray, _rootX, MarginTop, _rootX, Height - MarginBottom);
 
-                DrawHorizontalLines(graphic);
-                DrawVerticalLines(graphic);
                 DrawHorizontalAxisValues(graphic);
-                var offsetY = IsStacked ? -BarSize / 2 : -(DataSets.Length * BarSize) / 2;
-                foreach (var data in DataSets)
-                {
-                    DrawBarSeries(graphic, data, offsetY);
-                    if (!IsStacked)
-                    {
-                        offsetY += BarSize;
-                    }
-                }
 
                 DrawCategoryLabels(graphic);
-                DrawLegend(graphic);
-                DrawChartCaption(graphic);
+                base.DrawLegend(graphic);
+                base.DrawSubTitle(graphic);
             }
 
             return new ImageFile(bitmap);
         }
 
-        private void DrawChartCaption(Graphics graphics)
-        {
-            if (!string.IsNullOrWhiteSpace(ChartCaption))
-            {
-                using (var brush = new SolidBrush(ColorTranslator.FromHtml("#1F3864")))
-                using (var font = new Font("Arial", 12, FontStyle.Bold))
-                using (var stringFormat = new StringFormat())
-                {
-                    stringFormat.Alignment = StringAlignment.Center;
-                    var x = MarginLeft + (Width - MarginLeft - MarginRight) / 2;
-
-                    graphics.DrawString(ChartCaption, font, brush, x, Height - (int)(MarginBottom * 0.3), stringFormat);
-                }
-            }
-        }
-
-        private void DrawHorizontalLines(Graphics graphic)
+        private void AddHorizontalLines(GdiContainer container)
         {
             var y = MarginTop;
-            foreach (var item in Categories)
+            var numOfLines = Categories.Length + 1;
+            for (int i = 0; i < numOfLines; i++)
             {
-                graphic.DrawLine(Pens.LightGray, MarginLeft, y, Width - MarginRight, y);
+                var line = new GdiHozLine
+                {
+                    Color = Color.LightGray,
+                    X = MarginLeft,
+                    Y = y,
+                    Length = Width - MarginRight
+                };
+                container.AddChild(line);
                 y += _categoryHeight;
             }
-
-            graphic.DrawLine(Pens.LightGray, MarginLeft, y, Width - MarginRight, y);
         }
 
-        private void DrawVerticalLines(Graphics graphic)
+        private void AddVerticalLines(GdiContainer container)
         {
             var x = _rootX;
             var realStepSize = StepSize * _widthUnit;
@@ -146,7 +154,13 @@ namespace SimpleImageCharts.BarChart
                 x += realStepSize;
                 if (x < Width - MarginRight)
                 {
-                    graphic.DrawLine(Pens.LightGray, x, MarginTop, x, Height - MarginBottom);
+                    container.AddChild(new GdiVerLine
+                    {
+                        Color = Color.LightGray,
+                        X = x,
+                        Y = MarginTop,
+                        Length = Height - MarginBottom
+                    });
                 }
             }
 
@@ -156,7 +170,13 @@ namespace SimpleImageCharts.BarChart
                 x -= realStepSize;
                 if (Math.Abs(x) > MarginLeft)
                 {
-                    graphic.DrawLine(Pens.LightGray, x, MarginTop, x, Height - MarginBottom);
+                    container.AddChild(new GdiVerLine
+                    {
+                        Color = Color.LightGray,
+                        X = x,
+                        Y = MarginTop,
+                        Length = Height - MarginBottom
+                    });
                 }
             }
         }
@@ -207,65 +227,44 @@ namespace SimpleImageCharts.BarChart
             }
         }
 
-        private void DrawBarSeries(Graphics graphics, BarSeries series, int offsetY)
+        private void AddBarSeries(GdiContainer container, BarSeries series, int offsetY)
         {
             var y = MarginTop + (_categoryHeight / 2) + offsetY;
-            using (var positiveNumberStringFormat = new StringFormat())
-            using (var negativeNumberStringFormat = new StringFormat())
-            using (var brush = new SolidBrush(series.Color))
+
+            foreach (var value in series.Data)
             {
-                positiveNumberStringFormat.LineAlignment = StringAlignment.Center;
-
-                negativeNumberStringFormat.LineAlignment = StringAlignment.Center;
-                negativeNumberStringFormat.Alignment = StringAlignment.Far;
-
-                foreach (var value in series.Data)
+                var length = _widthUnit * value;
+                var bar = new GdiRectangle
                 {
-                    var length = _widthUnit * value;
-                    if (length > 0)
-                    {
-                        graphics.FillRectangle(brush, _rootX, y, length, BarSize);
-                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.Gray, _rootX + length + 2, y + (BarSize / 2), positiveNumberStringFormat);
-                    }
-                    else if (length < 0)
-                    {
-                        graphics.FillRectangle(brush, _rootX + length, y, Math.Abs(length), BarSize);
-                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.Gray, _rootX + length - 2, y + (BarSize / 2), negativeNumberStringFormat);
-                    }
-
-                    y += _categoryHeight;
-                }
-            }
-        }
-
-        private void DrawLegend(Graphics graphic)
-        {
-            const int RectWidth = 25;
-            const int RectHeight = 15;
-
-            const int labelWidth = 130;
-            var legendWidth = labelWidth * DataSets.Length;
-
-            var left = MarginLeft + (Width - MarginLeft - MarginRight - legendWidth) / 2 + RectWidth;
-            var top = Height - (int)(string.IsNullOrWhiteSpace(ChartCaption) ? MarginBottom * 0.5 : (float)MarginBottom * 0.65);
-
-            using (var textBrush = new SolidBrush(Color.FromArgb(100, 100, 100)))
-            {
-                foreach (var dataset in DataSets)
+                    Y = y,
+                    Height = BarSize,
+                    Color = series.Color,
+                    Width = Math.Abs(length)
+                };
+                var text = new GdiText
                 {
-                    if (string.IsNullOrEmpty(dataset.Label))
-                    {
-                        continue;
-                    }
+                    Content = string.Format(FormatBarValue, value),
+                    Font = BarValueFont,
+                    Color = Color.Gray,
+                    X = bar.Width + 2,
+                    VerticalAlignment = GdiSharp.Enum.VerticalAlignment.Middle
+                };
 
-                    using (var brush = new SolidBrush(dataset.Color))
-                    {
-                        graphic.FillRectangle(brush, left, top, RectWidth, RectHeight);
-                        graphic.DrawString(dataset.Label, Font, textBrush, left + RectWidth + 5, top);
-                    }
-
-                    left += labelWidth;
+                if (length > 0)
+                {
+                    bar.X = _rootX;
                 }
+                else if (length < 0)
+                {
+                    bar.X = Width - _rootX;
+                    bar.HorizontalAlignment = GdiSharp.Enum.HorizontalAlignment.Right;
+                    text.HorizontalAlignment = GdiSharp.Enum.HorizontalAlignment.Right;
+                }
+
+                bar.AddChild(text);
+                container.AddChild(bar);
+
+                y += _categoryHeight;
             }
         }
     }
