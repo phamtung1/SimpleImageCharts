@@ -11,12 +11,6 @@ namespace SimpleImageCharts.ColumnChart
         ColumnSeries[] DataSets { get; set; }
         Font Font { get; set; }
         string FormatColumnValue { get; set; }
-        int Height { get; set; }
-        int MarginBottom { get; set; }
-        int MarginLeft { get; set; }
-        int MarginRight { get; set; }
-        int MarginTop { get; set; }
         int StepSize { get; set; }
-        int Width { get; set; }
     }
 }

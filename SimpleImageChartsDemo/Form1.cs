@@ -204,8 +204,7 @@ namespace WindowsFormsChart
             var chart = new ColumnChart
             {
                 ColumnSize = 30,
-                Width = pictureBox1.Width,
-                Height = pictureBox1.Height,
+                Size = pictureBox1.Size,
                 Categories = categories,
                 DataSets = datasets
             };

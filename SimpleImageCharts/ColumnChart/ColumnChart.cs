@@ -1,39 +1,28 @@
-﻿using SimpleImageCharts.Core;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Linq;
+using GdiSharp.Components;
+using GdiSharp.Components.Base;
+using SimpleImageCharts.Core;
+using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.ColumnChart
 {
-    public class ColumnChart : IColumnChart
+    public class ColumnChart : BaseChart, IColumnChart
     {
-        public int MarginRight { get; set; } = 30;
-
-        public int MarginTop { get; set; } = 50;
-
-        public int MarginBottom { get; set; } = 120;
-
-        public int MarginLeft { get; set; } = 30;
-
         public string FormatColumnValue { get; set; } = "{0}";
 
         public int ColumnSize { get; set; } = 20;
-
-        public Font Font { get; set; } = new Font("Arial", 12);
 
         public Font ColumnValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
 
         public int StepSize { get; set; } = 5;
 
-        public int Width { get; set; } = 600;
-
-        public int Height { get; set; } = 300;
-
         public string[] Categories { get; set; }
 
         public ColumnSeries[] DataSets { get; set; }
 
-        private int _categoryWidth;
+        private float _categoryWidth;
 
         private float _rootY;
 
@@ -43,9 +32,16 @@ namespace SimpleImageCharts.ColumnChart
 
         private float _minValue;
 
-        public virtual IImageFile CreateImage()
+        public ColumnChart()
         {
-            _categoryWidth = (Width - MarginLeft - MarginRight) / Categories.Length;
+            Size = new Size(600, 300);
+            Padding = new Padding(30, 50, 30, 120);
+        }
+
+        protected override void Init(GdiContainer container, GdiRectangle dataArea)
+        {
+            base.Init(container, dataArea);
+            _categoryWidth = dataArea.Size.Width / Categories.Length;
 
             _maxValue = DataSets.SelectMany(x => x.Data).Max(x => x) * 1.1f;
             _minValue = DataSets.SelectMany(x => x.Data).Min(x => x) * 1.1f;
@@ -55,62 +51,61 @@ namespace SimpleImageCharts.ColumnChart
                 _minValue = 0;
             }
 
-            _heightUnit = (Height - MarginTop - MarginBottom) / (Math.Abs(_minValue) + _maxValue);
+            _heightUnit = dataArea.Size.Height / (Math.Abs(_minValue) + _maxValue);
 
-            _rootY = MarginTop + (_heightUnit * Math.Abs(_maxValue));
+            _rootY = Padding.Top + (_heightUnit * Math.Abs(_maxValue));
+        }
 
-            var bitmap = new Bitmap(Width, Height);
-            using (var graphic = Graphics.FromImage(bitmap))
+        protected override void Draw(Graphics graphics)
+        {
+            base.Draw(graphics);
+
+            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            graphics.Clear(Color.White);
+            // Y axis line
+            graphics.DrawLine(Pens.Black, Padding.Left, _rootY, Size.Width - Padding.Right, _rootY);
+
+            DrawVerticalLines(graphics);
+            var offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
+            foreach (var data in DataSets)
             {
-                graphic.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                graphic.Clear(Color.White);
-                // Y axis line
-                graphic.DrawLine(Pens.Black, MarginLeft, _rootY, Width - MarginRight, _rootY);
-
-                DrawVerticalLines(graphic);
-                var offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
-                foreach (var data in DataSets)
-                {
-                    DrawColumnSeries(graphic, data, offsetX + data.OffsetX);
-                    offsetX += ColumnSize;
-                }
-
-                // draw column values after draw all columns so that if the column will not overlap the texts
-                offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
-                foreach (var data in DataSets)
-                {
-                    DrawColumnSeriesValues(graphic, data, offsetX + data.OffsetX);
-                    offsetX += ColumnSize;
-                }
-
-                DrawCategoyLabels(graphic);
+                DrawColumnSeries(graphics, data, offsetX + data.OffsetX);
+                offsetX += ColumnSize;
             }
 
-            return new ImageFile(bitmap);
+            // draw column values after draw all columns so that if the column will not overlap the texts
+            offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
+            foreach (var data in DataSets)
+            {
+                DrawColumnSeriesValues(graphics, data, offsetX + data.OffsetX);
+                offsetX += ColumnSize;
+            }
+
+            DrawCategoyLabels(graphics);
         }
 
         private void DrawVerticalLines(Graphics graphic)
         {
-            var x = MarginLeft;
+            float x = Padding.Left;
             foreach (var item in Categories)
             {
-                graphic.DrawLine(Pens.LightGray, x, MarginTop, x, Height - MarginBottom);
+                graphic.DrawLine(Pens.LightGray, x, Padding.Top, x, Size.Height - Padding.Bottom);
                 x += _categoryWidth;
             }
 
-            graphic.DrawLine(Pens.LightGray, x, MarginTop, x, Height - MarginBottom);
+            graphic.DrawLine(Pens.LightGray, x, Padding.Top, x, Size.Height - Padding.Bottom);
         }
 
         private void DrawCategoyLabels(Graphics graphic)
         {
-            var x = MarginLeft + _categoryWidth / 2;
+            var x = Padding.Left + _categoryWidth / 2;
             using (StringFormat stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Center;
                 foreach (var item in Categories)
                 {
                     // graphic.DrawString(item, this.Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
-                    DrawRotatedText(graphic, item, x, Height - MarginBottom / 2);
+                    DrawRotatedText(graphic, item, x, Size.Height - Padding.Bottom / 2);
                     x += _categoryWidth;
                 }
             }
@@ -119,7 +114,7 @@ namespace SimpleImageCharts.ColumnChart
         private void DrawColumnSeries(Graphics graphics, ColumnSeries series, int offsetX)
         {
             var spaceX = _categoryWidth;
-            var x = MarginLeft + (spaceX / 2) + offsetX;
+            var x = Padding.Left + (spaceX / 2) + offsetX;
             using (var stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Center;
@@ -149,7 +144,7 @@ namespace SimpleImageCharts.ColumnChart
         private void DrawColumnSeriesValues(Graphics graphics, ColumnSeries series, int offsetX)
         {
             var spaceX = _categoryWidth;
-            var x = MarginLeft + (spaceX / 2) + offsetX;
+            var x = Padding.Left + (spaceX / 2) + offsetX;
             using (var stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Center;
