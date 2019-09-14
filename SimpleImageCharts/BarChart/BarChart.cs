@@ -1,12 +1,11 @@
-﻿using GdiSharp.Components;
+﻿using System;
+using System.Drawing;
+using System.Linq;
+using GdiSharp.Components;
 using GdiSharp.Components.Base;
-using GdiSharp.Renderer;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.Helpers;
 using SimpleImageCharts.Core.Models;
-using System;
-using System.Drawing;
-using System.Linq;
 
 namespace SimpleImageCharts.BarChart
 {
@@ -53,8 +52,9 @@ namespace SimpleImageCharts.BarChart
             this.MarginBottom = 100;
         }
 
-        public virtual IImageFile CreateImage()
+        protected override void Init()
         {
+            base.Init();
             const int NumberOfColumns = 4;
             _categoryHeight = (Height - MarginTop - MarginBottom) / Categories.Length;
 
@@ -80,16 +80,12 @@ namespace SimpleImageCharts.BarChart
             }
 
             _widthUnit = (Width - MarginLeft - MarginRight) / (Math.Abs(_minValue) + _maxValue);
-
             _rootX = MarginLeft + (_widthUnit * Math.Abs(_minValue));
+        }
 
-            var bitmap = new Bitmap(Width, Height);
-            var container = new GdiRectangle
-            {
-                Width = bitmap.Width,
-                Height = bitmap.Height,
-                Color = Color.White
-            };
+        protected override void BuildComponents(GdiContainer container, GdiRectangle dataArea)
+        {
+            base.BuildComponents(container, dataArea);
             AddChartGrid(container);
 
             var offsetY = IsStacked ? -BarSize / 2 : -(DataSets.Length * BarSize) / 2;
@@ -105,21 +101,16 @@ namespace SimpleImageCharts.BarChart
             CreateLegendItems();
             base.AddLegend(container);
             base.AddSubTitle(container);
+        }
 
-            var renderer = new GdiRenderer(bitmap);
-            renderer.Render(container);
+        protected override void Draw(Graphics graphics)
+        {
+            base.Draw(graphics);
 
-            using (var graphic = renderer.GetGraphics())
-            {
-                // X axis line
-                graphic.DrawLine(Pens.LightGray, _rootX, MarginTop, _rootX, Height - MarginBottom);
-
-                DrawHorizontalAxisValues(graphic);
-
-                DrawCategoryLabels(graphic);
-            }
-
-            return new ImageFile(bitmap);
+            // X axis line
+            graphics.DrawLine(Pens.LightGray, _rootX, MarginTop, _rootX, Height - MarginBottom);
+            DrawHorizontalAxisValues(graphics);
+            DrawCategoryLabels(graphics);
         }
 
         private void CreateLegendItems()

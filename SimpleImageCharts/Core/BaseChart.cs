@@ -1,13 +1,14 @@
-﻿using GdiSharp.Components;
+﻿using System.Drawing;
+using System.Linq;
+using GdiSharp.Components;
 using GdiSharp.Components.Base;
+using GdiSharp.Renderer;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
-using System.Drawing;
-using System.Linq;
 
 namespace SimpleImageCharts.Core
 {
-    public abstract class BaseChart
+    public abstract class BaseChart : IImageChart
     {
         public int Width { get; set; } = 500;
 
@@ -24,6 +25,53 @@ namespace SimpleImageCharts.Core
         public SubTitle SubTitle { get; set; }
 
         public Legend Legend { get; set; }
+
+        private GdiContainer Container { get; set; }
+
+        private GdiRectangle DataArea { get; set; }
+
+        public IImageFile CreateImage()
+        {
+            this.Init();
+            this.BuildComponents(Container, DataArea);
+            var bitmap = new Bitmap(Width, Height);
+            var renderer = new GdiRenderer(bitmap);
+            renderer.Render(Container);
+            using (var graphics = renderer.GetGraphics())
+            {
+                this.Draw(graphics);
+            }
+
+            return new ImageFile(bitmap);
+        }
+
+        protected virtual void Init()
+        {
+            Container = new GdiRectangle
+            {
+                Width = Width,
+                Height = Height,
+                Color = Color.White
+            };
+            DataArea = new GdiRectangle
+            {
+                Color = Color.LightCyan,
+                X = MarginLeft,
+                Y = MarginTop,
+                Width = Width - MarginLeft - MarginRight,
+                Height = Height - MarginTop - MarginBottom,
+                BorderWidth = 1
+            };
+            Container.AddChild(DataArea);
+        }
+
+        protected virtual void BuildComponents(GdiContainer container, GdiRectangle dataArea)
+        {
+        }
+
+        protected virtual void Draw(Graphics graphics)
+        {
+        }
 
         protected virtual void AddSubTitle(GdiContainer container)
         {
