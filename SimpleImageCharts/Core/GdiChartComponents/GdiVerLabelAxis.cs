@@ -21,6 +21,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
             var x = position.X + LabelOffsetX;
             using (StringFormat stringFormat = new StringFormat())
             {
+                stringFormat.LineAlignment = StringAlignment.Center;
                 stringFormat.Alignment = StringAlignment.Far;
 
                 foreach (var item in Labels)
