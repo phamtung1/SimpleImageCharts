@@ -39,10 +39,7 @@ namespace SimpleImageCharts.BarChart
         public BarChart()
         {
             this.Size = new Size(600, 300);
-            Padding.Left = 100;
-            Padding.Right = 30;
-            Padding.Top = 10;
-            Padding.Bottom = 100;
+            Padding = new Padding(100, 10, 30, 100);
         }
 
         protected override void Init(GdiContainer container, GdiRectangle dataArea)
@@ -152,7 +149,6 @@ namespace SimpleImageCharts.BarChart
                 LabelWidth = _widthUnit * StepSize,
                 Font = Font
             });
-
         }
     }
 }

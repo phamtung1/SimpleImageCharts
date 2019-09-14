@@ -159,8 +159,7 @@ namespace WindowsFormsChart
             var chart = new DoubleAxisBarChart
             {
                 FormatBarValue = "{0}%",
-                Width = pictureBox1.Width,
-                Height = pictureBox1.Height,
+                Size = pictureBox1.Size,
                 Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
                 FirstDataSet = new DoubleAxisBarSeries
                 {

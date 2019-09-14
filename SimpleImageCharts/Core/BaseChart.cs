@@ -12,7 +12,7 @@ namespace SimpleImageCharts.Core
     {
         public Size Size { get; set; }
 
-        public PaddingModel Padding { get; set; } = new PaddingModel(30);
+        public Padding Padding { get; set; } = new Padding(30);
 
         public SubTitleModel SubTitle { get; set; }
 

@@ -1,21 +1,14 @@
-﻿using SimpleImageCharts.Core;
-using System.Drawing;
+﻿using System.Drawing;
+using GdiSharp.Components;
+using GdiSharp.Components.Base;
+using SimpleImageCharts.Core;
+using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.DoubleAxisBarChart
 {
-    public class DoubleAxisBarChart : IDoubleAxisBarChart
+    public class DoubleAxisBarChart : BaseChart, IDoubleAxisBarChart
     {
-        public int MarginLeft { get; set; } = 150;
-
-        public int MarginRight { get; set; } = 30;
-
-        public int MarginBottom { get; set; } = 50;
-
-        public int MarginTop { get; set; } = 40;
-
         private const int BarSize = 30;
-
-        public Font Font { get; set; } = new Font("Arial", 12);
 
         public Font BarValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
 
@@ -23,59 +16,63 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 
         public int StepSize { get; set; } = 5;
 
-        public int Width { get; set; } = 600;
-
-        public int Height { get; set; } = 300;
-
         public string[] Categories { get; set; }
 
         public DoubleAxisBarSeries FirstDataSet { get; set; }
 
         public DoubleAxisBarSeries SecondDataSet { get; set; }
 
-        private int _categoryHeight;
+        private float _categoryHeight;
 
         private float _widthUnit;
 
         private float _maxValue;
 
-        public virtual IImageFile CreateImage()
+        public DoubleAxisBarChart()
         {
-            _categoryHeight = (Height - MarginTop - MarginBottom) / Categories.Length;
+            Size = new Size(600, 300);
+            Padding = new Padding(150, 40, 30, 50);
+        }
+
+        protected override void Init(GdiContainer container, GdiRectangle dataArea)
+        {
+            base.Init(container, dataArea);
+            _categoryHeight = dataArea.Size.Height / Categories.Length;
 
             _maxValue = FindMaxValueFromBothDataSets() * 1.1f;
 
-            _widthUnit = (Width - MarginLeft - MarginRight) / _maxValue;
+            _widthUnit = dataArea.Size.Width / _maxValue;
+        }
 
-            var bitmap = new Bitmap(Width, Height);
-            using (var graphic = Graphics.FromImage(bitmap))
+        protected override void Draw(Graphics graphics)
+        {
+            base.Draw(graphics);
+
             using (var axisFont = new Font("Arial", 13, FontStyle.Bold))
             {
-                graphic.Clear(Color.White);
+                graphics.Clear(Color.White);
                 // Left X axis
-                graphic.DrawLine(Pens.LightGray, MarginLeft, MarginTop, MarginLeft, Height - MarginBottom);
+                graphics.DrawLine(Pens.LightGray, Padding.Left, Padding.Top, Padding.Left, Size.Height - Padding.Bottom);
                 using (var labelBrush = new SolidBrush(FirstDataSet.LabelColor))
                 {
-                    graphic.DrawString(FirstDataSet.Label, axisFont, labelBrush, MarginLeft, 10);
+                    graphics.DrawString(FirstDataSet.Label, axisFont, labelBrush, Padding.Left, 10);
                 }
 
                 // Second X axis
-                graphic.DrawLine(Pens.LightGray, Width - MarginRight, MarginTop, Width - MarginRight, Height - MarginBottom);
+                graphics.DrawLine(Pens.LightGray, Size.Width - Padding.Right, Padding.Top, Size.Width - Padding.Right, Size.Height - Padding.Bottom);
                 using (var stringFormat = new StringFormat())
                 using (var labelBrush = new SolidBrush(SecondDataSet.LabelColor))
                 {
                     stringFormat.Alignment = StringAlignment.Far;
-                    graphic.DrawString(SecondDataSet.Label, axisFont, labelBrush, Width - MarginRight, 10, stringFormat);
+                    graphics.DrawString(SecondDataSet.Label, axisFont, labelBrush, Size.Width - Padding.Right, 10, stringFormat);
                 }
 
-                DrawHorizontalLines(graphic);
+                DrawHorizontalLines(graphics);
 
-                DrawFirstBarSeries(graphic, FirstDataSet);
-                DrawSecondBarSeries(graphic, SecondDataSet);
-                DrawCategoyLabels(graphic);
+                DrawFirstBarSeries(graphics, FirstDataSet);
+                DrawSecondBarSeries(graphics, SecondDataSet);
+                DrawCategoyLabels(graphics);
             }
-
-            return new ImageFile(bitmap);
         }
 
         private float FindMaxValueFromBothDataSets()
@@ -95,25 +92,25 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 
         private void DrawHorizontalLines(Graphics graphic)
         {
-            var y = MarginTop;
+            float y = Padding.Top;
             foreach (var item in Categories)
             {
-                graphic.DrawLine(Pens.LightGray, MarginLeft, y, Width - MarginRight, y);
+                graphic.DrawLine(Pens.LightGray, Padding.Left, y, Size.Width - Padding.Right, y);
                 y += _categoryHeight;
             }
 
-            graphic.DrawLine(Pens.LightGray, MarginLeft, y, Width - MarginRight, y);
+            graphic.DrawLine(Pens.LightGray, Padding.Left, y, Size.Width - Padding.Right, y);
         }
 
         private void DrawCategoyLabels(Graphics graphic)
         {
-            var y = MarginTop + _categoryHeight / 2;
+            var y = Padding.Top + _categoryHeight / 2;
             using (StringFormat stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Far;
                 foreach (var item in Categories)
                 {
-                    graphic.DrawString(item, Font, Brushes.Gray, MarginLeft - 10, y, stringFormat);
+                    graphic.DrawString(item, Font, Brushes.Gray, Padding.Left - 10, y, stringFormat);
                     y += _categoryHeight;
                 }
             }
@@ -122,7 +119,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
         private void DrawFirstBarSeries(Graphics graphics, DoubleAxisBarSeries series)
         {
             var spaceY = _categoryHeight;
-            var y = MarginTop + ((spaceY - BarSize) / 2);
+            var y = Padding.Top + ((spaceY - BarSize) / 2);
             using (var stringFormat = new StringFormat())
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
@@ -134,8 +131,8 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                     using (var brush = new SolidBrush(color))
                     {
                         var length = _widthUnit * value;
-                        graphics.FillRectangle(brush, MarginLeft, y, length, BarSize);
-                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.White, MarginLeft + length - 2, y + (BarSize / 2), stringFormat);
+                        graphics.FillRectangle(brush, Padding.Left, y, length, BarSize);
+                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.White, Padding.Left + length - 2, y + (BarSize / 2), stringFormat);
                         y += spaceY;
                     }
                 }
@@ -145,7 +142,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
         private void DrawSecondBarSeries(Graphics graphics, DoubleAxisBarSeries series)
         {
             var spaceY = _categoryHeight;
-            var y = MarginTop + ((spaceY - BarSize) / 2);
+            var y = Padding.Top + ((spaceY - BarSize) / 2);
             using (var stringFormat = new StringFormat())
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
@@ -160,19 +157,11 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                     using (var brush = new SolidBrush(color))
                     {
                         var length = _widthUnit * value;
-                        var x = Width - MarginRight - length;
+                        var x = Size.Width - Padding.Right - length;
                         graphics.FillRectangle(brush, x, y, length, BarSize);
 
                         x -= 2;
-                        Brush textBrush;
-                        if (value <= 1)
-                        {
-                            textBrush = Brushes.DarkBlue;
-                        }
-                        else
-                        {
-                            textBrush = Brushes.White;
-                        }
+                        Brush textBrush = value <= 1 ? Brushes.DarkBlue : Brushes.White;
 
                         graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, textBrush, x + 2, y + (BarSize / 2), stringFormat);
                         y += spaceY;
