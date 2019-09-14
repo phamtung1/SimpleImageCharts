@@ -129,7 +129,7 @@ namespace SimpleImageCharts.BarChart
         {
             container.AddChild(new GdiVerLabelAxis
             {
-                Y = MarginTop,
+                MarginTop = MarginTop,
                 Width = MarginLeft,
                 Height = dataArea.Height,
                 Labels = Categories,
@@ -150,14 +150,15 @@ namespace SimpleImageCharts.BarChart
             {
                 Width = dataArea.Width,
                 Height = MarginBottom,
-                X = MarginLeft,
-                Y = Height - MarginBottom,
+                MarginLeft = MarginLeft,
+                MarginTop = Height - MarginBottom,
                 RootX = _rootX - MarginLeft,
                 LeftToRightLabels = leftToRightLabels,
                 RightToLeftLabels = rightToLeftLabels,
                 LabelWidth = _widthUnit * StepSize,
                 Font = Font
             });
+
         }
     }
 }

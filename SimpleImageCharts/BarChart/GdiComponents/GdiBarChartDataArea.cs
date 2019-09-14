@@ -37,7 +37,7 @@ namespace SimpleImageCharts.BarChart.GdiComponents
                 var length = WidthUnit * value;
                 var bar = new GdiRectangle
                 {
-                    Y = y,
+                    MarginTop = y,
                     Height = BarSettingModel.Size,
                     Color = series.Color,
                     Width = Math.Abs(length)
@@ -47,18 +47,19 @@ namespace SimpleImageCharts.BarChart.GdiComponents
                     Content = string.Format(BarSettingModel.FormatValue, value),
                     Font = BarSettingModel.ValueFont,
                     Color = System.Drawing.Color.Gray,
-                    X = bar.Width + 2,
+                    MarginLeft = bar.Width + 2,
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle
                 };
 
                 if (length > 0)
                 {
-                    bar.X = RootX;
+                    bar.MarginLeft = RootX;
                 }
                 else if (length < 0)
                 {
-                    bar.X = Width - RootX;
+                    bar.MarginLeft = -(Width - RootX);
                     bar.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
+                    text.MarginLeft = -text.MarginLeft;
                     text.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
                 }
 

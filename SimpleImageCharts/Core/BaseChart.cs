@@ -59,8 +59,8 @@ namespace SimpleImageCharts.Core
             DataArea = new GdiRectangle
             {
                 Color = Color.LightCyan,
-                X = MarginLeft,
-                Y = MarginTop,
+                MarginLeft = MarginLeft,
+                MarginTop = MarginTop,
                 Width = Width - MarginLeft - MarginRight,
                 Height = Height - MarginTop - MarginBottom,
                 BorderWidth = 1
@@ -93,7 +93,7 @@ namespace SimpleImageCharts.Core
                 Color = SubTitle.Color,
                 HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                 VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
-                Y = 10,
+                MarginTop = -10,
                 Font = new Font(SubTitle.FontName, SubTitle.FontSize, FontStyle.Bold)
             };
             container.AddChild(gdiText);

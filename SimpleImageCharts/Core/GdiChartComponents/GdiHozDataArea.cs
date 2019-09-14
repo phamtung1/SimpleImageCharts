@@ -41,7 +41,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
                 rightGrid.CellWidth = CellWidth;
                 rightGrid.Height = this.Height;
                 rightGrid.Width = this.Width - RootX;
-                rightGrid.X = RootX;
+                rightGrid.MarginLeft = RootX;
 
                 this.AddChild(rightGrid);
             }
