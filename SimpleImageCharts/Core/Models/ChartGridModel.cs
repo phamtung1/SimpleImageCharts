@@ -2,7 +2,7 @@
 
 namespace SimpleImageCharts.Core.Models
 {
-    public class ChartGrid
+    public class ChartGridModel
     {
         public Color LineColor { get; set; } = Color.Gray;
 

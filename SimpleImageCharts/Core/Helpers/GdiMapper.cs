@@ -22,7 +22,7 @@ namespace SimpleImageCharts.Core.Helpers
             { VerticalAlign.Top, GdiVerticalAlign.Top },
         };
 
-        public static GdiGrid ToGdiGrid(ChartGrid chartGrid)
+        public static GdiGrid ToGdiGrid(ChartGridModel chartGrid)
         {
             return new GdiGrid
             {

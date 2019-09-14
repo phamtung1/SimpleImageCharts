@@ -3,36 +3,30 @@ using System.Drawing;
 using System.Linq;
 using GdiSharp.Components;
 using GdiSharp.Components.Base;
+using SimpleImageCharts.BarChart.GdiComponents;
 using SimpleImageCharts.Core;
-using SimpleImageCharts.Core.Helpers;
+using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.BarChart
 {
     public class BarChart : BaseChart, IBarChart
     {
-        // use "{0:0;0}" for forcing positive value
+        public BarSettingModel BarSettingModel { get; set; } = new BarSettingModel();
+
         public string FormatAxisValue { get; set; } = "{0}";
-
-        public string FormatBarValue { get; set; } = "{0}";
-
-        public int BarSize { get; set; } = 30;
-
-        public bool IsStacked { get; set; } = false;
 
         public int StepSize { get; set; } = 0;
 
         public string[] Categories { get; set; }
 
-        public BarSeries[] DataSets { get; set; }
+        public BarSeries[] DataSet { get; set; }
 
         public Font Font { get; set; } = new Font("Arial", 12);
 
-        public Font BarValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
+        public ChartGridModel ChartGridModel { get; set; }
 
-        public ChartGrid ChartGrid { get; set; }
-
-        private int _categoryHeight;
+        private float _categoryHeight;
 
         private float _rootX;
 
@@ -41,6 +35,8 @@ namespace SimpleImageCharts.BarChart
         private float _maxValue;
 
         private float _minValue;
+
+        private GdiHozDataArea _chartDataArea;
 
         public BarChart()
         {
@@ -52,14 +48,14 @@ namespace SimpleImageCharts.BarChart
             this.MarginBottom = 100;
         }
 
-        protected override void Init()
+        protected override void Init(GdiContainer container, GdiRectangle dataArea)
         {
-            base.Init();
+            base.Init(container, dataArea);
             const int NumberOfColumns = 4;
-            _categoryHeight = (Height - MarginTop - MarginBottom) / Categories.Length;
+            _categoryHeight = dataArea.Height / Categories.Length;
 
-            _maxValue = DataSets.SelectMany(x => x.Data).Max(x => x) * 1.1f;
-            _minValue = DataSets.SelectMany(x => x.Data).Min(x => x) * 1.1f;
+            _maxValue = DataSet.SelectMany(x => x.Data).Max(x => x) * 1.1f;
+            _minValue = DataSet.SelectMany(x => x.Data).Min(x => x) * 1.1f;
 
             if (StepSize == 0)
             {
@@ -79,25 +75,15 @@ namespace SimpleImageCharts.BarChart
                 _minValue = 0;
             }
 
-            _widthUnit = (Width - MarginLeft - MarginRight) / (Math.Abs(_minValue) + _maxValue);
+            _widthUnit = dataArea.Width / (Math.Abs(_minValue) + _maxValue);
             _rootX = MarginLeft + (_widthUnit * Math.Abs(_minValue));
         }
 
         protected override void BuildComponents(GdiContainer container, GdiRectangle dataArea)
         {
             base.BuildComponents(container, dataArea);
-            AddChartGrid(container);
 
-            var offsetY = IsStacked ? -BarSize / 2 : -(DataSets.Length * BarSize) / 2;
-            foreach (var data in DataSets)
-            {
-                AddBarSeries(container, data, offsetY);
-                if (!IsStacked)
-                {
-                    offsetY += BarSize;
-                }
-            }
-
+            AddChartDataArea(dataArea);
             CreateLegendItems();
             base.AddLegend(container);
             base.AddSubTitle(container);
@@ -117,7 +103,7 @@ namespace SimpleImageCharts.BarChart
         {
             if (Legend != null && Legend.Items == null)
             {
-                Legend.Items = DataSets.Select(x => new LegendItem
+                Legend.Items = DataSet.Select(x => new LegendItemModel
                 {
                     Text = x.Label,
                     Color = x.Color
@@ -125,39 +111,30 @@ namespace SimpleImageCharts.BarChart
             }
         }
 
-        private void AddChartGrid(GdiContainer container)
+        private void AddChartDataArea(GdiRectangle dataArea)
         {
-            if (ChartGrid == null)
+            if (ChartGridModel == null)
             {
                 return;
             }
 
-            if (_rootX > MarginLeft)
+            _chartDataArea = new GdiBarChartDataArea
             {
-                var leftGrid = GdiMapper.ToGdiGrid(ChartGrid);
-                leftGrid.CellHeight = _categoryHeight;
-                leftGrid.CellWidth = StepSize * _widthUnit;
-                leftGrid.Height = this.Height - MarginTop - MarginBottom;
-                leftGrid.Width = _rootX - MarginLeft;
-                leftGrid.X = MarginLeft;
-                leftGrid.Y = MarginTop;
-                leftGrid.IsDrawnFromRightToLeft = true;
-
-                container.AddChild(leftGrid);
-            }
-
-            if (_rootX < Width - MarginRight)
-            {
-                var rightGrid = GdiMapper.ToGdiGrid(ChartGrid);
-                rightGrid.CellHeight = _categoryHeight;
-                rightGrid.CellWidth = StepSize * _widthUnit;
-                rightGrid.Height = this.Height - MarginTop - MarginBottom;
-                rightGrid.Width = this.Width - _rootX - MarginRight;
-                rightGrid.X = _rootX;
-                rightGrid.Y = MarginTop;
-
-                container.AddChild(rightGrid);
-            }
+                // base
+                MinValue = _minValue,
+                MaxValue = _maxValue,
+                RootX = _rootX - MarginLeft,
+                Width = dataArea.Width,
+                Height = dataArea.Height,
+                CellHeight = _categoryHeight,
+                CellWidth = _widthUnit * StepSize,
+                ChartGridModel = ChartGridModel,
+                // GdiBarChartDataArea
+                BarSettingModel = BarSettingModel,
+                DataSet = DataSet,
+                WidthUnit = _widthUnit
+            };
+            dataArea.AddChild(_chartDataArea);
         }
 
         private void DrawHorizontalAxisValues(Graphics graphic)
@@ -203,47 +180,6 @@ namespace SimpleImageCharts.BarChart
                     graphic.DrawString(item, Font, Brushes.Gray, MarginLeft - 10, y, stringFormat);
                     y += _categoryHeight;
                 }
-            }
-        }
-
-        private void AddBarSeries(GdiContainer container, BarSeries series, int offsetY)
-        {
-            var y = MarginTop + (_categoryHeight / 2) + offsetY;
-
-            foreach (var value in series.Data)
-            {
-                var length = _widthUnit * value;
-                var bar = new GdiRectangle
-                {
-                    Y = y,
-                    Height = BarSize,
-                    Color = series.Color,
-                    Width = Math.Abs(length)
-                };
-                var text = new GdiText
-                {
-                    Content = string.Format(FormatBarValue, value),
-                    Font = BarValueFont,
-                    Color = Color.Gray,
-                    X = bar.Width + 2,
-                    VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle
-                };
-
-                if (length > 0)
-                {
-                    bar.X = _rootX;
-                }
-                else if (length < 0)
-                {
-                    bar.X = Width - _rootX;
-                    bar.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
-                    text.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
-                }
-
-                bar.AddChild(text);
-                container.AddChild(bar);
-
-                y += _categoryHeight;
             }
         }
     }

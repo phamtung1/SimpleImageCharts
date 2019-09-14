@@ -22,9 +22,9 @@ namespace SimpleImageCharts.Core
 
         public int MarginLeft { get; set; } = 30;
 
-        public SubTitle SubTitle { get; set; }
+        public SubTitleModel SubTitle { get; set; }
 
-        public Legend Legend { get; set; }
+        public LegendModel Legend { get; set; }
 
         private GdiContainer Container { get; set; }
 
@@ -32,7 +32,8 @@ namespace SimpleImageCharts.Core
 
         public IImageFile CreateImage()
         {
-            this.Init();
+            this.SetupContainer();
+            this.Init(Container, DataArea);
             this.BuildComponents(Container, DataArea);
             var bitmap = new Bitmap(Width, Height);
             var renderer = new GdiRenderer(bitmap);
@@ -45,7 +46,7 @@ namespace SimpleImageCharts.Core
             return new ImageFile(bitmap);
         }
 
-        protected virtual void Init()
+        private void SetupContainer()
         {
             Container = new GdiRectangle
             {
@@ -63,6 +64,10 @@ namespace SimpleImageCharts.Core
                 BorderWidth = 1
             };
             Container.AddChild(DataArea);
+        }
+
+        protected virtual void Init(GdiContainer container, GdiRectangle dataArea)
+        {
         }
 
         protected virtual void BuildComponents(GdiContainer container, GdiRectangle dataArea)

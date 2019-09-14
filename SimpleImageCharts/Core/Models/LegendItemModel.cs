@@ -2,7 +2,7 @@
 
 namespace SimpleImageCharts.Core.Models
 {
-    public class LegendItem
+    public class LegendItemModel
     {
         public Color Color { get; set; }
 

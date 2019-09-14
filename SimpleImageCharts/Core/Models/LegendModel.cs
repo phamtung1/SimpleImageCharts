@@ -4,9 +4,9 @@ using System.Drawing;
 
 namespace SimpleImageCharts.Core.Models
 {
-    public class Legend
+    public class LegendModel
     {
-        public IEnumerable<LegendItem> Items { get; set; }
+        public IEnumerable<LegendItemModel> Items { get; set; }
 
         public string FontName { get; set; } = "Arial";
 

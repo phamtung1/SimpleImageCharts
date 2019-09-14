@@ -12,7 +12,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
         private const int RectHeight = 15;
         private const int LabelWidth = 130;
 
-        public Legend Legend { get; set; }
+        public LegendModel Legend { get; set; }
 
         protected override SizeF GetComponentSize(Graphics graphics)
         {

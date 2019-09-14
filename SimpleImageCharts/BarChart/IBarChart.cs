@@ -1,19 +1,17 @@
-﻿using SimpleImageCharts.Core;
-using System.Drawing;
+﻿using System.Drawing;
+using SimpleImageCharts.Core;
+using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.BarChart
 {
     public interface IBarChart : IImageChart
     {
-        int BarSize { get; set; }
-        Font BarValueFont { get; set; }
+        BarSettingModel BarSettingModel { get; set; }
         string[] Categories { get; set; }
-        BarSeries[] DataSets { get; set; }
+        BarSeries[] DataSet { get; set; }
         Font Font { get; set; }
         string FormatAxisValue { get; set; }
-        string FormatBarValue { get; set; }
         int Height { get; set; }
-        bool IsStacked { get; set; }
         int MarginBottom { get; set; }
         int StepSize { get; set; }
         int Width { get; set; }

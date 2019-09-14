@@ -72,20 +72,20 @@ namespace WindowsFormsChart
         {
             var chart = new BarChart
             {
-                Legend = new Legend
+                Legend = new LegendModel
                 {
                     MarginTop = -40,
                     HorizontalAlign = SimpleImageCharts.Enum.HorizontalAlign.Right
                 },
-                ChartGrid = new ChartGrid
+                ChartGridModel = new ChartGridModel
                 {
                     LineColor = Color.LightGreen
                 },
-                SubTitle = new SubTitle { Text = "AAAAAAA" },
+                SubTitle = new SubTitleModel { Text = "AAAAAAA" },
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 Categories = new[] { "Product A", "Product B", "Product C" },
-                DataSets = new[]
+                DataSet = new[]
                 {
                     new BarSeries
                     {
@@ -118,23 +118,25 @@ namespace WindowsFormsChart
         {
             var chart = new BarChart
             {
-                Legend = new Legend
+                Legend = new LegendModel
                 {
                     MarginTop = -50
                 },
-                ChartGrid = new ChartGrid
+                ChartGridModel = new ChartGridModel
                 {
                     LineColor = Color.LightGreen
                 },
-                SubTitle = new SubTitle { Text = "aaaaaaaaaa ccccccccdddddddddddddddddcccc" },
+                BarSettingModel = new BarSettingModel {
+                    IsStacked = true,
+                    FormatValue = "{0:0;0}",
+                },
+                SubTitle = new SubTitleModel { Text = "aaaaaaaaaa ccccccccdddddddddddddddddcccc" },
                 Width = pictureBox1.Width,
                 Height = pictureBox1.Height,
                 MarginBottom = 100,
-                IsStacked = true,
                 FormatAxisValue = "{0:0;0}", // force positive values
-                FormatBarValue = "{0:0;0}",
                 Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
-                DataSets = new[]
+                DataSet = new[]
                 {
                     new BarSeries
                     {
