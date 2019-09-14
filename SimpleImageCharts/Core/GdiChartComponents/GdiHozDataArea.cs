@@ -13,9 +13,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
 
         public float MaxValue { get; set; } = 0;
 
-        public float CellWidth { get; set; } = 0;
-
-        public float CellHeight { get; set; } = 0;
+        public SizeF CellSize { get; set; }
 
         public ChartGridModel ChartGridModel { get; set; }
 
@@ -25,23 +23,19 @@ namespace SimpleImageCharts.Core.GdiChartComponents
             if (RootX > 0)
             {
                 var leftGrid = GdiMapper.ToGdiGrid(ChartGridModel);
-                leftGrid.CellHeight = CellHeight;
-                leftGrid.CellWidth = CellWidth;
-                leftGrid.Height = this.Height;
-                leftGrid.Width = RootX;
+                leftGrid.CellSize = CellSize;
+                leftGrid.Size = new SizeF(RootX, this.Size.Height);
                 leftGrid.IsDrawnFromRightToLeft = true;
 
                 this.AddChild(leftGrid);
             }
 
-            if (RootX < Width)
+            if (RootX < Size.Width)
             {
                 var rightGrid = GdiMapper.ToGdiGrid(ChartGridModel);
-                rightGrid.CellHeight = CellHeight;
-                rightGrid.CellWidth = CellWidth;
-                rightGrid.Height = this.Height;
-                rightGrid.Width = this.Width - RootX;
-                rightGrid.MarginLeft = RootX;
+                rightGrid.CellSize = CellSize;
+                rightGrid.Size = new SizeF(this.Size.Width - RootX, this.Size.Height);
+                rightGrid.Position = new PointF(RootX, 0);
 
                 this.AddChild(rightGrid);
             }
@@ -53,7 +47,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
             var position = GetAbsolutePosition(graphics);
 
             // Draw root X axis
-            graphics.DrawLine(Pens.LightGray, position.X + RootX, position.Y, position.X + RootX, position.Y + Height);
+            graphics.DrawLine(Pens.LightGray, position.X + RootX, position.Y, position.X + RootX, position.Y + Size.Height);
         }
     }
 }

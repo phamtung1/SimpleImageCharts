@@ -10,34 +10,26 @@ namespace SimpleImageCharts.Core
 {
     public abstract class BaseChart : IImageChart
     {
-        public int Width { get; set; } = 500;
+        public Size Size { get; set; }
 
-        public int Height { get; set; } = 500;
-
-        public int MarginRight { get; set; } = 30;
-
-        public int MarginTop { get; set; } = 30;
-
-        public int MarginBottom { get; set; } = 30;
-
-        public int MarginLeft { get; set; } = 30;
+        public PaddingModel Padding { get; set; } = new PaddingModel(30);
 
         public SubTitleModel SubTitle { get; set; }
 
         public LegendModel Legend { get; set; }
 
+        public Font Font { get; set; } = new Font("Arial", 12);
+
         private GdiContainer Container { get; set; }
 
         private GdiRectangle DataArea { get; set; }
-
-        public Font Font { get; set; } = new Font("Arial", 12);
 
         public IImageFile CreateImage()
         {
             this.SetupContainer();
             this.Init(Container, DataArea);
             this.BuildComponents(Container, DataArea);
-            var bitmap = new Bitmap(Width, Height);
+            var bitmap = new Bitmap(Size.Width, Size.Height);
             var renderer = new GdiRenderer(bitmap);
             renderer.Render(Container);
             using (var graphics = renderer.GetGraphics())
@@ -52,18 +44,13 @@ namespace SimpleImageCharts.Core
         {
             Container = new GdiRectangle
             {
-                Width = Width,
-                Height = Height,
+                Size = this.Size,
                 Color = Color.White
             };
             DataArea = new GdiRectangle
             {
-                Color = Color.LightCyan,
-                MarginLeft = MarginLeft,
-                MarginTop = MarginTop,
-                Width = Width - MarginLeft - MarginRight,
-                Height = Height - MarginTop - MarginBottom,
-                BorderWidth = 1
+                Position = new PointF(Padding.Left, Padding.Top),
+                Size = new SizeF(Size.Width - Padding.Left - Padding.Right, Size.Height - Padding.Top - Padding.Bottom)
             };
             Container.AddChild(DataArea);
         }
@@ -93,7 +80,7 @@ namespace SimpleImageCharts.Core
                 Color = SubTitle.Color,
                 HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                 VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
-                MarginTop = -10,
+                Position = new PointF(0, -10),
                 Font = new Font(SubTitle.FontName, SubTitle.FontSize, FontStyle.Bold)
             };
             container.AddChild(gdiText);

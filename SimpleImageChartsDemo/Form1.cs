@@ -77,13 +77,12 @@ namespace WindowsFormsChart
                     MarginTop = -40,
                     HorizontalAlign = SimpleImageCharts.Enum.HorizontalAlign.Right
                 },
-                ChartGridModel = new ChartGridModel
+                ChartGrid = new ChartGridModel
                 {
                     LineColor = Color.LightGreen
                 },
                 SubTitle = new SubTitleModel { Text = "AAAAAAA" },
-                Width = pictureBox1.Width,
-                Height = pictureBox1.Height,
+                Size = pictureBox1.Size,
                 Categories = new[] { "Product A", "Product B", "Product C" },
                 DataSet = new[]
                 {
@@ -122,18 +121,16 @@ namespace WindowsFormsChart
                 {
                     MarginTop = -50
                 },
-                ChartGridModel = new ChartGridModel
+                ChartGrid = new ChartGridModel
                 {
                     LineColor = Color.LightGreen
                 },
-                BarSettingModel = new BarSettingModel {
+                BarSetting = new BarSettingModel {
                     IsStacked = true,
                     FormatValue = "{0:0;0}",
                 },
                 SubTitle = new SubTitleModel { Text = "aaaaaaaaaa ccccccccdddddddddddddddddcccc" },
-                Width = pictureBox1.Width,
-                Height = pictureBox1.Height,
-                MarginBottom = 100,
+                Size = pictureBox1.Size,
                 FormatAxisValue = "{0:0;0}", // force positive values
                 Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
                 DataSet = new[]

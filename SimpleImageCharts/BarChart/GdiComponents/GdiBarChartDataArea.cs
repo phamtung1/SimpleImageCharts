@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using GdiSharp.Components;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
@@ -30,43 +31,46 @@ namespace SimpleImageCharts.BarChart.GdiComponents
 
         private void AddBarSeries(BarSeries series, int offsetY)
         {
-            var y = (CellHeight / 2) + offsetY;
+            var y = (CellSize.Height / 2) + offsetY;
 
             foreach (var value in series.Data)
             {
                 var length = WidthUnit * value;
+                var barPosition = new PointF(0, y);
+
                 var bar = new GdiRectangle
                 {
-                    MarginTop = y,
-                    Height = BarSettingModel.Size,
+                    Size = new SizeF(Math.Abs(length), BarSettingModel.Size),
                     Color = series.Color,
-                    Width = Math.Abs(length)
                 };
+
+                var textPosition = new PointF(bar.Size.Width + 2, 0);
                 var text = new GdiText
                 {
                     Content = string.Format(BarSettingModel.FormatValue, value),
                     Font = BarSettingModel.ValueFont,
-                    Color = System.Drawing.Color.Gray,
-                    MarginLeft = bar.Width + 2,
+                    Color = Color.Gray,
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle
                 };
 
                 if (length > 0)
                 {
-                    bar.MarginLeft = RootX;
+                    barPosition.X = RootX;
                 }
                 else if (length < 0)
                 {
-                    bar.MarginLeft = -(Width - RootX);
+                    barPosition.X = -(Size.Width - RootX);
                     bar.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
-                    text.MarginLeft = -text.MarginLeft;
+                    textPosition.X = -textPosition.X;
                     text.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
                 }
 
+                bar.Position = barPosition;
+                text.Position = textPosition;
                 bar.AddChild(text);
                 this.AddChild(bar);
 
-                y += CellHeight;
+                y += CellSize.Height;
             }
         }
     }

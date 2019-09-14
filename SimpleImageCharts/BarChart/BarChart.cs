@@ -12,7 +12,7 @@ namespace SimpleImageCharts.BarChart
 {
     public class BarChart : BaseChart, IBarChart
     {
-        public BarSettingModel BarSettingModel { get; set; } = new BarSettingModel();
+        public BarSettingModel BarSetting { get; set; } = new BarSettingModel();
 
         public string FormatAxisValue { get; set; } = "{0}";
 
@@ -22,7 +22,7 @@ namespace SimpleImageCharts.BarChart
 
         public BarSeries[] DataSet { get; set; }
 
-        public ChartGridModel ChartGridModel { get; set; }
+        public ChartGridModel ChartGrid { get; set; }
 
         private float _categoryHeight;
 
@@ -38,19 +38,18 @@ namespace SimpleImageCharts.BarChart
 
         public BarChart()
         {
-            this.Width = 600;
-            this.Height = 300;
-            this.MarginLeft = 100;
-            this.MarginRight = 30;
-            this.MarginTop = 10;
-            this.MarginBottom = 100;
+            this.Size = new Size(600, 300);
+            Padding.Left = 100;
+            Padding.Right = 30;
+            Padding.Top = 10;
+            Padding.Bottom = 100;
         }
 
         protected override void Init(GdiContainer container, GdiRectangle dataArea)
         {
             base.Init(container, dataArea);
             const int NumberOfColumns = 4;
-            _categoryHeight = dataArea.Height / Categories.Length;
+            _categoryHeight = dataArea.Size.Height / Categories.Length;
 
             _maxValue = DataSet.SelectMany(x => x.Data).Max(x => x) * 1.1f;
             _minValue = DataSet.SelectMany(x => x.Data).Min(x => x) * 1.1f;
@@ -73,8 +72,8 @@ namespace SimpleImageCharts.BarChart
                 _minValue = 0;
             }
 
-            _widthUnit = dataArea.Width / (Math.Abs(_minValue) + _maxValue);
-            _rootX = MarginLeft + (_widthUnit * Math.Abs(_minValue));
+            _widthUnit = dataArea.Size.Width / (Math.Abs(_minValue) + _maxValue);
+            _rootX = Padding.Left + (_widthUnit * Math.Abs(_minValue));
         }
 
         protected override void BuildComponents(GdiContainer container, GdiRectangle dataArea)
@@ -103,21 +102,19 @@ namespace SimpleImageCharts.BarChart
 
         private void AddChartDataArea(GdiRectangle dataArea)
         {
-            if (ChartGridModel != null)
+            if (ChartGrid != null)
             {
                 _chartDataArea = new GdiBarChartDataArea
                 {
                     // base
                     MinValue = _minValue,
                     MaxValue = _maxValue,
-                    RootX = _rootX - MarginLeft,
-                    Width = dataArea.Width,
-                    Height = dataArea.Height,
-                    CellHeight = _categoryHeight,
-                    CellWidth = _widthUnit * StepSize,
-                    ChartGridModel = ChartGridModel,
+                    RootX = _rootX - Padding.Left,
+                    Size = dataArea.Size,
+                    CellSize = new SizeF(_widthUnit * StepSize, _categoryHeight),
+                    ChartGridModel = ChartGrid,
                     // GdiBarChartDataArea
-                    BarSettingModel = BarSettingModel,
+                    BarSettingModel = BarSetting,
                     DataSet = DataSet,
                     WidthUnit = _widthUnit
                 };
@@ -129,12 +126,11 @@ namespace SimpleImageCharts.BarChart
         {
             container.AddChild(new GdiVerLabelAxis
             {
-                MarginTop = MarginTop,
-                Width = MarginLeft,
-                Height = dataArea.Height,
+                Position = new PointF(0, Padding.Top),
+                Size = new SizeF(Padding.Left, dataArea.Size.Height),
                 Labels = Categories,
                 LabelHeight = _categoryHeight,
-                LabelOffsetX = MarginLeft - 10,
+                LabelOffsetX = Padding.Left - 10,
                 Font = Font
             });
         }
@@ -148,11 +144,9 @@ namespace SimpleImageCharts.BarChart
 
             container.AddChild(new GdiHozLabelAxis
             {
-                Width = dataArea.Width,
-                Height = MarginBottom,
-                MarginLeft = MarginLeft,
-                MarginTop = Height - MarginBottom,
-                RootX = _rootX - MarginLeft,
+                Size = new SizeF(dataArea.Size.Width, Padding.Bottom),
+                Position = new PointF(Padding.Left, this.Size.Height - Padding.Bottom),
+                RootX = _rootX - Padding.Left,
                 LeftToRightLabels = leftToRightLabels,
                 RightToLeftLabels = rightToLeftLabels,
                 LabelWidth = _widthUnit * StepSize,
