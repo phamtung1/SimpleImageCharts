@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using GdiSharp.Components;
+using GdiSharp.Components.Base;
 using SimpleImageCharts.Core;
+using SimpleImageCharts.Core.Models;
 using SimpleImageCharts.Enum;
 
 namespace SimpleImageCharts.PieChart
 {
-    public class PieChart : IPieChart
+    public class PieChart : BaseChart, IPieChart
     {
         private const float InitialAngle = -90;
 
         public string LabelFormat { get; set; } = "{0}";
-
-        public int Width { get; set; } = 600;
-
-        public int Height { get; set; } = 300;
 
         public PieEntry[] Entries { get; set; }
 
         public Color BorderColor { get; set; } = Color.White;
 
         public byte BorderWidth { get; set; } = 2;
-
-        public Font Font { get; set; } = new Font("Arial", 12);
 
         public Color TextColor { get; set; } = Color.White;
 
@@ -32,8 +29,15 @@ namespace SimpleImageCharts.PieChart
 
         public PositionAlign PieAligment { get; set; } = PositionAlign.Left;
 
-        public virtual IImageFile CreateImage()
+        public PieChart()
         {
+            Size = new Size(600, 300);
+        }
+
+        protected override void Init(GdiContainer container, GdiRectangle dataArea)
+        {
+            base.Init(container, dataArea);
+
             if (Entries == null || Entries.Length == 0)
             {
                 throw new ArgumentException("Invalid entries data");
@@ -43,35 +47,32 @@ namespace SimpleImageCharts.PieChart
             {
                 throw new ArgumentException("Unsupported Position!");
             }
+        }
 
-            var bitmap = new Bitmap(Width, Height);
+        protected override void Draw(Graphics graphics)
+        {
+            base.Draw(graphics);
+            graphics.Clear(Color.White);
+            graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
-            using (var graphic = Graphics.FromImage(bitmap))
+            float total = Entries.Sum(x => x.Value);
+            DrawPie(graphics, total);
+
+            DrawValues(graphics, total);
+            DrawLegend(graphics);
+
+            if (AfterDraw != null)
             {
-                graphic.Clear(Color.White);
-                graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                graphic.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-
-                float total = Entries.Sum(x => x.Value);
-                DrawPie(graphic, total);
-
-                DrawValues(graphic, total);
-                DrawLegend(graphic);
-
-                if (AfterDraw != null)
-                {
-                    AfterDraw(graphic);
-                }
+                AfterDraw(graphics);
             }
-
-            return new ImageFile(bitmap);
         }
 
         private void DrawPie(Graphics graphic, float total)
         {
             var startAngle = InitialAngle;
-            var rect = PieAligment == PositionAlign.Left ? new Rectangle(0, 0, Height, Height) :
-                new Rectangle(Width - Height, 0, Height, Height);
+            var rect = PieAligment == PositionAlign.Left ? new Rectangle(0, 0, Size.Height, Size.Height) :
+                new Rectangle(Size.Width - Size.Height, 0, Size.Height, Size.Height);
             using (var borderPen = new Pen(BorderColor, BorderWidth))
             {
                 foreach (var entry in Entries)
@@ -88,14 +89,12 @@ namespace SimpleImageCharts.PieChart
                 }
             }
 
-
             if (IsDonut)
             {
-                var x = this.PieAligment == PositionAlign.Left ? Height / 4 : Width - (Height / 4 * 3);
-                var y = Height / 4;
-                graphic.FillEllipse(Brushes.White, x, y, Height / 2, Height / 2);
+                var x = this.PieAligment == PositionAlign.Left ? Size.Height / 4 : Size.Width - (Size.Height / 4 * 3);
+                var y = Size.Height / 4;
+                graphic.FillEllipse(Brushes.White, x, y, Size.Height / 2, Size.Height / 2);
             }
-
         }
 
         private void DrawValues(Graphics graphic, float total)
@@ -106,10 +105,10 @@ namespace SimpleImageCharts.PieChart
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
 
-                var centerX = PieAligment == PositionAlign.Left ? Height / 2f : Width - Height / 2f;
-                var centerY = Height / 2f;
+                var centerX = PieAligment == PositionAlign.Left ? Size.Height / 2f : Size.Width - Size.Height / 2f;
+                var centerY = Size.Height / 2f;
 
-                var labelRadius = Height * 0.4f;
+                var labelRadius = Size.Height * 0.4f;
 
                 var startAngle = InitialAngle;
                 foreach (var entry in Entries)
@@ -138,7 +137,7 @@ namespace SimpleImageCharts.PieChart
             const int BoxHeight = 15;
             const int LineHeight = 20;
 
-            var left = PieAligment == PositionAlign.Left ? this.Height + 40 : Width - Height - 150;
+            var left = PieAligment == PositionAlign.Left ? this.Size.Height + 40 : Size.Width - Size.Height - 150;
             var top = 20;
 
             using (var textBrush = new SolidBrush(Color.FromArgb(70, 70, 70)))

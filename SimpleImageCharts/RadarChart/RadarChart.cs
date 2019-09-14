@@ -1,31 +1,20 @@
-﻿using SimpleImageCharts.Core;
-using SimpleImageCharts.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using GdiSharp.Components;
+using GdiSharp.Components.Base;
+using SimpleImageCharts.Core;
+using SimpleImageCharts.Core.Models;
+using SimpleImageCharts.Helpers;
 
 namespace SimpleImageCharts.RadarChart
 {
-    public class RadarChart : IRadarChart
+    public class RadarChart : BaseChart, IRadarChart
     {
         private const int InitAngle = 90;
 
-        private const int MarginLeft = 100;
-
-        private const int MarginRight = 50;
-
-        private const int MarginTop = 50;
-
-        private const int MarginBottom = 50;
-
-        public Font Font { get; set; } = new Font("Arial", 12);
-
         public Font ValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
-
-        public int Width { get; set; } = 600;
-
-        public int Height { get; set; } = 300;
 
         public int StepSize { get; set; } = 0;
 
@@ -43,56 +32,63 @@ namespace SimpleImageCharts.RadarChart
 
         private float _unitPixel;
 
-        public virtual IImageFile CreateImage()
+        private int _numberOfSteps;
+
+        public RadarChart()
         {
+            Size = new Size(600, 300);
+            Padding = new Padding(100, 50, 50, 50);
+        }
+
+        protected override void Init(GdiContainer container, GdiRectangle dataArea)
+        {
+            base.Init(container, dataArea);
             if (Categories.Length < 3)
             {
                 throw new ArgumentException("Invalid data");
             }
 
+            _maxRadius = Math.Min(dataArea.Size.Width, dataArea.Size.Height) / 2;
+            _centerPoint = new PointF(Padding.Left + _maxRadius, Padding.Top + _maxRadius);
+
             var maxDataValue = MaxDataValue > 0 ? MaxDataValue : DataSets.SelectMany(x => x.Data).Max();
-            var bitmap = new Bitmap(Width, Height);
-            using (var graphic = Graphics.FromImage(bitmap))
+            var firstDigit = MathHelper.GetFirstDigit(maxDataValue);
+            // test again with value <= 10
+            _numberOfSteps = firstDigit + 1;
+
+            var roundMaxValue = int.Parse(firstDigit.ToString().PadRight(maxDataValue.ToString().Length, '0'));
+            if (StepSize == 0)
             {
-                graphic.Clear(Color.White);
-                graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                var numberOfStep = 0;
-
-                var firstDigit = MathHelper.GetFirstDigit(maxDataValue);
-                // test again with value <= 10
-                numberOfStep = firstDigit + 1;
-
-                var roundMaxValue = int.Parse(firstDigit.ToString().PadRight(maxDataValue.ToString().Length, '0'));
-                if (StepSize == 0)
-                {
-                    StepSize = roundMaxValue / firstDigit;
-                }
-                else
-                {
-                    numberOfStep = roundMaxValue / StepSize + 1;
-                }
-
-                _maxRadius = Math.Min(Width - MarginLeft - MarginRight, Height - MarginTop - MarginBottom) / 2;
-                _centerPoint = new PointF(MarginLeft + _maxRadius, MarginTop + _maxRadius);
-                // remove this variable
-                _stepSizeInPixel = _maxRadius / numberOfStep;
-                _unitPixel = _maxRadius / (roundMaxValue + StepSize);
-                for (int i = 0; i <= numberOfStep; i++)
-                {
-                    DrawGridLine(graphic, i * StepSize * _unitPixel, _centerPoint);
-                }
-
-                DrawCategories(graphic);
-                foreach (var dataset in DataSets)
-                {
-                    DrawPathValues(graphic, dataset);
-                }
-
-                DrawValueTexts(graphic, numberOfStep, _centerPoint);
-                DrawLegends(graphic);
+                StepSize = roundMaxValue / firstDigit;
+            }
+            else
+            {
+                _numberOfSteps = roundMaxValue / StepSize + 1;
             }
 
-            return new ImageFile(bitmap);
+            // remove this variable
+            _stepSizeInPixel = _maxRadius / _numberOfSteps;
+            _unitPixel = _maxRadius / (roundMaxValue + StepSize);
+        }
+
+        protected override void Draw(Graphics graphics)
+        {
+            base.Draw(graphics);
+            graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            for (int i = 0; i <= _numberOfSteps; i++)
+            {
+                DrawGridLine(graphics, i * StepSize * _unitPixel, _centerPoint);
+            }
+
+            DrawCategories(graphics);
+            foreach (var dataset in DataSets)
+            {
+                DrawPathValues(graphics, dataset);
+            }
+
+            DrawValueTexts(graphics, _numberOfSteps, _centerPoint);
+            DrawLegends(graphics);
         }
 
         private void DrawPathValues(Graphics graphics, RadarChartSeries dataset)
@@ -173,9 +169,9 @@ namespace SimpleImageCharts.RadarChart
         private void DrawLegends(Graphics graphics)
         {
             const int LabelHeight = 30;
-            var left = MarginLeft + _maxRadius * 2 + 70;
+            var left = Padding.Left + _maxRadius * 2 + 70;
             var legendAreaHeight = LabelHeight * DataSets.Length;
-            var top = (Height - legendAreaHeight) / 2;
+            var top = (Size.Height - legendAreaHeight) / 2;
             foreach (var dataset in DataSets)
             {
                 if (string.IsNullOrEmpty(dataset.Label))

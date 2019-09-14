@@ -40,8 +40,7 @@ namespace WindowsFormsChart
 
             var chart = new PieChart
             {
-                Width = pictureBox1.Width,
-                Height = pictureBox1.Height,
+                Size = pictureBox1.Size,
                 Entries = entries
             };
 
@@ -56,8 +55,7 @@ namespace WindowsFormsChart
 
             var chart = new PieChart
             {
-                Width = pictureBox1.Width,
-                Height = pictureBox1.Height,
+                Size = pictureBox1.Size,
                 Entries = entries,
                 IsDonut = true,
                 PieAligment = SimpleImageCharts.Enum.PositionAlign.Right
@@ -221,8 +219,7 @@ namespace WindowsFormsChart
             {
                 MaxDataValue = 100,
                 StepSize = 10,
-                Width = pictureBox1.Width,
-                Height = pictureBox1.Height,
+                Size = pictureBox1.Size,
                 Categories = categories,
                 DataSets = new[]
                 {
