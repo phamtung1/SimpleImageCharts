@@ -46,5 +46,14 @@ namespace SimpleImageCharts.Core.GdiChartComponents
                 this.AddChild(rightGrid);
             }
         }
+
+        public override void Render(Graphics graphics)
+        {
+            base.Render(graphics);
+            var position = GetAbsolutePosition(graphics);
+
+            // Draw root X axis
+            graphics.DrawLine(Pens.LightGray, position.X + RootX, position.Y, position.X + RootX, position.Y + Height);
+        }
     }
 }

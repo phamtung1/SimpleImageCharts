@@ -30,6 +30,8 @@ namespace SimpleImageCharts.Core
 
         private GdiRectangle DataArea { get; set; }
 
+        public Font Font { get; set; } = new Font("Arial", 12);
+
         public IImageFile CreateImage()
         {
             this.SetupContainer();

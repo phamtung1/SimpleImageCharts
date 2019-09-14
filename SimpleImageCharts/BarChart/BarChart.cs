@@ -22,8 +22,6 @@ namespace SimpleImageCharts.BarChart
 
         public BarSeries[] DataSet { get; set; }
 
-        public Font Font { get; set; } = new Font("Arial", 12);
-
         public ChartGridModel ChartGridModel { get; set; }
 
         private float _categoryHeight;
@@ -87,16 +85,8 @@ namespace SimpleImageCharts.BarChart
             CreateLegendItems();
             base.AddLegend(container);
             base.AddSubTitle(container);
-        }
-
-        protected override void Draw(Graphics graphics)
-        {
-            base.Draw(graphics);
-
-            // X axis line
-            graphics.DrawLine(Pens.LightGray, _rootX, MarginTop, _rootX, Height - MarginBottom);
-            DrawHorizontalAxisValues(graphics);
-            DrawCategoryLabels(graphics);
+            AddVerLabelAxis(container, dataArea);
+            AddHozLabelAxis(container, dataArea);
         }
 
         private void CreateLegendItems()
@@ -113,74 +103,61 @@ namespace SimpleImageCharts.BarChart
 
         private void AddChartDataArea(GdiRectangle dataArea)
         {
-            if (ChartGridModel == null)
+            if (ChartGridModel != null)
             {
-                return;
+                _chartDataArea = new GdiBarChartDataArea
+                {
+                    // base
+                    MinValue = _minValue,
+                    MaxValue = _maxValue,
+                    RootX = _rootX - MarginLeft,
+                    Width = dataArea.Width,
+                    Height = dataArea.Height,
+                    CellHeight = _categoryHeight,
+                    CellWidth = _widthUnit * StepSize,
+                    ChartGridModel = ChartGridModel,
+                    // GdiBarChartDataArea
+                    BarSettingModel = BarSettingModel,
+                    DataSet = DataSet,
+                    WidthUnit = _widthUnit
+                };
+                dataArea.AddChild(_chartDataArea);
             }
+        }
 
-            _chartDataArea = new GdiBarChartDataArea
+        private void AddVerLabelAxis(GdiContainer container, GdiRectangle dataArea)
+        {
+            container.AddChild(new GdiVerLabelAxis
             {
-                // base
-                MinValue = _minValue,
-                MaxValue = _maxValue,
-                RootX = _rootX - MarginLeft,
-                Width = dataArea.Width,
+                Y = MarginTop,
+                Width = MarginLeft,
                 Height = dataArea.Height,
-                CellHeight = _categoryHeight,
-                CellWidth = _widthUnit * StepSize,
-                ChartGridModel = ChartGridModel,
-                // GdiBarChartDataArea
-                BarSettingModel = BarSettingModel,
-                DataSet = DataSet,
-                WidthUnit = _widthUnit
-            };
-            dataArea.AddChild(_chartDataArea);
+                Labels = Categories,
+                LabelHeight = _categoryHeight,
+                LabelOffsetX = MarginLeft - 10,
+                Font = Font
+            });
         }
 
-        private void DrawHorizontalAxisValues(Graphics graphic)
+        private void AddHozLabelAxis(GdiContainer container, GdiRectangle dataArea)
         {
-            var x = _rootX;
-            var realStepSize = StepSize * _widthUnit;
-            using (var stringFormat = new StringFormat())
+            var leftToRightLabels = Enumerable.Range(0, (int)Math.Ceiling(_maxValue / StepSize))
+                .Select(x => string.Format(FormatAxisValue, x * StepSize)).ToArray();
+            var rightToLeftLabels = Enumerable.Range(0, (int)Math.Ceiling(Math.Abs(_minValue) / StepSize))
+                .Select(x => string.Format(FormatAxisValue, -x * StepSize)).ToArray();
+
+            container.AddChild(new GdiHozLabelAxis
             {
-                stringFormat.Alignment = StringAlignment.Center;
-
-                graphic.DrawString("0", Font, Brushes.Gray, _rootX, Height - MarginBottom, stringFormat);
-
-                for (int i = 0; i < _maxValue; i += StepSize)
-                {
-                    x += realStepSize;
-                    if (x < Width - MarginRight)
-                    {
-                        graphic.DrawString(string.Format(FormatAxisValue, i + StepSize), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
-                    }
-                }
-
-                x = _rootX;
-                for (int i = 0; i > _minValue; i -= StepSize)
-                {
-                    x -= realStepSize;
-                    if (Math.Abs(x) > MarginLeft)
-                    {
-                        graphic.DrawString(string.Format(FormatAxisValue, i - StepSize), Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
-                    }
-                }
-            }
-        }
-
-        private void DrawCategoryLabels(Graphics graphic)
-        {
-            var y = MarginTop + _categoryHeight / 2;
-            using (StringFormat stringFormat = new StringFormat())
-            {
-                stringFormat.Alignment = StringAlignment.Far;
-
-                foreach (var item in Categories)
-                {
-                    graphic.DrawString(item, Font, Brushes.Gray, MarginLeft - 10, y, stringFormat);
-                    y += _categoryHeight;
-                }
-            }
+                Width = dataArea.Width,
+                Height = MarginBottom,
+                X = MarginLeft,
+                Y = Height - MarginBottom,
+                RootX = _rootX - MarginLeft,
+                LeftToRightLabels = leftToRightLabels,
+                RightToLeftLabels = rightToLeftLabels,
+                LabelWidth = _widthUnit * StepSize,
+                Font = Font
+            });
         }
     }
 }
