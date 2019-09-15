@@ -28,7 +28,7 @@ namespace WindowsFormsChart
                 {
                     Value = (float)rand.Next(10, 40) / 10,
                     Color = Color.FromArgb(rand.Next(0, 200), rand.Next(0, 200), rand.Next(0, 200)),
-                    Label = "Data " + i
+                    Name = "Data " + i
                 };
             }
 
@@ -59,7 +59,7 @@ namespace WindowsFormsChart
                 Size = pictureBox1.Size,
                 Entries = entries,
                 IsDonut = true,
-                PieAligment = SimpleImageCharts.Enum.PositionAlign.Right
+                HorizontalAlign = HorizontalAlign.Right
             };
 
             var image = chart.CreateImage();

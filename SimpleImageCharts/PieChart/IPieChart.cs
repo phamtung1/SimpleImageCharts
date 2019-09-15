@@ -14,7 +14,6 @@ namespace SimpleImageCharts.PieChart
         Font Font { get; set; }
         bool IsDonut { get; set; }
         string LabelFormat { get; set; }
-        PositionAlign PieAligment { get; set; }
         Color TextColor { get; set; }
     }
 }
