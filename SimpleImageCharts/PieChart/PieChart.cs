@@ -34,9 +34,9 @@ namespace SimpleImageCharts.PieChart
             Size = new Size(600, 300);
         }
 
-        protected override void Init(GdiContainer container, GdiRectangle dataArea)
+        protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
-            base.Init(container, dataArea);
+            base.Init(mainContainer, chartContainer);
 
             if (Entries == null || Entries.Length == 0)
             {

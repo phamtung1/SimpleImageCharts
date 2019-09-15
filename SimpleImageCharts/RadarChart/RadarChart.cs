@@ -40,15 +40,15 @@ namespace SimpleImageCharts.RadarChart
             Padding = new Padding(100, 50, 50, 50);
         }
 
-        protected override void Init(GdiContainer container, GdiRectangle dataArea)
+        protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
-            base.Init(container, dataArea);
+            base.Init(mainContainer, chartContainer);
             if (Categories.Length < 3)
             {
                 throw new ArgumentException("Invalid data");
             }
 
-            _maxRadius = Math.Min(dataArea.Size.Width, dataArea.Size.Height) / 2;
+            _maxRadius = Math.Min(chartContainer.Size.Width, chartContainer.Size.Height) / 2;
             _centerPoint = new PointF(Padding.Left + _maxRadius, Padding.Top + _maxRadius);
 
             var maxDataValue = MaxDataValue > 0 ? MaxDataValue : DataSets.SelectMany(x => x.Data).Max();

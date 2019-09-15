@@ -5,14 +5,8 @@ using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.Core.GdiChartComponents
 {
-    public class GdiHozDataArea : GdiRectangle
+    public class GdiHozGridChartArea : GdiHozSplitContainer
     {
-        public float RootX { get; set; } = 0;
-
-        public float MinValue { get; set; } = 0;
-
-        public float MaxValue { get; set; } = 0;
-
         public SizeF CellSize { get; set; }
 
         public ChartGridModel ChartGridModel { get; set; }
@@ -20,24 +14,32 @@ namespace SimpleImageCharts.Core.GdiChartComponents
         public override void BeforeRendering()
         {
             base.BeforeRendering();
-            if (RootX > 0)
+            CreateLeftGrid();
+            CreateRightGrid();
+        }
+
+        private void CreateLeftGrid()
+        {
+            if (LeftPanel != null)
             {
                 var leftGrid = GdiMapper.ToGdiGrid(ChartGridModel);
                 leftGrid.CellSize = CellSize;
-                leftGrid.Size = new SizeF(RootX, this.Size.Height);
+                leftGrid.Size = LeftPanel.Size;
                 leftGrid.IsDrawnFromRightToLeft = true;
 
-                this.AddChild(leftGrid);
+                LeftPanel.AddChild(leftGrid);
             }
+        }
 
-            if (RootX < Size.Width)
+        private void CreateRightGrid()
+        {
+            if (RightPanel != null)
             {
                 var rightGrid = GdiMapper.ToGdiGrid(ChartGridModel);
                 rightGrid.CellSize = CellSize;
-                rightGrid.Size = new SizeF(this.Size.Width - RootX, this.Size.Height);
-                rightGrid.Position = new PointF(RootX, 0);
+                rightGrid.Size = RightPanel.Size;
 
-                this.AddChild(rightGrid);
+                RightPanel.AddChild(rightGrid);
             }
         }
 
@@ -47,7 +49,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
             var position = GetAbsolutePosition(graphics);
 
             // Draw root X axis
-            graphics.DrawLine(Pens.LightGray, position.X + RootX, position.Y, position.X + RootX, position.Y + Size.Height);
+            graphics.DrawLine(Pens.LightGray, position.X + LeftPanelWidth, position.Y, position.X + LeftPanelWidth, position.Y + Size.Height);
         }
     }
 }

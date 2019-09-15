@@ -14,9 +14,7 @@ namespace SimpleImageCharts.Core.Models
 
         public Color TextColor { get; set; } = Color.Gray;
 
-        public int MarginLeft { get; set; } = 0;
-
-        public int MarginTop { get; set; } = 0;
+        public PointF Margin { get; set; } = PointF.Empty;
 
         public HorizontalAlign HorizontalAlign { get; set; } = HorizontalAlign.Center;
 

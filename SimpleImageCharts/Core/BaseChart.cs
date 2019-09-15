@@ -20,18 +20,18 @@ namespace SimpleImageCharts.Core
 
         public Font Font { get; set; } = new Font("Arial", 12);
 
-        private GdiContainer Container { get; set; }
+        private GdiContainer MainContainer { get; set; }
 
-        private GdiRectangle DataArea { get; set; }
+        private GdiRectangle ChartContainer { get; set; }
 
         public IImageFile CreateImage()
         {
             this.SetupContainer();
-            this.Init(Container, DataArea);
-            this.BuildComponents(Container, DataArea);
+            this.Init(MainContainer, ChartContainer);
+            this.BuildComponents(MainContainer, ChartContainer);
             var bitmap = new Bitmap(Size.Width, Size.Height);
             var renderer = new GdiRenderer(bitmap);
-            renderer.Render(Container);
+            renderer.Render(MainContainer);
             using (var graphics = renderer.GetGraphics())
             {
                 this.Draw(graphics);
@@ -42,24 +42,24 @@ namespace SimpleImageCharts.Core
 
         private void SetupContainer()
         {
-            Container = new GdiRectangle
+            MainContainer = new GdiRectangle
             {
                 Size = this.Size,
                 Color = Color.White
             };
-            DataArea = new GdiRectangle
+            ChartContainer = new GdiRectangle
             {
-                Position = new PointF(Padding.Left, Padding.Top),
+                Margin = new PointF(Padding.Left, Padding.Top),
                 Size = new SizeF(Size.Width - Padding.Left - Padding.Right, Size.Height - Padding.Top - Padding.Bottom)
             };
-            Container.AddChild(DataArea);
+            MainContainer.AddChild(ChartContainer);
         }
 
-        protected virtual void Init(GdiContainer container, GdiRectangle dataArea)
+        protected virtual void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
         }
 
-        protected virtual void BuildComponents(GdiContainer container, GdiRectangle dataArea)
+        protected virtual void BuildComponents(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
         }
 
@@ -67,7 +67,7 @@ namespace SimpleImageCharts.Core
         {
         }
 
-        protected virtual void AddSubTitle(GdiContainer container)
+        protected virtual void AddSubTitle(GdiContainer mainContainer)
         {
             if (SubTitle == null || string.IsNullOrWhiteSpace(SubTitle.Text))
             {
@@ -80,22 +80,22 @@ namespace SimpleImageCharts.Core
                 Color = SubTitle.Color,
                 HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                 VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
-                Position = new PointF(0, -10),
+                Margin = new PointF(0, 10),
                 Font = new Font(SubTitle.FontName, SubTitle.FontSize, FontStyle.Bold)
             };
-            container.AddChild(gdiText);
+            mainContainer.AddChild(gdiText);
         }
 
-        protected virtual void AddLegend(GdiContainer container)
+        protected virtual void AddLegend(GdiContainer mainContainer)
         {
             if (Legend == null || Legend.Items == null || !Legend.Items.Any())
             {
                 return;
             }
 
-            container.AddChild(new GdiLegend
+            mainContainer.AddChild(new GdiLegend
             {
-                Legend = Legend,
+                Legend = Legend
             });
         }
     }

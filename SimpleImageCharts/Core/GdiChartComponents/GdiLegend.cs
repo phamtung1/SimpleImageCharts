@@ -28,13 +28,14 @@ namespace SimpleImageCharts.Core.GdiChartComponents
                 return;
             }
 
+            this.Margin = Legend.Margin;
             this.HorizontalAlignment = GdiMapper.ToGdiHorizontalAlign(Legend.HorizontalAlign);
             this.VerticalAlignment = GdiMapper.ToGdiVerticalAlign(Legend.VerticalAlign);
 
             var position = GetAbsolutePosition(graphics);
 
-            var left = position.X + Legend.MarginLeft;
-            var top = position.Y + Legend.MarginTop;
+            var left = position.X;
+            var top = position.Y;
 
             using (var textBrush = new SolidBrush(Legend.TextColor))
             using (var font = new Font(Legend.FontName, Legend.FontSize))

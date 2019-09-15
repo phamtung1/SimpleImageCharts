@@ -38,10 +38,10 @@ namespace SimpleImageCharts.ColumnChart
             Padding = new Padding(30, 50, 30, 120);
         }
 
-        protected override void Init(GdiContainer container, GdiRectangle dataArea)
+        protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
-            base.Init(container, dataArea);
-            _categoryWidth = dataArea.Size.Width / Categories.Length;
+            base.Init(mainContainer, chartContainer);
+            _categoryWidth = chartContainer.Size.Width / Categories.Length;
 
             _maxValue = DataSets.SelectMany(x => x.Data).Max(x => x) * 1.1f;
             _minValue = DataSets.SelectMany(x => x.Data).Min(x => x) * 1.1f;
@@ -51,7 +51,7 @@ namespace SimpleImageCharts.ColumnChart
                 _minValue = 0;
             }
 
-            _heightUnit = dataArea.Size.Height / (Math.Abs(_minValue) + _maxValue);
+            _heightUnit = chartContainer.Size.Height / (Math.Abs(_minValue) + _maxValue);
 
             _rootY = Padding.Top + (_heightUnit * Math.Abs(_maxValue));
         }

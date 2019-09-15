@@ -2,6 +2,7 @@
 using SimpleImageCharts.ColumnChart;
 using SimpleImageCharts.Core.Models;
 using SimpleImageCharts.DoubleAxisBarChart;
+using SimpleImageCharts.Enum;
 using SimpleImageCharts.PieChart;
 using SimpleImageCharts.RadarChart;
 using System;
@@ -72,8 +73,9 @@ namespace WindowsFormsChart
             {
                 Legend = new LegendModel
                 {
-                    MarginTop = -40,
-                    HorizontalAlign = SimpleImageCharts.Enum.HorizontalAlign.Right
+                    Margin = new PointF(0, 40),
+                    VerticalAlign = VerticalAlign.Bottom,
+                    HorizontalAlign = HorizontalAlign.Center
                 },
                 ChartGrid = new ChartGridModel
                 {
@@ -117,7 +119,8 @@ namespace WindowsFormsChart
             {
                 Legend = new LegendModel
                 {
-                    MarginTop = -50
+                    Margin = new PointF(0, 50),
+                    VerticalAlign = VerticalAlign.Bottom
                 },
                 ChartGrid = new ChartGridModel
                 {

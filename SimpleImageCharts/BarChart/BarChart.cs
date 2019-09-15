@@ -34,7 +34,7 @@ namespace SimpleImageCharts.BarChart
 
         private float _minValue;
 
-        private GdiHozDataArea _chartDataArea;
+        private GdiHozGridChartArea _chartArea;
 
         public BarChart()
         {
@@ -42,11 +42,11 @@ namespace SimpleImageCharts.BarChart
             Padding = new Padding(100, 10, 30, 100);
         }
 
-        protected override void Init(GdiContainer container, GdiRectangle dataArea)
+        protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
-            base.Init(container, dataArea);
+            base.Init(mainContainer, chartContainer);
             const int NumberOfColumns = 4;
-            _categoryHeight = dataArea.Size.Height / Categories.Length;
+            _categoryHeight = chartContainer.Size.Height / Categories.Length;
 
             _maxValue = DataSet.SelectMany(x => x.Data).Max(x => x) * 1.1f;
             _minValue = DataSet.SelectMany(x => x.Data).Min(x => x) * 1.1f;
@@ -69,20 +69,20 @@ namespace SimpleImageCharts.BarChart
                 _minValue = 0;
             }
 
-            _widthUnit = dataArea.Size.Width / (Math.Abs(_minValue) + _maxValue);
+            _widthUnit = chartContainer.Size.Width / (Math.Abs(_minValue) + _maxValue);
             _rootX = Padding.Left + (_widthUnit * Math.Abs(_minValue));
         }
 
-        protected override void BuildComponents(GdiContainer container, GdiRectangle dataArea)
+        protected override void BuildComponents(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
-            base.BuildComponents(container, dataArea);
+            base.BuildComponents(mainContainer, chartContainer);
 
-            AddChartDataArea(dataArea);
+            AddChartArea(chartContainer);
             CreateLegendItems();
-            base.AddLegend(container);
-            base.AddSubTitle(container);
-            AddVerLabelAxis(container, dataArea);
-            AddHozLabelAxis(container, dataArea);
+            base.AddLegend(mainContainer);
+            base.AddSubTitle(mainContainer);
+            AddVerLabelAxis(mainContainer, chartContainer);
+            AddHozLabelAxis(mainContainer, chartContainer);
         }
 
         private void CreateLegendItems()
@@ -97,17 +97,15 @@ namespace SimpleImageCharts.BarChart
             }
         }
 
-        private void AddChartDataArea(GdiRectangle dataArea)
+        private void AddChartArea(GdiRectangle chartArea)
         {
             if (ChartGrid != null)
             {
-                _chartDataArea = new GdiBarChartDataArea
+                _chartArea = new GdiBarChartArea
                 {
                     // base
-                    MinValue = _minValue,
-                    MaxValue = _maxValue,
-                    RootX = _rootX - Padding.Left,
-                    Size = dataArea.Size,
+                    LeftPanelWidth = _rootX - Padding.Left,
+                    Size = chartArea.Size,
                     CellSize = new SizeF(_widthUnit * StepSize, _categoryHeight),
                     ChartGridModel = ChartGrid,
                     // GdiBarChartDataArea
@@ -115,16 +113,16 @@ namespace SimpleImageCharts.BarChart
                     DataSet = DataSet,
                     WidthUnit = _widthUnit
                 };
-                dataArea.AddChild(_chartDataArea);
+                chartArea.AddChild(_chartArea);
             }
         }
 
-        private void AddVerLabelAxis(GdiContainer container, GdiRectangle dataArea)
+        private void AddVerLabelAxis(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
-            container.AddChild(new GdiVerLabelAxis
+            mainContainer.AddChild(new GdiVerLabelAxis
             {
-                Position = new PointF(0, Padding.Top),
-                Size = new SizeF(Padding.Left, dataArea.Size.Height),
+                Margin = new PointF(0, Padding.Top),
+                Size = new SizeF(Padding.Left, chartContainer.Size.Height),
                 Labels = Categories,
                 LabelHeight = _categoryHeight,
                 LabelOffsetX = Padding.Left - 10,
@@ -132,17 +130,17 @@ namespace SimpleImageCharts.BarChart
             });
         }
 
-        private void AddHozLabelAxis(GdiContainer container, GdiRectangle dataArea)
+        private void AddHozLabelAxis(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
             var leftToRightLabels = Enumerable.Range(0, (int)Math.Ceiling(_maxValue / StepSize))
                 .Select(x => string.Format(FormatAxisValue, x * StepSize)).ToArray();
             var rightToLeftLabels = Enumerable.Range(0, (int)Math.Ceiling(Math.Abs(_minValue) / StepSize))
                 .Select(x => string.Format(FormatAxisValue, -x * StepSize)).ToArray();
 
-            container.AddChild(new GdiHozLabelAxis
+            mainContainer.AddChild(new GdiHozLabelAxis
             {
-                Size = new SizeF(dataArea.Size.Width, Padding.Bottom),
-                Position = new PointF(Padding.Left, this.Size.Height - Padding.Bottom),
+                Size = new SizeF(chartContainer.Size.Width, Padding.Bottom),
+                Margin = new PointF(Padding.Left, this.Size.Height - Padding.Bottom),
                 RootX = _rootX - Padding.Left,
                 LeftToRightLabels = leftToRightLabels,
                 RightToLeftLabels = rightToLeftLabels,

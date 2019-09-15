@@ -34,14 +34,14 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             Padding = new Padding(150, 40, 30, 50);
         }
 
-        protected override void Init(GdiContainer container, GdiRectangle dataArea)
+        protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
-            base.Init(container, dataArea);
-            _categoryHeight = dataArea.Size.Height / Categories.Length;
+            base.Init(mainContainer, chartContainer);
+            _categoryHeight = chartContainer.Size.Height / Categories.Length;
 
             _maxValue = FindMaxValueFromBothDataSets() * 1.1f;
 
-            _widthUnit = dataArea.Size.Width / _maxValue;
+            _widthUnit = chartContainer.Size.Width / _maxValue;
         }
 
         protected override void Draw(Graphics graphics)

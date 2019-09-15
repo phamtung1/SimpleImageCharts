@@ -6,7 +6,7 @@ using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.BarChart.GdiComponents
 {
-    public class GdiBarChartDataArea : GdiHozDataArea
+    public class GdiBarChartArea : GdiHozGridChartArea
     {
         public BarSettingModel BarSettingModel { get; set; }
 
@@ -36,17 +36,17 @@ namespace SimpleImageCharts.BarChart.GdiComponents
             foreach (var value in series.Data)
             {
                 var length = WidthUnit * value;
-                var barPosition = new PointF(0, y);
 
                 var bar = new GdiRectangle
                 {
                     Size = new SizeF(Math.Abs(length), BarSettingModel.Size),
+                    Margin = new PointF(0, y),
                     Color = series.Color,
                 };
 
-                var textPosition = new PointF(bar.Size.Width + 2, 0);
                 var text = new GdiText
                 {
+                    Margin = new PointF(bar.Size.Width + 2, 0),
                     Content = string.Format(BarSettingModel.FormatValue, value),
                     Font = BarSettingModel.ValueFont,
                     Color = Color.Gray,
@@ -55,20 +55,16 @@ namespace SimpleImageCharts.BarChart.GdiComponents
 
                 if (length > 0)
                 {
-                    barPosition.X = RootX;
+                    RightPanel.AddChild(bar);
                 }
                 else if (length < 0)
                 {
-                    barPosition.X = -(Size.Width - RootX);
+                    LeftPanel.AddChild(bar);
                     bar.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
-                    textPosition.X = -textPosition.X;
                     text.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right;
                 }
 
-                bar.Position = barPosition;
-                text.Position = textPosition;
                 bar.AddChild(text);
-                this.AddChild(bar);
 
                 y += CellSize.Height;
             }
