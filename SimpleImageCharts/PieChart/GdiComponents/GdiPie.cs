@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using GdiSharp.Components.Base;
+using GdiSharp.Models;
 
 namespace SimpleImageCharts.PieChart.GdiComponents
 {
@@ -15,9 +16,7 @@ namespace SimpleImageCharts.PieChart.GdiComponents
 
         public float Diameter { get; set; }
 
-        public Color BorderColor { get; set; } = Color.White;
-
-        public byte BorderWidth { get; set; } = 2;
+        public Border Border { get; set; } = new Border(2, Color.White);
 
         public PieEntry[] Entries { get; set; }
 
@@ -47,7 +46,7 @@ namespace SimpleImageCharts.PieChart.GdiComponents
 
             var startAngle = InitialAngle;
             var rect = new RectangleF(position.X, position.Y, Diameter, Diameter);
-            using (var borderPen = new Pen(BorderColor, BorderWidth))
+            using (var borderPen = new Pen(Border.Color, Border.Size))
             {
                 foreach (var entry in Entries)
                 {
