@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Charts\SingleRangeBarChartCreator.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +93,10 @@
     <ProjectReference Include="..\SimpleImageCharts\SimpleImageCharts.csproj">
       <Project>{7B19259D-E165-438F-BDFD-3F9EE8751083}</Project>
       <Name>SimpleImageCharts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_submodules\GdiSharp\GdiSharp\GdiSharp.csproj">
+      <Project>{97DCD9F7-7030-4808-AD12-A176120F1C4E}</Project>
+      <Name>GdiSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

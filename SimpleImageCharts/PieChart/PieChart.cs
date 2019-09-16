@@ -94,7 +94,7 @@ namespace SimpleImageCharts.PieChart
                     using (var brush = new SolidBrush(entry.Color))
                     {
                         graphic.FillRectangle(brush, left, top, BoxWidth, BoxHeight);
-                        graphic.DrawString(entry.Name, font, textBrush, left + BoxWidth + 5, top);
+                        graphic.DrawString(entry.Label, font, textBrush, left + BoxWidth + 5, top);
                     }
 
                     top += LineHeight;

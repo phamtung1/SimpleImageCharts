@@ -13,8 +13,4 @@
     <ProjectReference Include="..\_submodules\GdiSharp\GdiSharp\GdiSharp.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SingleRangeBarChart\" />
-  </ItemGroup>
-
 </Project>

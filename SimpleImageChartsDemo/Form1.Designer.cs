@@ -36,6 +36,7 @@
             this.btnDoubleAxisBar = new System.Windows.Forms.Button();
             this.btnStackedBar = new System.Windows.Forms.Button();
             this.btnRadarChart = new System.Windows.Forms.Button();
+            this.btnSingleRangeBarChart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,11 +129,23 @@
             this.btnRadarChart.UseVisualStyleBackColor = true;
             this.btnRadarChart.Click += new System.EventHandler(this.BtnRadarChart_Click);
             // 
+            // btnSingleRangeBarChart
+            // 
+            this.btnSingleRangeBarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSingleRangeBarChart.Location = new System.Drawing.Point(1045, 431);
+            this.btnSingleRangeBarChart.Name = "btnSingleRangeBarChart";
+            this.btnSingleRangeBarChart.Size = new System.Drawing.Size(118, 36);
+            this.btnSingleRangeBarChart.TabIndex = 8;
+            this.btnSingleRangeBarChart.Text = "Single Range Bar Chart";
+            this.btnSingleRangeBarChart.UseVisualStyleBackColor = true;
+            this.btnSingleRangeBarChart.Click += new System.EventHandler(this.BtnSingleRangeBarChart_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1230, 601);
+            this.Controls.Add(this.btnSingleRangeBarChart);
             this.Controls.Add(this.btnRadarChart);
             this.Controls.Add(this.btnStackedBar);
             this.Controls.Add(this.btnDoubleAxisBar);
@@ -158,6 +171,7 @@
         private System.Windows.Forms.Button btnDoubleAxisBar;
         private System.Windows.Forms.Button btnStackedBar;
         private System.Windows.Forms.Button btnRadarChart;
+        private System.Windows.Forms.Button btnSingleRangeBarChart;
     }
 }
 

@@ -8,6 +8,7 @@ using SimpleImageCharts.RadarChart;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using WindowsFormsChart.Charts;
 
 namespace WindowsFormsChart
 {
@@ -28,7 +29,7 @@ namespace WindowsFormsChart
                 {
                     Value = (float)rand.Next(10, 40) / 10,
                     Color = Color.FromArgb(rand.Next(0, 200), rand.Next(0, 200), rand.Next(0, 200)),
-                    Name = "Data " + i
+                    Label = "Data " + i
                 };
             }
 
@@ -126,7 +127,8 @@ namespace WindowsFormsChart
                 {
                     LineColor = Color.LightGreen
                 },
-                BarSetting = new BarSettingModel {
+                BarSetting = new BarSettingModel
+                {
                     IsStacked = true,
                     FormatValue = "{0:0;0}",
                 },
@@ -253,6 +255,14 @@ namespace WindowsFormsChart
             }
 
             return result;
+        }
+
+        private void BtnSingleRangeBarChart_Click(object sender, EventArgs e)
+        {
+            var chart = SingleRangeBarChartCreator.CreateChart(pictureBox1.Size);
+
+            pictureBox1.Image = chart.CreateImage().GetImage();
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\SingleRangeBarChart.jpg");
         }
     }
 }

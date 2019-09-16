@@ -8,6 +8,6 @@ namespace SimpleImageCharts.PieChart
 
         public Color Color { get; set; }
 
-        public string Name { get; set; }
+        public string Label { get; set; }
     }
 }
