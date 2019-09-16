@@ -59,7 +59,7 @@ namespace WindowsFormsChart
                 Size = pictureBox1.Size,
                 Entries = entries,
                 IsDonut = true,
-                HorizontalAlign = HorizontalAlign.Right
+                PieAlign = HorizontalAlign.Right
             };
 
             var image = chart.CreateImage();

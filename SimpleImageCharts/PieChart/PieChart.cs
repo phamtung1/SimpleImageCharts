@@ -26,7 +26,7 @@ namespace SimpleImageCharts.PieChart
 
         public Action<Graphics> AfterDraw { get; set; }
 
-        public HorizontalAlign HorizontalAlign { get; set; } = HorizontalAlign.Left;
+        public HorizontalAlign PieAlign { get; set; } = HorizontalAlign.Left;
 
         public PieChart()
         {
@@ -52,7 +52,7 @@ namespace SimpleImageCharts.PieChart
                 Diameter = chartContainer.Size.Height,
                 Entries = Entries,
                 IsDonut = IsDonut,
-                HorizontalAlignment = GdiMapper.ToGdiHorizontalAlign(this.HorizontalAlign),
+                HorizontalAlignment = GdiMapper.ToGdiHorizontalAlign(this.PieAlign),
                 TextColor = TextColor,
                 LabelFormat = LabelFormat,
                 Font = Font
@@ -83,7 +83,7 @@ namespace SimpleImageCharts.PieChart
             const int BoxHeight = 15;
             const int LineHeight = 20;
 
-            var left = HorizontalAlign == HorizontalAlign.Left ? this.Size.Height + 40 : Size.Width - Size.Height - 150;
+            var left = PieAlign == HorizontalAlign.Left ? this.Size.Height + 40 : Size.Width - Size.Height - 150;
             var top = 20;
 
             using (var textBrush = new SolidBrush(Color.FromArgb(70, 70, 70)))

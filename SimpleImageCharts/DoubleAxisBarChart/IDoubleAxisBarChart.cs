@@ -1,10 +1,11 @@
-﻿using SimpleImageCharts.Core;
-using System.Drawing;
+﻿using GdiSharp.Models;
+using SimpleImageCharts.Core;
 
 namespace SimpleImageCharts.DoubleAxisBarChart
 {
-    public interface IDoubleAxisBarChart : IImageChart
+    public interface IDoubleAxisBarChart : IBaseChart
     {
+        SlimFont BarValueFont { get; set; }
         string[] Categories { get; set; }
         DoubleAxisBarSeries FirstDataSet { get; set; }
         string FormatBarValue { get; set; }

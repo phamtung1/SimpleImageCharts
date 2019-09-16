@@ -9,7 +9,7 @@ using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.Core
 {
-    public abstract class BaseChart : IImageChart
+    public abstract class BaseChart : IBaseChart
     {
         public Size Size { get; set; }
 

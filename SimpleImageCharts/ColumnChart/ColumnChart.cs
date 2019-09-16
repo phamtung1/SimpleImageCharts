@@ -147,7 +147,7 @@ namespace SimpleImageCharts.ColumnChart
             var spaceX = _categoryWidth;
             var x = Padding.Left + (spaceX / 2) + offsetX;
             using (var stringFormat = new StringFormat())
-            using(var font = ColumnValueFont.ToFatFont())
+            using (var font = ColumnValueFont.ToFatFont())
             {
                 stringFormat.Alignment = StringAlignment.Center;
                 for (int i = 0; i < series.Data.Length; i++)

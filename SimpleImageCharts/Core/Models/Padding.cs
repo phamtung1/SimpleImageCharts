@@ -1,14 +1,14 @@
 ﻿namespace SimpleImageCharts.Core.Models
 {
-    public struct Padding
+    public class Padding
     {
-        public readonly int Right;
+        public int Right { get; set; }
 
-        public readonly int Top;
+        public int Top { get; set; }
 
-        public readonly int Bottom;
+        public int Bottom { get; set; }
 
-        public readonly int Left;
+        public int Left { get; set; }
 
         public Padding(int all)
         {
