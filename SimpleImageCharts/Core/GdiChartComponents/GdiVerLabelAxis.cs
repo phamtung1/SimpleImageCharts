@@ -1,5 +1,6 @@
-﻿using System.Drawing;
-using GdiSharp.Components;
+﻿using GdiSharp.Components;
+using GdiSharp.Models;
+using System.Drawing;
 
 namespace SimpleImageCharts.Core.GdiChartComponents
 {
@@ -11,7 +12,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
 
         public float LabelOffsetX { get; set; }
 
-        public Font Font { get; set; }
+        public SlimFont Font { get; set; }
 
         public override void Render(Graphics graphics)
         {
@@ -20,13 +21,14 @@ namespace SimpleImageCharts.Core.GdiChartComponents
             var y = position.Y + LabelHeight / 2;
             var x = position.X + LabelOffsetX;
             using (StringFormat stringFormat = new StringFormat())
+            using (var font = Font.ToFatFont())
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
                 stringFormat.Alignment = StringAlignment.Far;
 
                 foreach (var item in Labels)
                 {
-                    graphics.DrawString(item, Font, Brushes.Gray, x, y, stringFormat);
+                    graphics.DrawString(item, font, Brushes.Gray, x, y, stringFormat);
                     y += LabelHeight;
                 }
             }

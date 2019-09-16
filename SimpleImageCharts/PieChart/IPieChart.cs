@@ -11,7 +11,6 @@ namespace SimpleImageCharts.PieChart
         Color BorderColor { get; set; }
         byte BorderWidth { get; set; }
         PieEntry[] Entries { get; set; }
-        Font Font { get; set; }
         bool IsDonut { get; set; }
         string LabelFormat { get; set; }
         Color TextColor { get; set; }

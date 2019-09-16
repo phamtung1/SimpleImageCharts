@@ -1,8 +1,9 @@
-﻿using System.Drawing;
-using GdiSharp.Components;
+﻿using GdiSharp.Components;
 using GdiSharp.Components.Base;
+using GdiSharp.Models;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.Models;
+using System.Drawing;
 
 namespace SimpleImageCharts.DoubleAxisBarChart
 {
@@ -10,7 +11,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
     {
         private const int BarSize = 30;
 
-        public Font BarValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
+        public SlimFont BarValueFont { get; set; } = new SlimFont("Arial", 12, FontStyle.Bold);
 
         public string FormatBarValue { get; set; } = "{0}";
 
@@ -106,11 +107,12 @@ namespace SimpleImageCharts.DoubleAxisBarChart
         {
             var y = Padding.Top + _categoryHeight / 2;
             using (StringFormat stringFormat = new StringFormat())
+            using (var font = Font.ToFatFont())
             {
                 stringFormat.Alignment = StringAlignment.Far;
                 foreach (var item in Categories)
                 {
-                    graphic.DrawString(item, Font, Brushes.Gray, Padding.Left - 10, y, stringFormat);
+                    graphic.DrawString(item, font, Brushes.Gray, Padding.Left - 10, y, stringFormat);
                     y += _categoryHeight;
                 }
             }
@@ -121,6 +123,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             var spaceY = _categoryHeight;
             var y = Padding.Top + ((spaceY - BarSize) / 2);
             using (var stringFormat = new StringFormat())
+            using (var font = BarValueFont.ToFatFont())
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
                 stringFormat.Alignment = StringAlignment.Far;
@@ -132,7 +135,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                     {
                         var length = _widthUnit * value;
                         graphics.FillRectangle(brush, Padding.Left, y, length, BarSize);
-                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, Brushes.White, Padding.Left + length - 2, y + (BarSize / 2), stringFormat);
+                        graphics.DrawString(string.Format(FormatBarValue, value), font, Brushes.White, Padding.Left + length - 2, y + (BarSize / 2), stringFormat);
                         y += spaceY;
                     }
                 }
@@ -144,6 +147,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             var spaceY = _categoryHeight;
             var y = Padding.Top + ((spaceY - BarSize) / 2);
             using (var stringFormat = new StringFormat())
+            using (var font = BarValueFont.ToFatFont())
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
                 //stringFormat.Alignment = StringAlignment.Far;
@@ -163,7 +167,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                         x -= 2;
                         Brush textBrush = value <= 1 ? Brushes.DarkBlue : Brushes.White;
 
-                        graphics.DrawString(string.Format(FormatBarValue, value), BarValueFont, textBrush, x + 2, y + (BarSize / 2), stringFormat);
+                        graphics.DrawString(string.Format(FormatBarValue, value), font, textBrush, x + 2, y + (BarSize / 2), stringFormat);
                         y += spaceY;
                     }
                 }

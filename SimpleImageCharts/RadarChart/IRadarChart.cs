@@ -9,6 +9,5 @@ namespace SimpleImageCharts.RadarChart
         RadarChartSeries[] DataSets { get; set; }
         int MaxDataValue { get; set; }
         int StepSize { get; set; }
-        Font ValueFont { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using GdiSharp.Components;
 using GdiSharp.Components.Base;
+using GdiSharp.Models;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.Models;
 using SimpleImageCharts.Helpers;
@@ -14,7 +15,7 @@ namespace SimpleImageCharts.RadarChart
     {
         private const int InitAngle = 90;
 
-        public Font ValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
+        public SlimFont ValueFont { get; set; } = new SlimFont("Arial", 12, FontStyle.Bold);
 
         public int StepSize { get; set; } = 0;
 
@@ -116,11 +117,12 @@ namespace SimpleImageCharts.RadarChart
         private void DrawValueTexts(Graphics graphic, int numberOfStep, PointF root)
         {
             using (var stringFormat = new StringFormat())
+            using (var font = ValueFont.ToFatFont())
             {
                 stringFormat.Alignment = StringAlignment.Far;
                 for (int i = 0; i <= numberOfStep; i++)
                 {
-                    graphic.DrawString((i * StepSize).ToString(), this.ValueFont, Brushes.DarkBlue, root.X - 4, root.Y - i * _stepSizeInPixel + 2, stringFormat);
+                    graphic.DrawString((i * StepSize).ToString(), font, Brushes.DarkBlue, root.X - 4, root.Y - i * _stepSizeInPixel + 2, stringFormat);
                 }
             }
         }
@@ -137,31 +139,33 @@ namespace SimpleImageCharts.RadarChart
         private void DrawCategories(Graphics graphics)
         {
             var vertices = CalculateVertices(Categories.Length, _maxRadius, InitAngle, _centerPoint);
-
-            for (int i = 0; i < Categories.Length; i++)
+            using (var font = Font.ToFatFont())
             {
-                using (var stringFormat = new StringFormat())
+                for (int i = 0; i < Categories.Length; i++)
                 {
-                    var point = vertices[i];
-                    if (point.X == _centerPoint.X)
+                    using (var stringFormat = new StringFormat())
                     {
-                        stringFormat.Alignment = StringAlignment.Center;
-                    }
-                    else if (point.X > _centerPoint.X)
-                    {
-                        stringFormat.Alignment = StringAlignment.Near;
-                    }
-                    else
-                    {
-                        stringFormat.Alignment = StringAlignment.Far;
-                    }
+                        var point = vertices[i];
+                        if (point.X == _centerPoint.X)
+                        {
+                            stringFormat.Alignment = StringAlignment.Center;
+                        }
+                        else if (point.X > _centerPoint.X)
+                        {
+                            stringFormat.Alignment = StringAlignment.Near;
+                        }
+                        else
+                        {
+                            stringFormat.Alignment = StringAlignment.Far;
+                        }
 
-                    if (point.Y < _centerPoint.Y)
-                    {
-                        point.Y -= 20;
-                    }
+                        if (point.Y < _centerPoint.Y)
+                        {
+                            point.Y -= 20;
+                        }
 
-                    graphics.DrawString(Categories[i], this.Font, Brushes.Black, point, stringFormat);
+                        graphics.DrawString(Categories[i], font, Brushes.Black, point, stringFormat);
+                    }
                 }
             }
         }
@@ -181,11 +185,12 @@ namespace SimpleImageCharts.RadarChart
 
                 using (var pen = new Pen(dataset.Color, 3))
                 using (var stringFormat = new StringFormat())
+                using (var font = Font.ToFatFont())
                 {
                     stringFormat.LineAlignment = StringAlignment.Center;
 
                     graphics.DrawLine(pen, left, top, left + 30, top);
-                    graphics.DrawString(dataset.Label, this.Font, Brushes.Gray, left + 35, top, stringFormat);
+                    graphics.DrawString(dataset.Label, font, Brushes.Gray, left + 35, top, stringFormat);
                 }
 
                 top += LabelHeight;

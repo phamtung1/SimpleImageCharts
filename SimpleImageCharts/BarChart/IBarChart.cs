@@ -9,7 +9,6 @@ namespace SimpleImageCharts.BarChart
         BarSettingModel BarSetting { get; set; }
         string[] Categories { get; set; }
         BarSeries[] DataSet { get; set; }
-        Font Font { get; set; }
         string FormatAxisValue { get; set; }
         int StepSize { get; set; }
     }

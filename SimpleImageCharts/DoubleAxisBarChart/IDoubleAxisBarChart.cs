@@ -5,7 +5,6 @@ namespace SimpleImageCharts.DoubleAxisBarChart
 {
     public interface IDoubleAxisBarChart : IImageChart
     {
-        Font BarValueFont { get; set; }
         string[] Categories { get; set; }
         DoubleAxisBarSeries FirstDataSet { get; set; }
         string FormatBarValue { get; set; }

@@ -87,13 +87,14 @@ namespace SimpleImageCharts.PieChart
             var top = 20;
 
             using (var textBrush = new SolidBrush(Color.FromArgb(70, 70, 70)))
+            using (var font = Font.ToFatFont())
             {
                 foreach (var entry in Entries)
                 {
                     using (var brush = new SolidBrush(entry.Color))
                     {
                         graphic.FillRectangle(brush, left, top, BoxWidth, BoxHeight);
-                        graphic.DrawString(entry.Name, Font, textBrush, left + BoxWidth + 5, top);
+                        graphic.DrawString(entry.Name, font, textBrush, left + BoxWidth + 5, top);
                     }
 
                     top += LineHeight;

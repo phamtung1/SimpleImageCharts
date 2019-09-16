@@ -2,6 +2,7 @@
 using System.Linq;
 using GdiSharp.Components;
 using GdiSharp.Components.Base;
+using GdiSharp.Models;
 using GdiSharp.Renderer;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
@@ -18,7 +19,7 @@ namespace SimpleImageCharts.Core
 
         public LegendModel Legend { get; set; }
 
-        public Font Font { get; set; } = new Font("Arial", 12);
+        public SlimFont Font { get; set; } = new SlimFont("Arial", 12);
 
         private GdiContainer MainContainer { get; set; }
 
@@ -81,7 +82,7 @@ namespace SimpleImageCharts.Core
                 HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                 VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
                 Margin = new PointF(0, 10),
-                Font = new Font(SubTitle.FontName, SubTitle.FontSize, FontStyle.Bold)
+                Font = new SlimFont(SubTitle.FontName, SubTitle.FontSize, FontStyle.Bold)
             };
             mainContainer.AddChild(gdiText);
         }

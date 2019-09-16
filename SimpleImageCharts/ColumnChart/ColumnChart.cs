@@ -1,10 +1,11 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using GdiSharp.Components;
+﻿using GdiSharp.Components;
 using GdiSharp.Components.Base;
+using GdiSharp.Models;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.Models;
+using System;
+using System.Drawing;
+using System.Linq;
 
 namespace SimpleImageCharts.ColumnChart
 {
@@ -14,7 +15,7 @@ namespace SimpleImageCharts.ColumnChart
 
         public int ColumnSize { get; set; } = 20;
 
-        public Font ColumnValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
+        public SlimFont ColumnValueFont { get; set; } = new SlimFont("Arial", 12, FontStyle.Bold);
 
         public int StepSize { get; set; } = 5;
 
@@ -146,6 +147,7 @@ namespace SimpleImageCharts.ColumnChart
             var spaceX = _categoryWidth;
             var x = Padding.Left + (spaceX / 2) + offsetX;
             using (var stringFormat = new StringFormat())
+            using(var font = ColumnValueFont.ToFatFont())
             {
                 stringFormat.Alignment = StringAlignment.Center;
                 for (int i = 0; i < series.Data.Length; i++)
@@ -155,11 +157,11 @@ namespace SimpleImageCharts.ColumnChart
                     var text = string.Format(FormatColumnValue, value);
                     if (length >= 0)
                     {
-                        graphics.DrawString(text, this.ColumnValueFont, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length - 15, stringFormat);
+                        graphics.DrawString(text, font, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length - 15, stringFormat);
                     }
                     else
                     {
-                        graphics.DrawString(text, this.ColumnValueFont, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length, stringFormat);
+                        graphics.DrawString(text, font, Brushes.DarkBlue, x + ColumnSize / 2, _rootY - length, stringFormat);
                     }
 
                     x += spaceX;
@@ -170,13 +172,14 @@ namespace SimpleImageCharts.ColumnChart
         private void DrawRotatedText(Graphics graphic, string text, float x, float y)
         {
             using (var format = new StringFormat())
+            using (var font = Font.ToFatFont())
             {
                 format.Alignment = StringAlignment.Center;
                 // move the origin to the drawing point
                 graphic.TranslateTransform(x, y);
                 graphic.RotateTransform(-45);
-                var size = graphic.MeasureString(text, this.Font);
-                graphic.DrawString(text, Font, Brushes.Gray, 0, 0, format);
+                var size = graphic.MeasureString(text, font);
+                graphic.DrawString(text, font, Brushes.Gray, 0, 0, format);
 
                 graphic.ResetTransform();
             }

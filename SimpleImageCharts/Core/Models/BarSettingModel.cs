@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using GdiSharp.Models;
+using System.Drawing;
 
 namespace SimpleImageCharts.Core.Models
 {
@@ -9,7 +10,7 @@ namespace SimpleImageCharts.Core.Models
 
         public int Size { get; set; } = 30;
 
-        public Font ValueFont { get; set; } = new Font("Arial", 12, FontStyle.Bold);
+        public SlimFont ValueFont { get; set; } = new SlimFont("Arial", 12, FontStyle.Bold);
 
         public bool IsStacked { get; set; } = false;
     }

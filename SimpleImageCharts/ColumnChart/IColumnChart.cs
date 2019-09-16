@@ -7,9 +7,7 @@ namespace SimpleImageCharts.ColumnChart
     {
         string[] Categories { get; set; }
         int ColumnSize { get; set; }
-        Font ColumnValueFont { get; set; }
         ColumnSeries[] DataSets { get; set; }
-        Font Font { get; set; }
         string FormatColumnValue { get; set; }
         int StepSize { get; set; }
     }

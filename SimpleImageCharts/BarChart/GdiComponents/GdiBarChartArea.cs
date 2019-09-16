@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using GdiSharp.Components;
+using GdiSharp.Models;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
 

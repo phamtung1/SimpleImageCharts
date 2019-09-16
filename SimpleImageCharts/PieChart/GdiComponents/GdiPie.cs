@@ -12,7 +12,7 @@ namespace SimpleImageCharts.PieChart.GdiComponents
 
         public string LabelFormat { get; set; } = "{0}";
 
-        public Font Font { get; set; } = new Font("Arial", 12);
+        public SlimFont Font { get; set; } = new SlimFont("Arial", 12);
 
         public float Diameter { get; set; }
 
@@ -75,6 +75,7 @@ namespace SimpleImageCharts.PieChart.GdiComponents
         {
             using (var labelBrush = new SolidBrush(TextColor))
             using (StringFormat stringFormat = new StringFormat())
+            using (var font = Font.ToFatFont())
             {
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
@@ -98,7 +99,7 @@ namespace SimpleImageCharts.PieChart.GdiComponents
                     var labelAngle = Math.PI * (startAngle + sweepAngle / 2f) / 180f;
                     var x = centerX + (float)(labelRadius * Math.Cos(labelAngle));
                     var y = centerY + (float)(labelRadius * Math.Sin(labelAngle));
-                    graphics.DrawString(string.Format(LabelFormat, entry.Value), Font, labelBrush, x, y, stringFormat);
+                    graphics.DrawString(string.Format(LabelFormat, entry.Value), font, labelBrush, x, y, stringFormat);
 
                     startAngle += sweepAngle;
                 }
