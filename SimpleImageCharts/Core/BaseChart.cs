@@ -19,7 +19,7 @@ namespace SimpleImageCharts.Core
 
         public LegendModel Legend { get; set; }
 
-        public SlimFont Font { get; set; } = new SlimFont("Arial", 12);
+        public SlimFont Font { get; set; } = SlimFont.Default;
 
         private GdiContainer MainContainer { get; set; }
 

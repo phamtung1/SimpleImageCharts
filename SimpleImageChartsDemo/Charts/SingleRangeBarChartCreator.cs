@@ -1,11 +1,7 @@
 ﻿using GdiSharp.Models;
 using SimpleImageCharts.SingleRangeBarChart;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindowsFormsChart.Charts
 {
@@ -15,7 +11,7 @@ namespace WindowsFormsChart.Charts
         {
             const float MinValue = 10;
             const float MaxValue = 15;
-            var values = new[] { 10, 11, 12, 13, 14, 15 };
+            var values = new[] { 11, 12, 15 };
             var rand = new Random();
             var entries = new SingleRangeBarEntry[values.Length];
 

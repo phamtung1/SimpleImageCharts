@@ -1,6 +1,7 @@
 ﻿using GdiSharp.Components;
 using GdiSharp.Components.Base;
 using SimpleImageCharts.Core;
+using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
 using SimpleImageCharts.SingleRangeBarChart.GdiComponents;
 using System;
@@ -50,7 +51,8 @@ namespace SimpleImageCharts.SingleRangeBarChart
             base.BuildComponents(mainContainer, chartContainer);
 
             var rangeBar = AddRangeBar(chartContainer);
-            AddLabels(chartContainer, rangeBar);
+            AddRangeBarColumns(chartContainer, rangeBar);
+            AddRangeBarLabels(chartContainer, rangeBar);
         }
 
         private GdiRangeBar AddRangeBar(GdiRectangle chartContainer)
@@ -63,7 +65,11 @@ namespace SimpleImageCharts.SingleRangeBarChart
                 CenterColor = ColorTranslator.FromHtml("#BDD2F3")
             };
             chartContainer.AddChild(rangeBar);
+            return rangeBar;
+        }
 
+        private void AddRangeBarColumns(GdiRectangle chartContainer, GdiRangeBar rangeBar)
+        {
             var onePercentWidth = rangeBar.Size.Width / 100; // bar is 100% width
 
             var columnHeight = rangeBar.Size.Height * 1.2f;
@@ -74,21 +80,22 @@ namespace SimpleImageCharts.SingleRangeBarChart
             {
                 var x = (entry.Value - MinValue) / rangeValue * 100 * onePercentWidth;
 
-                var column = new GdiRectangle
+                var column = new GdiColumn
                 {
                     Color = entry.Color,
                     Size = new SizeF(10, columnHeight),
-                    Margin = new PointF(x - 5, columnTop)
+                    Margin = new PointF(x - 5, columnTop),
+                    Text = entry.Label,
+                    Font = this.Font,
+                    TextColor = TextColor
                 };
                 chartContainer.AddChild(column);
             }
-
-            return rangeBar;
         }
 
-        public void AddLabels(GdiRectangle chartContainer, GdiRangeBar rangeBar)
+        public void AddRangeBarLabels(GdiRectangle chartContainer, GdiRangeBar rangeBar)
         {
-            var margin = new PointF(0, rangeBar.Margin.Y + rangeBar.Size.Height + 10);
+            var margin = new PointF(0, rangeBar.Margin.Y + rangeBar.Size.Height + 15);
             if (!string.IsNullOrWhiteSpace(LeftLabel))
             {
                 chartContainer.AddChild(new GdiText
@@ -121,7 +128,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
                     Font = Font,
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right,
                     Margin = margin,
-                    IsTextAlignRight = true
+                    TextAlign = StringAlignment.Far
                 });
             }
         }
