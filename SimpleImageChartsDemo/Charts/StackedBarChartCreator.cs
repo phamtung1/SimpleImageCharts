@@ -25,7 +25,7 @@ namespace WindowsFormsChart.Charts
                     IsStacked = true,
                     FormatValue = "{0:0;0}",
                 },
-                SubTitle = new SubTitleModel { Text = "aaaaaaaaaa ccccccccdddddddddddddddddcccc" },
+                SubTitle = new SubTitleModel { Text = "Some random text" },
                 Size = size,
                 FormatAxisValue = "{0:0;0}", // force positive values
                 Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },

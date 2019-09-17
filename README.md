@@ -5,6 +5,11 @@ This is a simple charting library for rendering charts as images using GDI+.
 
 .NET Standard 2.0
 
+# Usage
+After creating a chart instance, you just need to call:
+```csharp
+var image = chart.CreateImage();
+```
 # Available Charts
 1. [Pie Chart](#1-pie-chart)
 2. [Donut Chart](#2-donut-chart)
@@ -13,6 +18,7 @@ This is a simple charting library for rendering charts as images using GDI+.
 5. [Double Axis Bar Chart](#5-double-axis-bar-chart)
 6. [Column Chart](#6-column-chart)
 7. [Radar Chart](#7-radar-chart)
+8. [Single Range Bar Chart](#8-sing-range-bar-chart)
 
 ## 1. Pie Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/pie.jpg" />
@@ -46,8 +52,6 @@ var chart = new PieChart
     Height = 600,
     Entries = entries
 };
-
-var bitmap = chart.CreateImage();
 ```
 
 ## 2. Donut Chart
@@ -63,8 +67,6 @@ var chart = new PieChart
     Entries = entries,
     IsDonut = true // default: false
 };
-
-var bitmap = chart.CreateImage();
 ```
 
 ## 3. Bar Chart
@@ -73,34 +75,42 @@ var bitmap = chart.CreateImage();
 ```csharp
 var chart = new BarChart
 {
-    Width = 600,
-    Height = 300,
+    Legend = new LegendModel
+    {
+        Margin = new PointF(0, 40),
+        VerticalAlign = VerticalAlign.Bottom,
+        HorizontalAlign = HorizontalAlign.Center
+    },
+    ChartGrid = new ChartGridModel
+    {
+        LineColor = Color.LightGreen
+    },
+    SubTitle = new SubTitleModel { Text = "AAAAAAA" },
+    Size = size,
     Categories = new[] { "Product A", "Product B", "Product C" },
-    DataSets = new[]
+    DataSet = new[]
     {
         new BarSeries
         {
-            Label = "Green",
-            Color = Color.Green,
+            Label = "LightBlue",
+            Color = Color.LightBlue,
             Data = new[] { -5f, 10f, 15f },
         },
         new BarSeries
         {
-            Label = "Red",
-            Color = Color.Red,
+            Label = "LightCoral",
+            Color = Color.LightCoral,
             Data = new[] { 1f, -2f, 3f },
         }
         ,
         new BarSeries
         {
-            Label = "Blue",
-            Color = Color.Blue,
+            Label = "LightGreen",
+            Color = Color.LightGreen,
             Data = new[] { 5f, 20f, -13f },
         }
     }
 };
-
-var bitmap = chart.CreateImage();
 ```
 ## 4. Stacked Bar Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/StackedBarChart.jpg" />
@@ -108,30 +118,40 @@ var bitmap = chart.CreateImage();
 ```csharp
 var chart = new BarChart
 {
-    Width = 600,
-    Height = 300,
-    IsStacked = true,
+    Legend = new LegendModel
+    {
+        Margin = new PointF(0, 50),
+        VerticalAlign = VerticalAlign.Bottom
+    },
+    ChartGrid = new ChartGridModel
+    {
+        LineColor = Color.LightGreen
+    },
+    BarSetting = new BarSettingModel
+    {
+        IsStacked = true,
+        FormatValue = "{0:0;0}",
+    },
+    SubTitle = new SubTitleModel { Text = "Some random text" },
+    Size = size,
     FormatAxisValue = "{0:0;0}", // force positive values
-    FormatBarValue = "{0:0;0}",
     Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
-    DataSets = new[]
+    DataSet = new[]
     {
         new BarSeries
         {
             Label = "Yesterday",
-            Color = Color.Green,
+            Color = Color.LightBlue,
             Data = new[] { -5f, -10f, -1f , -5f, -10f, -1f , -5f, -10f, -1f },
         },
         new BarSeries
         {
             Label = "Today",
-            Color = Color.Red,
+            Color = Color.LightCoral,
             Data = new[] { 10f, 20f, 5f, 10f, 20f, 5f, 10f, 20f, 5f },
         }
     }
 };
-
-var bitmap = chart.CreateImage();
 ```
 
 ## 5. Double Axis Bar Chart
@@ -140,38 +160,37 @@ var bitmap = chart.CreateImage();
 ```csharp
 var chart = new DoubleAxisBarChart
 {
-    Width = 600,
-    Height = 300,
     FormatBarValue = "{0}%",
+    Size = size,
     Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
-    FirstDataSet = new DoubleAxisBarSeries 
-    { 
-        Color = Color.Green,
+    FirstDataSet = new DoubleAxisBarSeries
+    {
+        Label = "Income",
+        Color = Color.LightBlue,
         Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
     },
     SecondDataSet = new DoubleAxisBarSeries
     {
-        Color = Color.Red,
+        Label = "Outcome",
+        Color = Color.LightCoral,
         Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
     }
 };
-
-var bitmap = chart.CreateImage();
 ```
 
 ## 6. Column Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/ColumnChart.jpg" />
 
 ```csharp
-var categories = new[] { "A", "Product B", "Product C", "Product D", "Product E" };
+var categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E" };
 var rand = new Random();
-var datasets = new ColumnSeries[4];
+var datasets = new ColumnSeries[3];
 for (int i = 0; i < datasets.Length; i++)
 {
     var data = new float[categories.Length];
     for (int j = 0; j < categories.Length; j++)
     {
-        data[j] = rand.Next(20) - 10;
+        data[j] = rand.Next(30) - 10;
     }
 
     var dataset = new ColumnSeries
@@ -182,15 +201,14 @@ for (int i = 0; i < datasets.Length; i++)
     datasets[i] = dataset;
 }
 
+datasets[0].OffsetX = 10;
 var chart = new ColumnChart
 {
-    Width = 600,
-    Height = 300,
+    ColumnSize = 30,
+    Size = size,
     Categories = categories,
     DataSets = datasets
 };
-
-var bitmap = chart.CreateImage();
 ```
 ## 7. Radar Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/RadarChart.jpg" />
@@ -221,4 +239,37 @@ var chart = new RadarChart
 };
 
 var bitmap = chart.CreateImage();
+```
+## 8. Single Range Bar Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/SingleRangeBarChart.jpg" />
+
+```csharp
+const float MinValue = 10;
+const float MaxValue = 15;
+var values = new[] { 11, 12, 15 };
+var rand = new Random();
+var entries = new SingleRangeBarEntry[values.Length];
+
+for (int i = 0; i < entries.Length; i++)
+{
+    entries[i] = new SingleRangeBarEntry
+    {
+        Value = values[i],
+        Color = Color.FromArgb(rand.Next(0, 200), rand.Next(0, 200), rand.Next(0, 200)),
+        Label = "Data " + i
+    };
+}
+
+var chart = new SingleRangeBarChart
+{
+    MinValue = MinValue,
+    MaxValue = MaxValue,
+    Size = size,
+    Entries = entries,
+    LeftLabel = "Min \nvalue = 10",
+    CenterLabel = "Center = ?",
+    RightLabel = "Max \nvalue = 15",
+    Font = new SlimFont("Arial", 12),
+    TextColor = Color.Black
+};
 ```
