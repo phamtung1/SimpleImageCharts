@@ -54,6 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Charts\ColumnChartCreator.cs" />
+    <Compile Include="Charts\DoubleAxisBarChartCreator.cs" />
+    <Compile Include="Charts\RadarChartCreator.cs" />
+    <Compile Include="Charts\StackedBarChartCreator.cs" />
+    <Compile Include="Charts\BarChartCreator.cs" />
+    <Compile Include="Charts\PieChartCreator.cs" />
     <Compile Include="Charts\SingleRangeBarChartCreator.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
