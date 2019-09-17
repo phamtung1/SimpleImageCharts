@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsChart", "WindowsFormsChart.csproj", "{7F952922-1756-44C5-A3B2-DD57B497B222}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsChart", "SimpleImageChartsDemo\WindowsFormsChart.csproj", "{7F952922-1756-44C5-A3B2-DD57B497B222}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleImageCharts", "..\SimpleImageCharts\SimpleImageCharts.csproj", "{7B19259D-E165-438F-BDFD-3F9EE8751083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleImageCharts", "SimpleImageCharts\SimpleImageCharts.csproj", "{7B19259D-E165-438F-BDFD-3F9EE8751083}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_submodules", "_submodules", "{49A398F4-AC61-4626-AB54-4D3DAEB39054}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GdiSharp", "..\_submodules\GdiSharp\GdiSharp\GdiSharp.csproj", "{97DCD9F7-7030-4808-AD12-A176120F1C4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GdiSharp", "_submodules\GdiSharp\GdiSharp\GdiSharp.csproj", "{97DCD9F7-7030-4808-AD12-A176120F1C4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
