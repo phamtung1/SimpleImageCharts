@@ -57,10 +57,11 @@ namespace SimpleImageCharts.SingleRangeBarChart
 
         private GdiRangeBar AddRangeBar(GdiRectangle chartContainer)
         {
+            var barHeight = chartContainer.Size.Height - 100;
             var rangeBar = new GdiRangeBar
             {
-                Size = new SizeF(chartContainer.Size.Width, chartContainer.Size.Height / 3),
-                Margin = new PointF(0, chartContainer.Size.Height / 3),
+                Size = new SizeF(chartContainer.Size.Width, barHeight),
+                Margin = new PointF(0, 50),
                 Color = ColorTranslator.FromHtml("#123367"),
                 CenterColor = ColorTranslator.FromHtml("#BDD2F3")
             };
@@ -72,7 +73,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
         {
             var onePercentWidth = rangeBar.Size.Width / 100; // bar is 100% width
 
-            var columnHeight = rangeBar.Size.Height * 1.2f;
+            var columnHeight = rangeBar.Size.Height + 30;
             var columnTop = rangeBar.Margin.Y - ((columnHeight - rangeBar.Size.Height) / 2);
             var rangeValue = MaxValue - MinValue;
 

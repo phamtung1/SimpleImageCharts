@@ -37,7 +37,9 @@
             this.btnStackedBar = new System.Windows.Forms.Button();
             this.btnRadarChart = new System.Windows.Forms.Button();
             this.btnSingleRangeBarChart = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -46,16 +48,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(20, 21);
+            this.pictureBox1.Location = new System.Drawing.Point(22, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(966, 522);
+            this.pictureBox1.Size = new System.Drawing.Size(1017, 460);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // btnPieChart
             // 
             this.btnPieChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPieChart.Location = new System.Drawing.Point(1045, 21);
+            this.btnPieChart.Location = new System.Drawing.Point(3, 3);
             this.btnPieChart.Name = "btnPieChart";
             this.btnPieChart.Size = new System.Drawing.Size(118, 36);
             this.btnPieChart.TabIndex = 1;
@@ -66,7 +68,7 @@
             // btnDonutChart
             // 
             this.btnDonutChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDonutChart.Location = new System.Drawing.Point(1045, 80);
+            this.btnDonutChart.Location = new System.Drawing.Point(127, 3);
             this.btnDonutChart.Name = "btnDonutChart";
             this.btnDonutChart.Size = new System.Drawing.Size(118, 36);
             this.btnDonutChart.TabIndex = 2;
@@ -77,7 +79,7 @@
             // btnBarChart
             // 
             this.btnBarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBarChart.Location = new System.Drawing.Point(1045, 139);
+            this.btnBarChart.Location = new System.Drawing.Point(251, 3);
             this.btnBarChart.Name = "btnBarChart";
             this.btnBarChart.Size = new System.Drawing.Size(118, 36);
             this.btnBarChart.TabIndex = 3;
@@ -88,7 +90,7 @@
             // btnColumnChart
             // 
             this.btnColumnChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnColumnChart.Location = new System.Drawing.Point(1045, 316);
+            this.btnColumnChart.Location = new System.Drawing.Point(623, 3);
             this.btnColumnChart.Name = "btnColumnChart";
             this.btnColumnChart.Size = new System.Drawing.Size(118, 36);
             this.btnColumnChart.TabIndex = 4;
@@ -99,7 +101,7 @@
             // btnDoubleAxisBar
             // 
             this.btnDoubleAxisBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDoubleAxisBar.Location = new System.Drawing.Point(1045, 257);
+            this.btnDoubleAxisBar.Location = new System.Drawing.Point(499, 3);
             this.btnDoubleAxisBar.Name = "btnDoubleAxisBar";
             this.btnDoubleAxisBar.Size = new System.Drawing.Size(118, 36);
             this.btnDoubleAxisBar.TabIndex = 5;
@@ -110,7 +112,7 @@
             // btnStackedBar
             // 
             this.btnStackedBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStackedBar.Location = new System.Drawing.Point(1045, 198);
+            this.btnStackedBar.Location = new System.Drawing.Point(375, 3);
             this.btnStackedBar.Name = "btnStackedBar";
             this.btnStackedBar.Size = new System.Drawing.Size(118, 36);
             this.btnStackedBar.TabIndex = 6;
@@ -121,7 +123,7 @@
             // btnRadarChart
             // 
             this.btnRadarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRadarChart.Location = new System.Drawing.Point(1045, 375);
+            this.btnRadarChart.Location = new System.Drawing.Point(747, 3);
             this.btnRadarChart.Name = "btnRadarChart";
             this.btnRadarChart.Size = new System.Drawing.Size(118, 36);
             this.btnRadarChart.TabIndex = 7;
@@ -132,7 +134,7 @@
             // btnSingleRangeBarChart
             // 
             this.btnSingleRangeBarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSingleRangeBarChart.Location = new System.Drawing.Point(1045, 431);
+            this.btnSingleRangeBarChart.Location = new System.Drawing.Point(871, 3);
             this.btnSingleRangeBarChart.Name = "btnSingleRangeBarChart";
             this.btnSingleRangeBarChart.Size = new System.Drawing.Size(118, 36);
             this.btnSingleRangeBarChart.TabIndex = 8;
@@ -140,23 +142,34 @@
             this.btnSingleRangeBarChart.UseVisualStyleBackColor = true;
             this.btnSingleRangeBarChart.Click += new System.EventHandler(this.BtnSingleRangeBarChart_Click);
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.Controls.Add(this.btnPieChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnDonutChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnBarChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnStackedBar);
+            this.flowLayoutPanel1.Controls.Add(this.btnDoubleAxisBar);
+            this.flowLayoutPanel1.Controls.Add(this.btnColumnChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnRadarChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnSingleRangeBarChart);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(22, 478);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1017, 111);
+            this.flowLayoutPanel1.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1230, 601);
-            this.Controls.Add(this.btnSingleRangeBarChart);
-            this.Controls.Add(this.btnRadarChart);
-            this.Controls.Add(this.btnStackedBar);
-            this.Controls.Add(this.btnDoubleAxisBar);
-            this.Controls.Add(this.btnColumnChart);
-            this.Controls.Add(this.btnBarChart);
-            this.Controls.Add(this.btnDonutChart);
-            this.Controls.Add(this.btnPieChart);
+            this.ClientSize = new System.Drawing.Size(1051, 601);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -172,6 +185,7 @@
         private System.Windows.Forms.Button btnStackedBar;
         private System.Windows.Forms.Button btnRadarChart;
         private System.Windows.Forms.Button btnSingleRangeBarChart;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 
