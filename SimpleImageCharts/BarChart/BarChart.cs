@@ -1,12 +1,12 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using GdiSharp.Components;
+﻿using GdiSharp.Components;
 using GdiSharp.Components.Base;
 using SimpleImageCharts.BarChart.GdiComponents;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
+using System;
+using System.Drawing;
+using System.Linq;
 
 namespace SimpleImageCharts.BarChart
 {
@@ -34,7 +34,7 @@ namespace SimpleImageCharts.BarChart
 
         private float _minValue;
 
-        private GdiHozGridChartArea _chartArea;
+        private GdiHozGridChartArea _barChartArea;
 
         public BarChart()
         {
@@ -99,22 +99,27 @@ namespace SimpleImageCharts.BarChart
 
         private void AddChartArea(GdiRectangle chartArea)
         {
-            if (ChartGrid != null)
+            if (ChartGrid == null)
             {
-                _chartArea = new GdiBarChartArea
+                ChartGrid = new ChartGridModel
                 {
-                    // base
-                    LeftPanelWidth = _rootX - Padding.Left,
-                    Size = chartArea.Size,
-                    CellSize = new SizeF(_widthUnit * StepSize, _categoryHeight),
-                    ChartGridModel = ChartGrid,
-                    // GdiBarChartDataArea
-                    BarSettingModel = BarSetting,
-                    DataSet = DataSet,
-                    WidthUnit = _widthUnit
+                    LineColor = Color.LightGray
                 };
-                chartArea.AddChild(_chartArea);
             }
+
+            _barChartArea = new GdiBarChartArea
+            {
+                // base
+                LeftPanelWidth = _rootX - Padding.Left,
+                Size = chartArea.Size,
+                CellSize = new SizeF(_widthUnit * StepSize, _categoryHeight),
+                ChartGridModel = ChartGrid,
+                // GdiBarChartDataArea
+                BarSettingModel = BarSetting,
+                DataSet = DataSet,
+                WidthUnit = _widthUnit
+            };
+            chartArea.AddChild(_barChartArea);
         }
 
         private void AddVerLabelAxis(GdiContainer mainContainer, GdiRectangle chartContainer)

@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace SimpleImageCharts.SingleRangeBarChart
 {
-    public class SingleRangeBarChart : BaseChart
+    public class SingleRangeBarChart : BaseChart, ISingleRangeBarChart
     {
         public float MinValue { get; set; }
 
@@ -94,7 +94,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
             }
         }
 
-        public void AddRangeBarLabels(GdiRectangle chartContainer, GdiRangeBar rangeBar)
+        private void AddRangeBarLabels(GdiRectangle chartContainer, GdiRangeBar rangeBar)
         {
             var margin = new PointF(0, rangeBar.Margin.Y + rangeBar.Size.Height + 15);
             if (!string.IsNullOrWhiteSpace(LeftLabel))
