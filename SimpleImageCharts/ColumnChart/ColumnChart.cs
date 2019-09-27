@@ -52,7 +52,9 @@ namespace SimpleImageCharts.ColumnChart
                 _minValue = 0;
             }
 
-            _heightUnit = chartContainer.Size.Height / (Math.Abs(_minValue) + _maxValue);
+            var maxLength = (Math.Abs(_minValue) + _maxValue);
+            
+            _heightUnit = maxLength == 0 ? 1 : chartContainer.Size.Height / maxLength;
 
             _rootY = Padding.Top + (_heightUnit * Math.Abs(_maxValue));
         }
