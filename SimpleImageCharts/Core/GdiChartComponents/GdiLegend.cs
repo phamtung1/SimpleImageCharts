@@ -10,15 +10,23 @@ namespace SimpleImageCharts.Core.GdiChartComponents
     {
         private const int RectWidth = 25;
         private const int RectHeight = 15;
-        private const int LabelWidth = 130;
+        private const int GapWidth = 10;
 
         public LegendModel Legend { get; set; }
 
         protected override SizeF GetComponentSize(Graphics graphics)
         {
-            var width = LabelWidth * Legend.Items.Count();
+            var totalWidth = 0f;
+            using (var font = new Font(Legend.FontName, Legend.FontSize))
+            {
+                foreach (var item in Legend.Items)
+                {
+                    totalWidth += graphics.MeasureString(item.Text, font).Width + RectWidth + 5 + GapWidth;
+                }
+            }
+
             var height = RectHeight + 5;
-            return new SizeF(width, height);
+            return new SizeF(totalWidth, height);
         }
 
         public override void Render(Graphics graphics)
@@ -53,7 +61,8 @@ namespace SimpleImageCharts.Core.GdiChartComponents
                         graphics.DrawString(item.Text, font, textBrush, left + RectWidth + 5, top);
                     }
 
-                    left += LabelWidth;
+                    var textWidth = graphics.MeasureString(item.Text, font).Width;
+                    left += RectWidth + 5 + textWidth + GapWidth;
                 }
             }
         }

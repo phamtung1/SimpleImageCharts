@@ -49,19 +49,32 @@ namespace SimpleImageCharts.SingleRangeBarChart
         protected override void BuildComponents(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
             base.BuildComponents(mainContainer, chartContainer);
-
+            CreateLegendItems();
+            base.AddLegend(mainContainer);
             var rangeBar = AddRangeBar(chartContainer);
             AddRangeBarColumns(chartContainer, rangeBar);
             AddRangeBarLabels(chartContainer, rangeBar);
         }
 
+        private void CreateLegendItems()
+        {
+            if (Legend != null && Legend.Items == null)
+            {
+                Legend.Items = Entries.Select(x => new LegendItemModel
+                {
+                    Color = x.Color,
+                    Text = x.Label
+                });
+            }
+        }
+
         private GdiRangeBar AddRangeBar(GdiRectangle chartContainer)
         {
-            var barHeight = chartContainer.Size.Height - 100;
+            var barHeight = chartContainer.Size.Height - 60;
             var rangeBar = new GdiRangeBar
             {
                 Size = new SizeF(chartContainer.Size.Width, barHeight),
-                Margin = new PointF(0, 50),
+                Margin = new PointF(0, 10),
                 Color = ColorTranslator.FromHtml("#123367"),
                 CenterColor = ColorTranslator.FromHtml("#BDD2F3")
             };
@@ -85,10 +98,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
                 {
                     Color = entry.Color,
                     Size = new SizeF(10, columnHeight),
-                    Margin = new PointF(x - 5, columnTop),
-                    Text = entry.Label,
-                    Font = this.Font,
-                    TextColor = TextColor
+                    Margin = new PointF(x - 5, columnTop)
                 };
                 chartContainer.AddChild(column);
             }

@@ -27,6 +27,11 @@ namespace WindowsFormsChart.Charts
 
             var chart = new SingleRangeBarChart
             {
+                Legend = new SimpleImageCharts.Core.Models.LegendModel
+                {
+                    Margin = new PointF(0, 10)
+                },
+                Padding = new SimpleImageCharts.Core.Models.Padding(20, 20, 20, 50),
                 MinValue = MinValue,
                 MaxValue = MaxValue,
                 Size = size,
