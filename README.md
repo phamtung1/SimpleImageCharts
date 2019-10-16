@@ -304,12 +304,12 @@ var chart = new StackedColumn100Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/RadarChart.jpg" />
 
 ```csharp
-var random = new Random();
 var categories = new[] { "Eating", "Sleeping", "Doing Nothing", "Playing", "Relaxing", "Watching" };
 var chart = new RadarChart
 {
-    Width = 600,
-    Height = 300,
+    //   MaxDataValue = 100,
+    StepSize = 10,
+    Size = size,
     Categories = categories,
     DataSets = new[]
     {
@@ -317,18 +317,16 @@ var chart = new RadarChart
         {
             Label = "My Life",
             Color = Color.LightCoral,
-            Data = GenerateRandomArray(random, categories.Length, 10, 60),
+            Data = GenerateRandomArray(random, categories.Length, 1, 50),
         },
         new RadarChartSeries
         {
             Label = "My Wife Life",
             Color = Color.LightBlue,
-            Data = GenerateRandomArray(random, categories.Length, 10, 70),
+            Data = GenerateRandomArray(random, categories.Length, 1, 100),
         }
     }
 };
-
-var bitmap = chart.CreateImage();
 ```
 ## 10. Single Range Bar Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/SingleRangeBarChart.jpg" />

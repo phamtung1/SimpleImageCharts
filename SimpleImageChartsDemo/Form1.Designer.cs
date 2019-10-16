@@ -92,7 +92,7 @@
             // btnColumnChart
             // 
             this.btnColumnChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnColumnChart.Location = new System.Drawing.Point(623, 3);
+            this.btnColumnChart.Location = new System.Drawing.Point(747, 3);
             this.btnColumnChart.Name = "btnColumnChart";
             this.btnColumnChart.Size = new System.Drawing.Size(118, 36);
             this.btnColumnChart.TabIndex = 4;
@@ -125,7 +125,7 @@
             // btnRadarChart
             // 
             this.btnRadarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRadarChart.Location = new System.Drawing.Point(747, 3);
+            this.btnRadarChart.Location = new System.Drawing.Point(3, 45);
             this.btnRadarChart.Name = "btnRadarChart";
             this.btnRadarChart.Size = new System.Drawing.Size(118, 36);
             this.btnRadarChart.TabIndex = 7;
@@ -136,7 +136,7 @@
             // btnSingleRangeBarChart
             // 
             this.btnSingleRangeBarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSingleRangeBarChart.Location = new System.Drawing.Point(871, 3);
+            this.btnSingleRangeBarChart.Location = new System.Drawing.Point(127, 45);
             this.btnSingleRangeBarChart.Name = "btnSingleRangeBarChart";
             this.btnSingleRangeBarChart.Size = new System.Drawing.Size(118, 36);
             this.btnSingleRangeBarChart.TabIndex = 8;
@@ -153,11 +153,11 @@
             this.flowLayoutPanel1.Controls.Add(this.btnBarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnStackedBar);
             this.flowLayoutPanel1.Controls.Add(this.btnDoubleAxisBar);
+            this.flowLayoutPanel1.Controls.Add(this.btnStackedBar100Percent);
             this.flowLayoutPanel1.Controls.Add(this.btnColumnChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnStackedColumn100Percent);
             this.flowLayoutPanel1.Controls.Add(this.btnRadarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnSingleRangeBarChart);
-            this.flowLayoutPanel1.Controls.Add(this.btnStackedBar100Percent);
-            this.flowLayoutPanel1.Controls.Add(this.btnStackedColumn100Percent);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(22, 478);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1017, 111);
@@ -166,7 +166,7 @@
             // btnStackedBar100Percent
             // 
             this.btnStackedBar100Percent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStackedBar100Percent.Location = new System.Drawing.Point(3, 45);
+            this.btnStackedBar100Percent.Location = new System.Drawing.Point(623, 3);
             this.btnStackedBar100Percent.Name = "btnStackedBar100Percent";
             this.btnStackedBar100Percent.Size = new System.Drawing.Size(118, 36);
             this.btnStackedBar100Percent.TabIndex = 9;
@@ -177,7 +177,7 @@
             // btnStackedColumn100Percent
             // 
             this.btnStackedColumn100Percent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStackedColumn100Percent.Location = new System.Drawing.Point(127, 45);
+            this.btnStackedColumn100Percent.Location = new System.Drawing.Point(871, 3);
             this.btnStackedColumn100Percent.Name = "btnStackedColumn100Percent";
             this.btnStackedColumn100Percent.Size = new System.Drawing.Size(118, 36);
             this.btnStackedColumn100Percent.TabIndex = 10;

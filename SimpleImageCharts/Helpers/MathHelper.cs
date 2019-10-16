@@ -17,16 +17,5 @@ namespace SimpleImageCharts.Helpers
                 Y = (float)Math.Sin(-radian) * radius + center.Y
             };
         }
-
-        public static int GetFirstDigit(int number)
-        {
-            var result = number;
-            while (result >= 10)
-            {
-                result /= 10;
-            }
-
-            return result;
-        }
     }
 }

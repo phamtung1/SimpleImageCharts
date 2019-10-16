@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using GdiSharp.Components;
+﻿using GdiSharp.Components;
 using GdiSharp.Components.Base;
 using GdiSharp.Models;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.Models;
 using SimpleImageCharts.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace SimpleImageCharts.RadarChart
 {
@@ -44,7 +44,12 @@ namespace SimpleImageCharts.RadarChart
         protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
             base.Init(mainContainer, chartContainer);
-            if (Categories.Length < 3)
+            if (StepSize <= 0)
+            {
+                throw new ArgumentException("Invalid StepSize");
+            }
+
+            if (StepSize <= 0 || Categories.Length < 3)
             {
                 throw new ArgumentException("Invalid data");
             }
@@ -53,23 +58,14 @@ namespace SimpleImageCharts.RadarChart
             _centerPoint = new PointF(Padding.Left + _maxRadius, Padding.Top + _maxRadius);
 
             var maxDataValue = MaxDataValue > 0 ? MaxDataValue : DataSets.SelectMany(x => x.Data).Max();
-            var firstDigit = MathHelper.GetFirstDigit(maxDataValue);
-            // test again with value <= 10
-            _numberOfSteps = firstDigit + 1;
 
-            var roundMaxValue = int.Parse(firstDigit.ToString().PadRight(maxDataValue.ToString().Length, '0'));
-            if (StepSize == 0)
-            {
-                StepSize = roundMaxValue / firstDigit;
-            }
-            else
-            {
-                _numberOfSteps = roundMaxValue / StepSize + 1;
-            }
+            maxDataValue = (int)Math.Ceiling((double)maxDataValue / StepSize) * StepSize; // round it
+
+            _numberOfSteps = maxDataValue / StepSize + 1;
 
             // remove this variable
             _stepSizeInPixel = _maxRadius / _numberOfSteps;
-            _unitPixel = _maxRadius / (roundMaxValue + StepSize);
+            _unitPixel = _maxRadius / (maxDataValue + StepSize);
         }
 
         protected override void Draw(Graphics graphics)
@@ -77,7 +73,7 @@ namespace SimpleImageCharts.RadarChart
             base.Draw(graphics);
             graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            for (int i = 0; i <= _numberOfSteps; i++)
+            for (int i = 0; i < _numberOfSteps; i++)
             {
                 DrawGridLine(graphics, i * StepSize * _unitPixel, _centerPoint);
             }
@@ -120,9 +116,9 @@ namespace SimpleImageCharts.RadarChart
             using (var font = ValueFont.ToFatFont())
             {
                 stringFormat.Alignment = StringAlignment.Far;
-                for (int i = 0; i <= numberOfStep; i++)
+                for (int i = 0; i < numberOfStep; i++)
                 {
-                    graphic.DrawString((i * StepSize).ToString(), font, Brushes.DarkBlue, root.X - 4, root.Y - i * _stepSizeInPixel + 2, stringFormat);
+                    graphic.DrawString((i * StepSize).ToString(), font, Brushes.DarkBlue, root.X - 4, root.Y - i * _stepSizeInPixel, stringFormat);
                 }
             }
         }

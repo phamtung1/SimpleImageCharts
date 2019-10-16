@@ -12,7 +12,7 @@ namespace WindowsFormsChart.Charts
             var categories = new[] { "Eating", "Sleeping", "Doing Nothing", "Playing", "Relaxing", "Watching" };
             var chart = new RadarChart
             {
-                MaxDataValue = 100,
+             //   MaxDataValue = 100,
                 StepSize = 10,
                 Size = size,
                 Categories = categories,
@@ -22,13 +22,13 @@ namespace WindowsFormsChart.Charts
                     {
                         Label = "My Life",
                         Color = Color.LightCoral,
-                        Data = GenerateRandomArray(random, categories.Length, 10, 60),
+                        Data = GenerateRandomArray(random, categories.Length, 1, 50),
                     },
                     new RadarChartSeries
                     {
                         Label = "My Wife Life",
                         Color = Color.LightBlue,
-                        Data = GenerateRandomArray(random, categories.Length, 10, 70),
+                        Data = GenerateRandomArray(random, categories.Length, 1, 100),
                     }
                 }
             };
