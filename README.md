@@ -18,8 +18,9 @@ var image = chart.CreateImage();
 5. [Double Axis Bar Chart](#5-double-axis-bar-chart)
 6. [100% Stacked Bar Chart](#6-100-stacked-bar-chart)
 7. [Column Chart](#7-column-chart)
-8. [Radar Chart](#8-radar-chart)
-9. [Single Range Bar Chart](#9-single-range-bar-chart)
+8. [100% Stacked Column Chart](#8-100-stacked-column-chart)
+9. [Radar Chart](#9-radar-chart)
+10. [Single Range Bar Chart](#10-single-range-bar-chart)
 
 
 ## 1. Pie Chart
@@ -252,7 +253,54 @@ var chart = new ColumnChart
     DataSets = datasets
 };
 ```
-## 8. Radar Chart
+
+## 8. 100% Stacked Column Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/StackedColumn100Chart.jpg" />
+
+```csharp
+var chart = new StackedColumn100Chart
+{
+    Legend = new LegendModel
+    {
+        Margin = new PointF(0, 40),
+        VerticalAlign = VerticalAlign.Bottom,
+        HorizontalAlign = HorizontalAlign.Center
+    },
+    Padding = new Padding(80, 20, 20, 120),
+    BarSetting = new BarSettingModel
+    {
+        Size = 70,
+    },
+    SubTitle = new SubTitleModel { Text = "AAAAAAA" },
+    Size = size,
+    Categories = new[] { "Product A", "Product B", "Product C" },
+    DataSet = new[]
+    {
+        new DataSeries
+        {
+            Label = "LightBlue",
+            Color = Color.LightBlue,
+            Data = new[] { 25f, 3f, 3f },
+        },
+        new DataSeries
+        {
+            Label = "LightCoral",
+            Color = Color.LightCoral,
+            Data = new[] { 25f, 3f, 2f },
+        }
+        ,
+        new DataSeries
+        {
+            Label = "LightGreen",
+            Color = Color.LightGreen,
+            Data = new[] { 50f, 3f, 5f },
+        }
+    }
+};
+```
+
+
+## 9. Radar Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/RadarChart.jpg" />
 
 ```csharp
@@ -282,7 +330,7 @@ var chart = new RadarChart
 
 var bitmap = chart.CreateImage();
 ```
-## 9. Single Range Bar Chart
+## 10. Single Range Bar Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/SingleRangeBarChart.jpg" />
 
 ```csharp

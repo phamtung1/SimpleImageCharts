@@ -12,13 +12,15 @@ namespace SimpleImageCharts.Core.GdiChartComponents
 
         public float LabelOffsetX { get; set; }
 
+        public float LabelOffetY { get; set; }
+
         public SlimFont Font { get; set; }
 
         public override void Render(Graphics graphics)
         {
             base.Render(graphics);
             var position = GetAbsolutePosition(graphics);
-            var y = position.Y + LabelHeight / 2;
+            var y = position.Y + LabelHeight / 2 + LabelOffetY;
             var x = position.X + LabelOffsetX;
             using (StringFormat stringFormat = new StringFormat())
             using (var font = Font.ToFatFont())

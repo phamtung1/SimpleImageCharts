@@ -12,6 +12,8 @@ namespace SimpleImageCharts.Core.GdiChartComponents
 
         public float LabelWidth { get; set; }
 
+        public float LabelOffsetX { get; set; }
+
         public float LabelOffsetY { get; set; }
 
         public SlimFont Font { get; set; }
@@ -23,7 +25,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
             base.Render(graphics);
 
             var position = GetAbsolutePosition(graphics);
-            var x = position.X + RootX;
+            var x = position.X + RootX + LabelOffsetX;
             var y = position.Y + LabelOffsetY;
 
             using (var stringFormat = new StringFormat())

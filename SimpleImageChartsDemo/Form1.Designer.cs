@@ -39,6 +39,7 @@
             this.btnSingleRangeBarChart = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnStackedBar100Percent = new System.Windows.Forms.Button();
+            this.btnStackedColumn100Percent = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -156,6 +157,7 @@
             this.flowLayoutPanel1.Controls.Add(this.btnRadarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnSingleRangeBarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnStackedBar100Percent);
+            this.flowLayoutPanel1.Controls.Add(this.btnStackedColumn100Percent);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(22, 478);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1017, 111);
@@ -171,6 +173,17 @@
             this.btnStackedBar100Percent.Text = "Stacked Bar 100% Chart";
             this.btnStackedBar100Percent.UseVisualStyleBackColor = true;
             this.btnStackedBar100Percent.Click += new System.EventHandler(this.btnStackedBar100Percent_Click);
+            // 
+            // btnStackedColumn100Percent
+            // 
+            this.btnStackedColumn100Percent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStackedColumn100Percent.Location = new System.Drawing.Point(127, 45);
+            this.btnStackedColumn100Percent.Name = "btnStackedColumn100Percent";
+            this.btnStackedColumn100Percent.Size = new System.Drawing.Size(118, 36);
+            this.btnStackedColumn100Percent.TabIndex = 10;
+            this.btnStackedColumn100Percent.Text = "Stacked Column 100% Chart";
+            this.btnStackedColumn100Percent.UseVisualStyleBackColor = true;
+            this.btnStackedColumn100Percent.Click += new System.EventHandler(this.btnStackedColumn100Percent_Click);
             // 
             // Form1
             // 
@@ -200,6 +213,7 @@
         private System.Windows.Forms.Button btnSingleRangeBarChart;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnStackedBar100Percent;
+        private System.Windows.Forms.Button btnStackedColumn100Percent;
     }
 }
 

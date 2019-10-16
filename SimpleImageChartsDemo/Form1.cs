@@ -75,10 +75,18 @@ namespace WindowsFormsChart
 
         private void btnStackedBar100Percent_Click(object sender, EventArgs e)
         {
-            var chart = StackedBar100PercentChartCreator.CreateChart(pictureBox1.Size);
+            var chart = StackedBar100ChartCreator.CreateChart(pictureBox1.Size);
 
             pictureBox1.Image = chart.CreateImage().GetImage();
-            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBar100PercentChart.jpg");
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBar100Chart.jpg");
+        }
+
+        private void btnStackedColumn100Percent_Click(object sender, EventArgs e)
+        {
+            var chart = StackedColumn100ChartCreator.CreateChart(pictureBox1.Size);
+
+            pictureBox1.Image = chart.CreateImage().GetImage();
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedColumn100Chart.jpg");
         }
     }
 }
