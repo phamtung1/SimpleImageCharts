@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace WindowsFormsChart.Charts
 {
-    public static class StackedBar100PercentChartCreator
+    public static class StackedBar100ChartCreator
     {
         public static StackedBar100Chart CreateChart(Size size)
         {

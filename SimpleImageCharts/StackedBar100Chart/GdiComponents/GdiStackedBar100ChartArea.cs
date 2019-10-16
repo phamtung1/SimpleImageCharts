@@ -17,8 +17,6 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
 
         public BarSettingModel BarSettingModel { get; set; }
 
-        public float WidthUnit { get; set; }
-
         public DataSeries[] DataSet { get; set; }
 
         public override void BeforeRendering()

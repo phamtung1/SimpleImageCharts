@@ -24,8 +24,6 @@ namespace SimpleImageCharts.StackedBar100Chart
 
         private float _categoryHeight;
 
-        private float _rootX;
-
         private float _widthUnit;
 
         public ChartGridModel ChartGridModel { get; set; }
@@ -44,7 +42,6 @@ namespace SimpleImageCharts.StackedBar100Chart
             _categoryHeight = chartContainer.Size.Height / Categories.Length;
 
             _widthUnit = chartContainer.Size.Width / 100;
-            _rootX = Padding.Left;
 
         }
 
@@ -86,10 +83,8 @@ namespace SimpleImageCharts.StackedBar100Chart
                 Size = chartArea.Size,
                 CellSize = new SizeF(_widthUnit * StepSize, _categoryHeight),
                 ChartGridModel = ChartGridModel,
-                // GdiBarChartDataArea
                 BarSettingModel = BarSetting,
-                DataSet = DataSet,
-                WidthUnit = _widthUnit
+                DataSet = DataSet
             };
             chartArea.AddChild(_barChartArea);
         }
@@ -116,7 +111,7 @@ namespace SimpleImageCharts.StackedBar100Chart
             {
                 Size = new SizeF(chartContainer.Size.Width, Padding.Bottom),
                 Margin = new PointF(Padding.Left, this.Size.Height - Padding.Bottom),
-                RootX = _rootX - Padding.Left,
+                RootX = 0,
                 LeftToRightLabels = leftToRightLabels,
                 LabelWidth = _widthUnit * StepSize,
                 Font = Font
