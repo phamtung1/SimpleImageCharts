@@ -15,8 +15,8 @@ var image = chart.CreateImage();
 2. [Donut Chart](#2-donut-chart)
 3. [Bar Chart](#3-bar-chart)
 4. [Stacked Bar Chart](#4-stacked-bar-chart)
-5. [100% Stacked Bar Chart](#5-100-stacked-bar-chart)
-6. [Double Axis Bar Chart](#6-double-axis-bar-chart)
+5. [Double Axis Bar Chart](#5-double-axis-bar-chart)
+6. [100% Stacked Bar Chart](#6-100-stacked-bar-chart)
 7. [Column Chart](#7-column-chart)
 8. [Radar Chart](#8-radar-chart)
 9. [Single Range Bar Chart](#9-single-range-bar-chart)
@@ -83,7 +83,7 @@ var chart = new BarChart
         VerticalAlign = VerticalAlign.Bottom,
         HorizontalAlign = HorizontalAlign.Center
     },
-    ChartGrid = new ChartGridModel
+    ChartGridModel = new ChartGridModel
     {
         LineColor = Color.LightGreen
     },
@@ -92,20 +92,20 @@ var chart = new BarChart
     Categories = new[] { "Product A", "Product B", "Product C" },
     DataSet = new[]
     {
-        new BarSeries
+        new DataSeries
         {
             Label = "LightBlue",
             Color = Color.LightBlue,
             Data = new[] { -5f, 10f, 15f },
         },
-        new BarSeries
+        new DataSeries
         {
             Label = "LightCoral",
             Color = Color.LightCoral,
             Data = new[] { 1f, -2f, 3f },
         }
         ,
-        new BarSeries
+        new DataSeries
         {
             Label = "LightGreen",
             Color = Color.LightGreen,
@@ -125,7 +125,7 @@ var chart = new BarChart
         Margin = new PointF(0, 50),
         VerticalAlign = VerticalAlign.Bottom
     },
-    ChartGrid = new ChartGridModel
+    ChartGridModel = new ChartGridModel
     {
         LineColor = Color.LightGreen
     },
@@ -140,13 +140,13 @@ var chart = new BarChart
     Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
     DataSet = new[]
     {
-        new BarSeries
+        new DataSeries
         {
             Label = "Yesterday",
             Color = Color.LightBlue,
             Data = new[] { -5f, -10f, -1f , -5f, -10f, -1f , -5f, -10f, -1f },
         },
-        new BarSeries
+        new DataSeries
         {
             Label = "Today",
             Color = Color.LightCoral,
@@ -156,7 +156,31 @@ var chart = new BarChart
 };
 ```
 
-## 5. 100% Stacked Bar Chart
+## 5. Double Axis Bar Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/DoubleAxisBarChart.jpg" />
+
+```csharp
+var chart = new DoubleAxisBarChart
+{
+    FormatBarValue = "{0}%",
+    Size = size,
+    Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
+    FirstDataSet = new DoubleAxisBarSeries
+    {
+        Label = "Income",
+        Color = Color.LightBlue,
+        Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
+    },
+    SecondDataSet = new DoubleAxisBarSeries
+    {
+        Label = "Outcome",
+        Color = Color.LightCoral,
+        Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
+    }
+};
+```
+
+## 6. 100% Stacked Bar Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/StackedBar100PercentChart.jpg" />
 
 ```csharp
@@ -192,30 +216,6 @@ var chart = new StackedBar100Chart
             Color = Color.LightGreen,
             Data = new[] { 50f, 3f, 5f },
         }
-    }
-};
-```
-
-## 6. Double Axis Bar Chart
-<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/DoubleAxisBarChart.jpg" />
-
-```csharp
-var chart = new DoubleAxisBarChart
-{
-    FormatBarValue = "{0}%",
-    Size = size,
-    Categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F" },
-    FirstDataSet = new DoubleAxisBarSeries
-    {
-        Label = "Income",
-        Color = Color.LightBlue,
-        Data = new[] { 5f, 10f, 5f, 1f, 12f, 7f },
-    },
-    SecondDataSet = new DoubleAxisBarSeries
-    {
-        Label = "Outcome",
-        Color = Color.LightCoral,
-        Data = new[] { 15f, 10f, 15f, 8f, 2f, 14f },
     }
 };
 ```
