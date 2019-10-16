@@ -182,7 +182,7 @@ var chart = new DoubleAxisBarChart
 ```
 
 ## 6. 100% Stacked Bar Chart
-<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/StackedBar100PercentChart.jpg" />
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/StackedBar100Chart.jpg" />
 
 ```csharp
 var chart = new StackedBar100Chart
