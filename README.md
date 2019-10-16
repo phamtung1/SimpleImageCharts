@@ -18,7 +18,8 @@ var image = chart.CreateImage();
 5. [Double Axis Bar Chart](#5-double-axis-bar-chart)
 6. [Column Chart](#6-column-chart)
 7. [Radar Chart](#7-radar-chart)
-8. [Single Range Bar Chart](#8-sing-range-bar-chart)
+8. [Single Range Bar Chart](#8-single-range-bar-chart)
+9. [100% Stacked Bar Chart](#9-100-stacked-bar-chart)
 
 ## 1. Pie Chart
 <img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/pie.jpg" />
@@ -271,5 +272,44 @@ var chart = new SingleRangeBarChart
     RightLabel = "Max \nvalue = 15",
     Font = new SlimFont("Arial", 12),
     TextColor = Color.Black
+};
+```
+## 9. 100% Stacked Bar Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/StackedBar100PercentChart.jpg" />
+
+```csharp
+var chart = new StackedBar100Chart
+{
+    Legend = new LegendModel
+    {
+        Margin = new PointF(0, 40),
+        VerticalAlign = VerticalAlign.Bottom,
+        HorizontalAlign = HorizontalAlign.Center
+    },
+    SubTitle = new SubTitleModel { Text = "AAAAAAA" },
+    Size = size,
+    Categories = new[] { "Product A", "Product B", "Product C" },
+    DataSet = new[]
+    {
+        new DataSeries
+        {
+            Label = "LightBlue",
+            Color = Color.LightBlue,
+            Data = new[] { 25f, 1, 3f },
+        },
+        new DataSeries
+        {
+            Label = "LightCoral",
+            Color = Color.LightCoral,
+            Data = new[] { 25f, 2f, 2f },
+        }
+        ,
+        new DataSeries
+        {
+            Label = "LightGreen",
+            Color = Color.LightGreen,
+            Data = new[] { 50f, 7f, 5f },
+        }
+    }
 };
 ```

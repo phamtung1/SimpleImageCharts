@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 
-namespace SimpleImageCharts.BarChart
+namespace SimpleImageCharts.Core.Models
 {
-    public class BarSeries
+    public class DataSeries
     {
         public string Label { get; set; }
 

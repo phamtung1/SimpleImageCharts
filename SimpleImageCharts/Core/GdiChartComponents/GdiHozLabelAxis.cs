@@ -31,17 +31,23 @@ namespace SimpleImageCharts.Core.GdiChartComponents
             {
                 stringFormat.Alignment = StringAlignment.Center;
 
-                foreach (var text in LeftToRightLabels)
+                if (LeftToRightLabels != null)
                 {
-                    graphics.DrawString(text, font, Brushes.Gray, x, y, stringFormat);
-                    x += LabelWidth;
+                    foreach (var text in LeftToRightLabels)
+                    {
+                        graphics.DrawString(text, font, Brushes.Gray, x, y, stringFormat);
+                        x += LabelWidth;
+                    }
                 }
 
-                x = position.X + RootX;
-                foreach (var text in RightToLeftLabels)
+                if (RightToLeftLabels != null)
                 {
-                    graphics.DrawString(text, font, Brushes.Gray, x, y, stringFormat);
-                    x -= LabelWidth;
+                    x = position.X + RootX;
+                    foreach (var text in RightToLeftLabels)
+                    {
+                        graphics.DrawString(text, font, Brushes.Gray, x, y, stringFormat);
+                        x -= LabelWidth;
+                    }
                 }
             }
         }

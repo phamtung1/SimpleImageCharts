@@ -13,7 +13,7 @@ namespace SimpleImageCharts.BarChart.GdiComponents
 
         public float WidthUnit { get; set; }
 
-        public BarSeries[] DataSet { get; set; }
+        public DataSeries[] DataSet { get; set; }
 
         public override void BeforeRendering()
         {
@@ -30,7 +30,7 @@ namespace SimpleImageCharts.BarChart.GdiComponents
             }
         }
 
-        private void AddBarSeries(BarSeries series, int offsetY)
+        private void AddBarSeries(DataSeries series, int offsetY)
         {
             var y = (CellSize.Height / 2) + offsetY;
 

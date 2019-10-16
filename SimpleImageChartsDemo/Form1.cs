@@ -72,5 +72,13 @@ namespace WindowsFormsChart
             pictureBox1.Image = chart.CreateImage().GetImage();
             pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\SingleRangeBarChart.jpg");
         }
+
+        private void btnStackedBar100Percent_Click(object sender, EventArgs e)
+        {
+            var chart = StackedBar100PercentChartCreator.CreateChart(pictureBox1.Size);
+
+            pictureBox1.Image = chart.CreateImage().GetImage();
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedBar100PercentChart.jpg");
+        }
     }
 }

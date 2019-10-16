@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Charts\StackedBar100PercentChartCreator.cs" />
     <Compile Include="Charts\ColumnChartCreator.cs" />
     <Compile Include="Charts\DoubleAxisBarChartCreator.cs" />
     <Compile Include="Charts\RadarChartCreator.cs" />

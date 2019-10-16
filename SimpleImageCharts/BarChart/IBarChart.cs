@@ -7,8 +7,8 @@ namespace SimpleImageCharts.BarChart
     {
         BarSettingModel BarSetting { get; set; }
         string[] Categories { get; set; }
-        ChartGridModel ChartGrid { get; set; }
-        BarSeries[] DataSet { get; set; }
+        ChartGridModel ChartGridModel { get; set; }
+        DataSeries[] DataSet { get; set; }
         string FormatAxisValue { get; set; }
         int StepSize { get; set; }
     }

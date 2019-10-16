@@ -20,9 +20,9 @@ namespace SimpleImageCharts.BarChart
 
         public string[] Categories { get; set; }
 
-        public BarSeries[] DataSet { get; set; }
+        public DataSeries[] DataSet { get; set; }
 
-        public ChartGridModel ChartGrid { get; set; }
+        public ChartGridModel ChartGridModel { get; set; }
 
         private float _categoryHeight;
 
@@ -99,9 +99,9 @@ namespace SimpleImageCharts.BarChart
 
         private void AddChartArea(GdiRectangle chartArea)
         {
-            if (ChartGrid == null)
+            if (ChartGridModel == null)
             {
-                ChartGrid = new ChartGridModel
+                ChartGridModel = new ChartGridModel
                 {
                     LineColor = Color.LightGray
                 };
@@ -113,7 +113,7 @@ namespace SimpleImageCharts.BarChart
                 LeftPanelWidth = _rootX - Padding.Left,
                 Size = chartArea.Size,
                 CellSize = new SizeF(_widthUnit * StepSize, _categoryHeight),
-                ChartGridModel = ChartGrid,
+                ChartGridModel = ChartGridModel,
                 // GdiBarChartDataArea
                 BarSettingModel = BarSetting,
                 DataSet = DataSet,

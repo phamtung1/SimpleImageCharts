@@ -16,7 +16,7 @@ namespace WindowsFormsChart.Charts
                     Margin = new PointF(0, 50),
                     VerticalAlign = VerticalAlign.Bottom
                 },
-                ChartGrid = new ChartGridModel
+                ChartGridModel = new ChartGridModel
                 {
                     LineColor = Color.LightGreen
                 },
@@ -31,13 +31,13 @@ namespace WindowsFormsChart.Charts
                 Categories = new[] { "Product A", "Product B", "Product C", "Product A", "Product B", "Product C", "Product A", "Product B", "Product C" },
                 DataSet = new[]
                 {
-                    new BarSeries
+                    new DataSeries
                     {
                         Label = "Yesterday",
                         Color = Color.LightBlue,
                         Data = new[] { -5f, -10f, -1f , -5f, -10f, -1f , -5f, -10f, -1f },
                     },
-                    new BarSeries
+                    new DataSeries
                     {
                         Label = "Today",
                         Color = Color.LightCoral,

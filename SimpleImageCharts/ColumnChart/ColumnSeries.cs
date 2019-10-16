@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using SimpleImageCharts.Core.Models;
+using System.Drawing;
 
 namespace SimpleImageCharts.ColumnChart
 {
