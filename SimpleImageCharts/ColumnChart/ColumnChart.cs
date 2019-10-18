@@ -35,7 +35,6 @@ namespace SimpleImageCharts.ColumnChart
 
         public ColumnChart()
         {
-            Size = new Size(600, 300);
             Padding = new Padding(30, 50, 30, 120);
         }
 

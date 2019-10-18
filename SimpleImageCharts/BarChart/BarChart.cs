@@ -38,7 +38,6 @@ namespace SimpleImageCharts.BarChart
 
         public BarChart()
         {
-            this.Size = new Size(600, 300);
             Padding = new Padding(100, 10, 30, 100);
         }
 
