@@ -40,6 +40,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnStackedBar100Percent = new System.Windows.Forms.Button();
             this.btnStackedColumn100Percent = new System.Windows.Forms.Button();
+            this.btnBarGaugeChart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -158,6 +159,7 @@
             this.flowLayoutPanel1.Controls.Add(this.btnStackedColumn100Percent);
             this.flowLayoutPanel1.Controls.Add(this.btnRadarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnSingleRangeBarChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnBarGaugeChart);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(22, 478);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1017, 111);
@@ -184,6 +186,17 @@
             this.btnStackedColumn100Percent.Text = "Stacked Column 100% Chart";
             this.btnStackedColumn100Percent.UseVisualStyleBackColor = true;
             this.btnStackedColumn100Percent.Click += new System.EventHandler(this.btnStackedColumn100Percent_Click);
+            // 
+            // btnBarGaugeChart
+            // 
+            this.btnBarGaugeChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBarGaugeChart.Location = new System.Drawing.Point(251, 45);
+            this.btnBarGaugeChart.Name = "btnBarGaugeChart";
+            this.btnBarGaugeChart.Size = new System.Drawing.Size(118, 36);
+            this.btnBarGaugeChart.TabIndex = 11;
+            this.btnBarGaugeChart.Text = "Bar Gauge Chart";
+            this.btnBarGaugeChart.UseVisualStyleBackColor = true;
+            this.btnBarGaugeChart.Click += new System.EventHandler(this.btnBarGaugeChart_Click);
             // 
             // Form1
             // 
@@ -214,6 +227,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnStackedBar100Percent;
         private System.Windows.Forms.Button btnStackedColumn100Percent;
+        private System.Windows.Forms.Button btnBarGaugeChart;
     }
 }
 

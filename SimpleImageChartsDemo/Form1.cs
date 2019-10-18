@@ -88,5 +88,13 @@ namespace WindowsFormsChart
             pictureBox1.Image = chart.CreateImage().GetImage();
             pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\StackedColumn100Chart.jpg");
         }
+
+        private void btnBarGaugeChart_Click(object sender, EventArgs e)
+        {
+            var chart = BarGaugeChartCreator.CreateChart(pictureBox1.Size);
+
+            pictureBox1.Image = chart.CreateImage().GetImage();
+            pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\BarGaugeChart.jpg");
+        }
     }
 }
