@@ -26,6 +26,8 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
             var pixelUnit = size.Width / 100;
             var sum = this.Values.Sum();
             var x = 0f;
+            var font = SlimFont.Default;
+            font.Size = 10;
             for (int i = 0; i < Values.Length; i++)
             {
                 var percent = Values[i] / sum * 100;
@@ -41,7 +43,7 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                     Content = string.Format(TextFormat, percent),
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle,
-                    Font = SlimFont.Default,
+                    Font = font,
                     Color = Color.Black
                 };
                 section.AddChild(text);

@@ -27,7 +27,7 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
             var offsetX = (CellSize.Width - BarSettingModel.Size) / 2f;
 
             // render bars one by one
-            var categoriesLength = DataSet.Length;
+            var categoriesLength = DataSet.First().Data.Length;
             var colors = DataSet.Select(x => x.Color).ToArray();
 
             for (int i = 0; i < categoriesLength; i++)

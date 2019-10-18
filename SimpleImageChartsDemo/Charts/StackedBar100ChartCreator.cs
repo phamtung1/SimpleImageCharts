@@ -22,25 +22,31 @@ namespace WindowsFormsChart.Charts
                 Size = size,
                 Categories = new[] { "Product A", "Product B", "Product C" },
                 DataSet = new[]
-               {
+                {
                     new DataSeries
                     {
                         Label = "LightBlue",
                         Color = Color.LightBlue,
-                        Data = new[] { 25f, 3f, 3f },
+                        Data = new[] { 25f, 13f, 3f },
                     },
                     new DataSeries
                     {
                         Label = "LightCoral",
                         Color = Color.LightCoral,
-                        Data = new[] { 25f, 3f, 2f },
+                        Data = new[] { 25f, 3f, 33f },
                     }
                     ,
                     new DataSeries
                     {
                         Label = "LightGreen",
                         Color = Color.LightGreen,
-                        Data = new[] { 50f, 3f, 5f },
+                       Data = new[] { 5f, 3f, 3f },
+                    },
+                    new DataSeries
+                    {
+                        Label = "Red",
+                        Color = Color.Red,
+                       Data = new[] { 25f, 13f, 3f },
                     }
                 }
             };

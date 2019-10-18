@@ -46,6 +46,13 @@ namespace WindowsFormsChart.Charts
                         Color = Color.LightGreen,
                         Data = new[] { 50f, 3f, 5f },
                     }
+                    ,
+                    new DataSeries
+                    {
+                        Label = "Red",
+                        Color = Color.Red,
+                        Data = new[] { 50f, 3f, 5f },
+                    }
                 }
             };
 
