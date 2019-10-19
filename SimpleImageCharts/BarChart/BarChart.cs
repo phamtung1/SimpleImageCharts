@@ -1,12 +1,12 @@
-﻿using GdiSharp.Components;
+﻿using System;
+using System.Drawing;
+using System.Linq;
+using GdiSharp.Components;
 using GdiSharp.Components.Base;
 using SimpleImageCharts.BarChart.GdiComponents;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
-using System;
-using System.Drawing;
-using System.Linq;
 
 namespace SimpleImageCharts.BarChart
 {
@@ -77,23 +77,19 @@ namespace SimpleImageCharts.BarChart
             base.BuildComponents(mainContainer, chartContainer);
 
             AddChartArea(chartContainer);
-            CreateLegendItems();
-            base.AddLegend(mainContainer);
             base.AddSubTitle(mainContainer);
             AddVerLabelAxis(mainContainer, chartContainer);
             AddHozLabelAxis(mainContainer, chartContainer);
         }
 
-        private void CreateLegendItems()
+        protected override void CreateLegendItems()
         {
-            if (Legend != null && Legend.Items == null)
+            base.CreateLegendItems();
+            Legend.Items = DataSet.Select(x => new LegendItemModel
             {
-                Legend.Items = DataSet.Select(x => new LegendItemModel
-                {
-                    Text = x.Label,
-                    Color = x.Color
-                }).ToArray();
-            }
+                Text = x.Label,
+                Color = x.Color
+            }).ToArray();
         }
 
         private void AddChartArea(GdiRectangle chartArea)

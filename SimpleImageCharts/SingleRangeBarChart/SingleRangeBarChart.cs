@@ -1,13 +1,13 @@
-﻿using GdiSharp.Components;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using GdiSharp.Components;
 using GdiSharp.Components.Base;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
 using SimpleImageCharts.SingleRangeBarChart.GdiComponents;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 
 namespace SimpleImageCharts.SingleRangeBarChart
 {
@@ -49,23 +49,18 @@ namespace SimpleImageCharts.SingleRangeBarChart
         protected override void BuildComponents(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
             base.BuildComponents(mainContainer, chartContainer);
-            CreateLegendItems();
-            base.AddLegend(mainContainer);
             var rangeBar = AddRangeBar(chartContainer);
             AddRangeBarColumns(chartContainer, rangeBar);
             AddRangeBarLabels(chartContainer, rangeBar);
         }
 
-        private void CreateLegendItems()
+        protected override void CreateLegendItems()
         {
-            if (Legend != null && Legend.Items == null)
+            Legend.Items = Entries.Select(x => new LegendItemModel
             {
-                Legend.Items = Entries.Select(x => new LegendItemModel
-                {
-                    Color = x.Color,
-                    Text = x.Label
-                });
-            }
+                Color = x.Color,
+                Text = x.Label
+            });
         }
 
         private GdiRangeBar AddRangeBar(GdiRectangle chartContainer)

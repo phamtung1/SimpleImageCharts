@@ -62,6 +62,18 @@ namespace SimpleImageCharts.Core
 
         protected virtual void BuildComponents(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
+            if (Legend != null && Legend.Items == null)
+            {
+                CreateLegendItems();
+            }
+
+            if (Legend != null && Legend.Items != null && Legend.Items.Any())
+            {
+                mainContainer.AddChild(new GdiLegend
+                {
+                    Legend = Legend
+                });
+            }
         }
 
         protected virtual void Draw(Graphics graphics)
@@ -87,17 +99,8 @@ namespace SimpleImageCharts.Core
             mainContainer.AddChild(gdiText);
         }
 
-        protected virtual void AddLegend(GdiContainer mainContainer)
+        protected virtual void CreateLegendItems()
         {
-            if (Legend == null || Legend.Items == null || !Legend.Items.Any())
-            {
-                return;
-            }
-
-            mainContainer.AddChild(new GdiLegend
-            {
-                Legend = Legend
-            });
         }
     }
 }

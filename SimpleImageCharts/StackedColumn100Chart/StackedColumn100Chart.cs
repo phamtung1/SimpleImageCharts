@@ -1,11 +1,11 @@
-﻿using GdiSharp.Components;
+﻿using System.Drawing;
+using System.Linq;
+using GdiSharp.Components;
 using GdiSharp.Components.Base;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
 using SimpleImageCharts.StackedBar100Chart.GdiComponents;
-using System.Drawing;
-using System.Linq;
 
 namespace SimpleImageCharts.StackedColumn100Chart
 {
@@ -47,23 +47,18 @@ namespace SimpleImageCharts.StackedColumn100Chart
         {
             base.BuildComponents(mainContainer, chartContainer);
             AddChartArea(chartContainer);
-            CreateLegendItems();
-            base.AddLegend(mainContainer);
             base.AddSubTitle(mainContainer);
             AddVerLabelAxis(mainContainer, chartContainer);
             AddHozLabelAxis(mainContainer, chartContainer);
         }
 
-        private void CreateLegendItems()
+        protected override void CreateLegendItems()
         {
-            if (Legend != null && Legend.Items == null)
+            Legend.Items = DataSet.Select(x => new LegendItemModel
             {
-                Legend.Items = DataSet.Select(x => new LegendItemModel
-                {
-                    Text = x.Label,
-                    Color = x.Color
-                }).ToArray();
-            }
+                Text = x.Label,
+                Color = x.Color
+            }).ToArray();
         }
 
         private void AddChartArea(GdiRectangle chartArea)
