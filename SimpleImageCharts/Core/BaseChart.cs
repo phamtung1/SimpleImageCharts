@@ -21,7 +21,9 @@ namespace SimpleImageCharts.Core
 
         public SlimFont Font { get; set; } = SlimFont.Default;
 
-        private GdiContainer MainContainer { get; set; }
+        protected float LegendMaxWidth { get; set; } = 0;
+
+        protected GdiContainer MainContainer { get; set; }
 
         private GdiRectangle ChartContainer { get; set; }
 
@@ -32,10 +34,11 @@ namespace SimpleImageCharts.Core
             this.BuildComponents(MainContainer, ChartContainer);
             var bitmap = new Bitmap(Size.Width, Size.Height);
             var renderer = new GdiRenderer(bitmap);
-            renderer.Render(MainContainer);
             using (var graphics = renderer.GetGraphics())
             {
-                this.Draw(graphics);
+                this.DrawBeforeRender(graphics);
+                renderer.Render(MainContainer);
+                this.DrawAfterRender(graphics);
             }
 
             return new ImageFile(bitmap);
@@ -71,12 +74,17 @@ namespace SimpleImageCharts.Core
             {
                 mainContainer.AddChild(new GdiLegend
                 {
+                    MaxWidth = LegendMaxWidth == 0 ? chartContainer.Size.Width : LegendMaxWidth,
                     Legend = Legend
                 });
             }
         }
 
-        protected virtual void Draw(Graphics graphics)
+        protected virtual void DrawBeforeRender(Graphics graphics)
+        {
+        }
+
+        protected virtual void DrawAfterRender(Graphics graphics)
         {
         }
 

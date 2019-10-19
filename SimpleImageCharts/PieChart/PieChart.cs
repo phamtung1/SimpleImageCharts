@@ -60,9 +60,9 @@ namespace SimpleImageCharts.PieChart
             chartContainer.AddChild(pie);
         }
 
-        protected override void Draw(Graphics graphics)
+        protected override void DrawAfterRender(Graphics graphics)
         {
-            base.Draw(graphics);
+            base.DrawAfterRender(graphics);
 
             graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;

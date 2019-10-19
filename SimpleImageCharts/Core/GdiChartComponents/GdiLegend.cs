@@ -1,8 +1,9 @@
-﻿using GdiSharp.Components.Base;
-using SimpleImageCharts.Core.Helpers;
-using SimpleImageCharts.Core.Models;
+﻿using System;
 using System.Drawing;
 using System.Linq;
+using GdiSharp.Components.Base;
+using SimpleImageCharts.Core.Helpers;
+using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.Core.GdiChartComponents
 {
@@ -11,6 +12,9 @@ namespace SimpleImageCharts.Core.GdiChartComponents
         private const int RectWidth = 25;
         private const int RectHeight = 15;
         private const int GapWidth = 10;
+        private const int GapHeight = 25;
+
+        public float MaxWidth { get; set; } = 1000;
 
         public LegendModel Legend { get; set; }
 
@@ -26,7 +30,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
             }
 
             var height = RectHeight + 5;
-            return new SizeF(totalWidth, height);
+            return new SizeF(Math.Min(MaxWidth, totalWidth), height);
         }
 
         public override void Render(Graphics graphics)
@@ -44,7 +48,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
 
             var left = position.X;
             var top = position.Y;
-
+            var line = 0;
             using (var textBrush = new SolidBrush(Legend.TextColor))
             using (var font = new Font(Legend.FontName, Legend.FontSize))
             {
@@ -53,6 +57,13 @@ namespace SimpleImageCharts.Core.GdiChartComponents
                     if (string.IsNullOrEmpty(item.Text))
                     {
                         continue;
+                    }
+
+                    if (left + RectWidth + this.Margin.X > MaxWidth)
+                    {
+                        line++;
+                        left = position.X;
+                        top = position.Y + line * GapHeight;
                     }
 
                     using (var brush = new SolidBrush(item.Color))

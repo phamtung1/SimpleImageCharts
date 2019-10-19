@@ -58,9 +58,9 @@ namespace SimpleImageCharts.ColumnChart
             _rootY = Padding.Top + (_heightUnit * Math.Abs(_maxValue));
         }
 
-        protected override void Draw(Graphics graphics)
+        protected override void DrawAfterRender(Graphics graphics)
         {
-            base.Draw(graphics);
+            base.DrawAfterRender(graphics);
 
             graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             graphics.Clear(Color.White);

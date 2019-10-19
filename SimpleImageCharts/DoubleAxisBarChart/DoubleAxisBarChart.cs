@@ -45,9 +45,9 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             _widthUnit = chartContainer.Size.Width / _maxValue;
         }
 
-        protected override void Draw(Graphics graphics)
+        protected override void DrawAfterRender(Graphics graphics)
         {
-            base.Draw(graphics);
+            base.DrawAfterRender(graphics);
 
             using (var axisFont = new Font("Arial", 13, FontStyle.Bold))
             {

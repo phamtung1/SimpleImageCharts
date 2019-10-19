@@ -68,9 +68,9 @@ namespace SimpleImageCharts.RadarChart
             _unitPixel = _maxRadius / (maxDataValue + StepSize);
         }
 
-        protected override void Draw(Graphics graphics)
+        protected override void DrawAfterRender(Graphics graphics)
         {
-            base.Draw(graphics);
+            base.DrawAfterRender(graphics);
             graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             for (int i = 0; i < _numberOfSteps; i++)

@@ -53,7 +53,7 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(22, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1017, 460);
+            this.pictureBox1.Size = new System.Drawing.Size(1017, 429);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -160,9 +160,9 @@
             this.flowLayoutPanel1.Controls.Add(this.btnRadarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnSingleRangeBarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnBarGaugeChart);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(22, 478);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(22, 447);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1017, 111);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1017, 142);
             this.flowLayoutPanel1.TabIndex = 9;
             // 
             // btnStackedBar100Percent

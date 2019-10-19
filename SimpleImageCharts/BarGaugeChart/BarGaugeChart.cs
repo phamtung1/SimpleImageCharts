@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
+using GdiSharp.Components;
+using GdiSharp.Components.Base;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.Models;
 
@@ -16,21 +19,29 @@ namespace SimpleImageCharts.BarGaugeChart
 
         public int BarSize { get; set; } = 20;
 
-        public int GapSize { get; set; } = 30;
+        public int GapSize { get; set; } = 10;
 
         public BarGaugeChart()
         {
-            Padding = new Padding(50);
+            Padding = new Padding(50, 50, 50, 150);
         }
 
-        protected override void Draw(Graphics graphics)
+        protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
-            base.Draw(graphics);
+            base.Init(mainContainer, chartContainer);
+            this.MainContainer.Color = Color.Transparent;
+            var chartRect = CalculateChartRect();
+            this.LegendMaxWidth = chartRect.Width;
+        }
+
+        protected override void DrawBeforeRender(Graphics graphics)
+        {
+            base.DrawBeforeRender(graphics);
 
             var chartRect = CalculateChartRect();
             var center = new PointF(Padding.Left + chartRect.Width / 2f, Padding.Top + chartRect.Height / 2f);
 
-            var sweepAngle = 180f / (MaxValue - 1);
+            var sweepAngle = 180f / MaxValue;
 
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
@@ -42,14 +53,25 @@ namespace SimpleImageCharts.BarGaugeChart
             DrawValueTexts(graphics, chartRect, center, sweepAngle);
         }
 
+        protected override void CreateLegendItems()
+        {
+            base.CreateLegendItems();
+            Legend.Items = DataItems.Select(x => new LegendItemModel
+            {
+                Color = x.Color,
+                Text = x.Label
+            }).ToArray();
+        }
+
         private void DrawValueTexts(Graphics graphics, Rectangle chartRect, PointF center, float sweepAngle)
         {
             var startAngle = StartAngle;
 
             int labelRadius = chartRect.Width / 2 + 20;
             using (var stringFormat = new StringFormat())
+            using (var valueFont = new Font("Arial", 10))
             {
-                for (var i = 0; i < MaxValue; i++)
+                for (var i = 0; i <= MaxValue; i++)
                 {
                     var labelAngle = Math.PI * startAngle / 180f;
 
@@ -58,7 +80,7 @@ namespace SimpleImageCharts.BarGaugeChart
 
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
-                    graphics.DrawString((i + 1).ToString(), new Font("Arial", 10), Brushes.Black, x, y, stringFormat);
+                    graphics.DrawString(i.ToString(), valueFont, Brushes.Black, x, y, stringFormat);
 
                     startAngle += sweepAngle;
                 }
@@ -77,7 +99,12 @@ namespace SimpleImageCharts.BarGaugeChart
             foreach (var item in DataItems)
             {
                 rect.Inflate(gapSize);
-                graphics.FillPie(new SolidBrush(item.Color), rect, StartAngle, (float)(item.Value * sweepAngle - sweepAngle));
+                if (rect.Width <= 0 || rect.Height <= 0)
+                {
+                    throw new ArgumentException("Invalid chart size or setting.");
+                }
+
+                graphics.FillPie(new SolidBrush(item.Color), rect, StartAngle, (float)(item.Value * sweepAngle));
                 rect.Inflate(barSize);
                 graphics.FillEllipse(new SolidBrush(Color.White), rect);
 
@@ -89,7 +116,7 @@ namespace SimpleImageCharts.BarGaugeChart
         {
             var startAngle = StartAngle;
 
-            for (var i = 0; i < MaxValue; i++)
+            for (var i = 0; i <= MaxValue; i++)
             {
                 var labelAngle = Math.PI * startAngle / 180f;
                 var x = center.X + (float)(radius * Math.Cos(labelAngle));
