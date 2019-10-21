@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace SimpleImageCharts.BarGaugeChart
 {
-    public class BarGaugeChart : BaseChart
+    public class BarGaugeChart : BaseChart, IBarGaugeChart
     {
         private const float StartAngle = 180F;
 
@@ -32,7 +32,7 @@ namespace SimpleImageCharts.BarGaugeChart
             this.MainContainer.BackgroundColor = Color.Transparent;
             var chartRect = CalculateChartRect();
             this.LegendWidth = chartRect.Width;
-            this.LegendHeight = this.Size.Height - this.Padding.Top - chartRect.Height /2 - 50;
+            this.LegendHeight = this.Size.Height - this.Padding.Top - chartRect.Height / 2 - 50;
         }
 
         protected override void DrawBeforeRender(Graphics graphics)

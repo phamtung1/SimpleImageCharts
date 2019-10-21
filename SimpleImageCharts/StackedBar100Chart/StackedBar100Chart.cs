@@ -9,7 +9,7 @@ using SimpleImageCharts.StackedBar100Chart.GdiComponents;
 
 namespace SimpleImageCharts.StackedBar100Chart
 {
-    public class StackedBar100Chart : BaseChart
+    public class StackedBar100Chart : BaseChart, IStackedBar100Chart
     {
         public BarSettingModel BarSetting { get; set; } = new BarSettingModel();
 
