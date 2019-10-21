@@ -12,15 +12,15 @@ namespace SimpleImageCharts.Core.GdiChartComponents
 
         public Color TextColor { get; set; } = Color.Black;
 
-        public override void BeforeRendering()
+        public override void BeforeRendering(Graphics graphics)
         {
-            base.BeforeRendering();
+            base.BeforeRendering(graphics);
 
             if (!string.IsNullOrWhiteSpace(Text))
             {
                 this.AddChild(new GdiText
                 {
-                    Color = TextColor,
+                    BackgroundColor = TextColor,
                     Font = this.Font,
                     Content = Text,
                     Margin = new PointF(0, -20),

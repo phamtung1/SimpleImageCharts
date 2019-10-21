@@ -1,11 +1,12 @@
-﻿using System.Drawing;
-using System.Linq;
-using GdiSharp.Components;
+﻿using GdiSharp.Components;
 using GdiSharp.Components.Base;
 using GdiSharp.Models;
 using GdiSharp.Renderer;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
+using System;
+using System.Drawing;
+using System.Linq;
 
 namespace SimpleImageCharts.Core
 {
@@ -21,9 +22,11 @@ namespace SimpleImageCharts.Core
 
         public SlimFont Font { get; set; } = SlimFont.Default;
 
-        protected float LegendMaxWidth { get; set; } = 0;
-
         protected GdiContainer MainContainer { get; set; }
+
+        protected float LegendWidth { get; set; } = 0;
+
+        protected float LegendHeight { get; set; } = 0;
 
         private GdiRectangle ChartContainer { get; set; }
 
@@ -49,7 +52,7 @@ namespace SimpleImageCharts.Core
             MainContainer = new GdiRectangle
             {
                 Size = this.Size,
-                Color = Color.White
+                BackgroundColor = Color.White
             };
             ChartContainer = new GdiRectangle
             {
@@ -74,7 +77,11 @@ namespace SimpleImageCharts.Core
             {
                 mainContainer.AddChild(new GdiLegend
                 {
-                    MaxWidth = LegendMaxWidth == 0 ? chartContainer.Size.Width : LegendMaxWidth,
+                    Margin = new PointF(this.Padding.Left, 20),
+                    VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
+                    Size = new SizeF(
+                        LegendWidth == 0 ? chartContainer.Size.Width : LegendWidth, 
+                        LegendHeight == 0 ? Math.Max(GdiLegendItem.LineHeight, this.Padding.Bottom - 50) : LegendHeight),
                     Legend = Legend
                 });
             }
@@ -98,7 +105,7 @@ namespace SimpleImageCharts.Core
             var gdiText = new GdiText
             {
                 Content = SubTitle.Text,
-                Color = SubTitle.Color,
+                BackgroundColor = SubTitle.Color,
                 HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                 VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
                 Margin = new PointF(0, 10),

@@ -14,9 +14,9 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
 
         public Color[] Colors { get; set; }
 
-        public override void BeforeRendering()
+        public override void BeforeRendering(Graphics graphics)
         {
-            base.BeforeRendering();
+            base.BeforeRendering(graphics);
             if (Values.Length != Colors.Length)
             {
                 throw new ArgumentException("Values and Colors must have the same number of items.");
@@ -34,7 +34,7 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                 var width = percent * pixelUnit;
                 var section = new GdiRectangle
                 {
-                    Color = Colors[i],
+                    BackgroundColor = Colors[i],
                     Margin = new PointF(x, 0),
                     Size = new SizeF(width, size.Height)
                 };
@@ -44,7 +44,7 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle,
                     Font = font,
-                    Color = Color.Black
+                    BackgroundColor = Color.Black
                 };
                 section.AddChild(text);
 

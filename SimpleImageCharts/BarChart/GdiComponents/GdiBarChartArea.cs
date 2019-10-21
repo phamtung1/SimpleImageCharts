@@ -1,9 +1,8 @@
-﻿using System;
-using System.Drawing;
-using GdiSharp.Components;
-using GdiSharp.Models;
+﻿using GdiSharp.Components;
 using SimpleImageCharts.Core.GdiChartComponents;
 using SimpleImageCharts.Core.Models;
+using System;
+using System.Drawing;
 
 namespace SimpleImageCharts.BarChart.GdiComponents
 {
@@ -15,9 +14,9 @@ namespace SimpleImageCharts.BarChart.GdiComponents
 
         public DataSeries[] DataSet { get; set; }
 
-        public override void BeforeRendering()
+        public override void BeforeRendering(Graphics graphics)
         {
-            base.BeforeRendering();
+            base.BeforeRendering(graphics);
 
             var offsetY = BarSettingModel.IsStacked ? -BarSettingModel.Size / 2 : -(DataSet.Length * BarSettingModel.Size) / 2;
             foreach (var data in DataSet)
@@ -42,7 +41,7 @@ namespace SimpleImageCharts.BarChart.GdiComponents
                 {
                     Size = new SizeF(Math.Abs(length), BarSettingModel.Size),
                     Margin = new PointF(0, y),
-                    Color = series.Color,
+                    BackgroundColor = series.Color,
                 };
 
                 var text = new GdiText
@@ -50,7 +49,7 @@ namespace SimpleImageCharts.BarChart.GdiComponents
                     Margin = new PointF(bar.Size.Width + 2, 0),
                     Content = string.Format(BarSettingModel.FormatValue, value),
                     Font = BarSettingModel.ValueFont,
-                    Color = Color.Gray,
+                    BackgroundColor = Color.Gray,
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle
                 };
 

@@ -11,9 +11,9 @@ namespace SimpleImageCharts.Core.GdiChartComponents
 
         public ChartGridModel ChartGridModel { get; set; }
 
-        public override void BeforeRendering()
+        public override void BeforeRendering(Graphics graphics)
         {
-            base.BeforeRendering();
+            base.BeforeRendering(graphics);
             CreateLeftGrid();
             CreateRightGrid();
         }

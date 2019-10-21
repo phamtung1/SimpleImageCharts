@@ -70,7 +70,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
             {
                 Size = new SizeF(chartContainer.Size.Width, barHeight),
                 Margin = new PointF(0, 10),
-                Color = ColorTranslator.FromHtml("#123367"),
+                BackgroundColor = ColorTranslator.FromHtml("#123367"),
                 CenterColor = ColorTranslator.FromHtml("#BDD2F3")
             };
             chartContainer.AddChild(rangeBar);
@@ -91,7 +91,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
 
                 var column = new GdiColumn
                 {
-                    Color = entry.Color,
+                    BackgroundColor = entry.Color,
                     Size = new SizeF(10, columnHeight),
                     Margin = new PointF(x - 5, columnTop)
                 };
@@ -106,7 +106,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
             {
                 chartContainer.AddChild(new GdiText
                 {
-                    Color = TextColor,
+                    BackgroundColor = TextColor,
                     Content = LeftLabel,
                     Font = Font,
                     Margin = margin
@@ -117,7 +117,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
             {
                 chartContainer.AddChild(new GdiText
                 {
-                    Color = TextColor,
+                    BackgroundColor = TextColor,
                     Content = CenterLabel,
                     Font = Font,
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
@@ -129,7 +129,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
             {
                 chartContainer.AddChild(new GdiText
                 {
-                    Color = TextColor,
+                    BackgroundColor = TextColor,
                     Content = RightLabel,
                     Font = Font,
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right,

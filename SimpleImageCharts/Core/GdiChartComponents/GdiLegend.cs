@@ -1,81 +1,88 @@
-﻿using System;
+﻿using GdiSharp.Components;
+using GdiSharp.Models;
+using SimpleImageCharts.Core.Models;
 using System.Drawing;
 using System.Linq;
-using GdiSharp.Components.Base;
-using SimpleImageCharts.Core.Helpers;
-using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.Core.GdiChartComponents
 {
-    public class GdiLegend : GdiComponent
+    public class GdiLegend : GdiRectangle
     {
-        private const int RectWidth = 25;
-        private const int RectHeight = 15;
-        private const int GapWidth = 10;
-        private const int GapHeight = 25;
-
-        public float MaxWidth { get; set; } = 1000;
-
         public LegendModel Legend { get; set; }
 
-        protected override SizeF GetComponentSize(Graphics graphics)
+        public override void BeforeRendering(Graphics graphics)
         {
-            var totalWidth = 0f;
-            using (var font = new Font(Legend.FontName, Legend.FontSize))
-            {
-                foreach (var item in Legend.Items)
-                {
-                    totalWidth += graphics.MeasureString(item.Text, font).Width + RectWidth + 5 + GapWidth;
-                }
-            }
-
-            var height = RectHeight + 5;
-            return new SizeF(Math.Min(MaxWidth, totalWidth), height);
-        }
-
-        public override void Render(Graphics graphics)
-        {
+            base.BeforeRendering(graphics);
             if (Legend == null || Legend.Items == null || !Legend.Items.Any())
             {
                 return;
             }
 
-            this.Margin = Legend.Margin;
-            this.HorizontalAlignment = GdiMapper.ToGdiHorizontalAlign(Legend.HorizontalAlign);
-            this.VerticalAlignment = GdiMapper.ToGdiVerticalAlign(Legend.VerticalAlign);
+            var size = GetLegendItemsSize(graphics);
+            var itemContainer = new GdiRectangle
+            {
+                Size = size,
+                HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
+                Margin = new PointF(0, 10)
+            };
+            var legendSlimFont = new SlimFont(Legend.FontName, Legend.FontSize);
+            using (var font = new Font(Legend.FontName, Legend.FontSize))
+            {
+                var x = 0f;
+                var line = 0;
+                foreach (var item in Legend.Items)
+                {
+                    var textWidth = graphics.MeasureString(item.Text, font).Width;
+                    var itemWidth = GdiLegendItem.RectWidth + GdiLegendItem.GapWidth + textWidth + GdiLegendItem.GapWidth;
+                    if (x + itemWidth > itemContainer.Size.Width + 1)
+                    {
+                        x = 0f;
+                        line++;
+                    }
 
-            var position = GetAbsolutePosition(graphics);
+                    itemContainer.AddChild(new GdiLegendItem
+                    {
+                        Margin = new PointF(x, line * GdiLegendItem.LineHeight),
+                        Size = new SizeF(itemWidth, GdiLegendItem.RectHeight),
+                        Text = item.Text,
+                        RectangleColor = item.Color,
+                        Font = legendSlimFont
+                    });
+                    x += itemWidth;
+                }
+            }
+            this.AddChild(itemContainer);
+        }
 
-            var left = position.X;
-            var top = position.Y;
-            var line = 0;
-            using (var textBrush = new SolidBrush(Legend.TextColor))
+        private SizeF GetLegendItemsSize(Graphics graphics)
+        {
+            var maxWidth = 0f;
+            var left = 0f;
+            var line = 1;
             using (var font = new Font(Legend.FontName, Legend.FontSize))
             {
                 foreach (var item in Legend.Items)
                 {
-                    if (string.IsNullOrEmpty(item.Text))
-                    {
-                        continue;
-                    }
-
-                    if (left + RectWidth + this.Margin.X > MaxWidth)
-                    {
-                        line++;
-                        left = position.X;
-                        top = position.Y + line * GapHeight;
-                    }
-
-                    using (var brush = new SolidBrush(item.Color))
-                    {
-                        graphics.FillRectangle(brush, left, top, RectWidth, RectHeight);
-                        graphics.DrawString(item.Text, font, textBrush, left + RectWidth + 5, top);
-                    }
-
                     var textWidth = graphics.MeasureString(item.Text, font).Width;
-                    left += RectWidth + 5 + textWidth + GapWidth;
+                    var itemWidth = GdiLegendItem.RectWidth + GdiLegendItem.GapWidth + textWidth + GdiLegendItem.GapWidth;
+                    if (left + itemWidth > this.Size.Width)
+                    {
+                        left = 0;
+                        maxWidth = this.Size.Width;
+                        line++;
+                    }
+                    else
+                    {
+                        left += itemWidth;
+                        if (maxWidth < left)
+                        {
+                            maxWidth = left;
+                        }
+                    }
                 }
             }
+
+            return new SizeF(maxWidth, line * GdiLegendItem.LineHeight);
         }
     }
 }

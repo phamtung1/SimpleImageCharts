@@ -1,11 +1,11 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using GdiSharp.Components;
+﻿using GdiSharp.Components;
 using GdiSharp.Components.Base;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.Models;
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace SimpleImageCharts.BarGaugeChart
 {
@@ -29,9 +29,10 @@ namespace SimpleImageCharts.BarGaugeChart
         protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
             base.Init(mainContainer, chartContainer);
-            this.MainContainer.Color = Color.Transparent;
+            this.MainContainer.BackgroundColor = Color.Transparent;
             var chartRect = CalculateChartRect();
-            this.LegendMaxWidth = chartRect.Width;
+            this.LegendWidth = chartRect.Width;
+            this.LegendHeight = this.Size.Height - this.Padding.Top - chartRect.Height /2 - 50;
         }
 
         protected override void DrawBeforeRender(Graphics graphics)
