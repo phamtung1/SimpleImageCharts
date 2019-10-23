@@ -92,5 +92,11 @@ namespace WindowsFormsChart
             var chart = BarGaugeChartCreator.CreateChart(pictureBox1.Size);
             SetImageToPictureBox(chart, "BarGaugeChart.jpg");
         }
+
+        private void btnTableChart_Click(object sender, EventArgs e)
+        {
+            var chart = TableChartCreator.CreateChart(pictureBox1.Size);
+            SetImageToPictureBox(chart, "TableChart.jpg");
+        }
     }
 }
