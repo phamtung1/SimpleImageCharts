@@ -31,6 +31,11 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
             for (int i = 0; i < Values.Length; i++)
             {
                 var percent = Values[i] / sum * 100;
+                if (percent <= 0.1)
+                {
+                    continue;
+                }
+
                 var height = percent * pixelUnit;
                 var section = new GdiRectangle
                 {
