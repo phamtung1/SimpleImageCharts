@@ -12,6 +12,12 @@ namespace WindowsFormsChart
             InitializeComponent();
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Form1_Resize(null, null);
+        }
+
         private void SetImageToPictureBox(BaseChart chart, string saveFileName)
         {
             if (pictureBox1.Image != null)
@@ -97,6 +103,11 @@ namespace WindowsFormsChart
         {
             var chart = TableChartCreator.CreateChart(pictureBox1.Size);
             SetImageToPictureBox(chart, "TableChart.jpg");
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            lblSize.Text = pictureBox1.Width + " x " + pictureBox1.Height;
         }
     }
 }

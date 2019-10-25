@@ -22,7 +22,7 @@ namespace WindowsFormsChart.Charts
                 Size = size,
                 DataItems = new[]
                 {
-                    new DataItem { Color = Color.Brown, Value = 0.5f, Label = "Brown" },
+                    new DataItem { Color = Color.Brown, Value = 0.5f, Label = "Brown", BarSize = 30 },
                     new DataItem { Color = Color.LightCoral, Value = 2, Label = "LightCoral" },
                     new DataItem { Color = Color.LightGreen, Value = 4.5f, Label = "LightGreen" },
                     new DataItem { Color = Color.LightBlue, Value = 5, Label = "LightBlue" },

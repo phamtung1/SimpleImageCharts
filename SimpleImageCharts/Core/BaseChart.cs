@@ -105,7 +105,7 @@ namespace SimpleImageCharts.Core
             var gdiText = new GdiText
             {
                 Content = SubTitle.Text,
-                BackgroundColor = SubTitle.Color,
+                TextColor = SubTitle.Color,
                 HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                 VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
                 Margin = new PointF(0, 10),

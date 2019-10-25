@@ -49,7 +49,7 @@ namespace SimpleImageCharts.BarChart.GdiComponents
                     Margin = new PointF(bar.Size.Width + 2, 0),
                     Content = string.Format(BarSettingModel.FormatValue, value),
                     Font = BarSettingModel.ValueFont,
-                    BackgroundColor = Color.Gray,
+                    TextColor = Color.Gray,
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle
                 };
 

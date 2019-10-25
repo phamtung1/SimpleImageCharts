@@ -44,7 +44,7 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle,
                     Font = font,
-                    BackgroundColor = Color.Black
+                    TextColor = Color.Black
                 };
                 section.AddChild(text);
 

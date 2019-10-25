@@ -48,8 +48,7 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                     Content = string.Format(TextFormat, percent),
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle,
-                    Font = font,
-                    BackgroundColor = Color.Black
+                    Font = font
                 };
                 section.AddChild(text);
 
