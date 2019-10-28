@@ -16,7 +16,9 @@ namespace SimpleImageCharts.Core
 
         public Padding Padding { get; set; } = new Padding(30);
 
-        public SubTitleModel SubTitle { get; set; }
+        public TitleModel Title { get; set; }
+
+        public TitleModel SubTitle { get; set; }
 
         public LegendModel Legend { get; set; }
 
@@ -30,6 +32,8 @@ namespace SimpleImageCharts.Core
 
         private GdiRectangle ChartContainer { get; set; }
 
+        public Action<Graphics> AfterDraw { get; set; }
+
         public IImageFile CreateImage()
         {
             this.SetupContainer();
@@ -42,6 +46,10 @@ namespace SimpleImageCharts.Core
                 this.DrawBeforeRender(graphics);
                 renderer.Render(MainContainer);
                 this.DrawAfterRender(graphics);
+                if (AfterDraw != null)
+                {
+                    AfterDraw(graphics);
+                }
             }
 
             return new ImageFile(bitmap);
@@ -80,11 +88,14 @@ namespace SimpleImageCharts.Core
                     Margin = new PointF(this.Padding.Left, 20),
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
                     Size = new SizeF(
-                        LegendWidth == 0 ? chartContainer.Size.Width : LegendWidth, 
+                        LegendWidth == 0 ? chartContainer.Size.Width : LegendWidth,
                         LegendHeight == 0 ? Math.Max(GdiLegendItem.LineHeight, this.Padding.Bottom - 50) : LegendHeight),
                     Legend = Legend
                 });
             }
+
+            AddTitle(mainContainer);
+            AddSubTitle(mainContainer);
         }
 
         protected virtual void DrawBeforeRender(Graphics graphics)
@@ -93,6 +104,25 @@ namespace SimpleImageCharts.Core
 
         protected virtual void DrawAfterRender(Graphics graphics)
         {
+        }
+
+        protected virtual void AddTitle(GdiContainer mainContainer)
+        {
+            if (Title == null || string.IsNullOrWhiteSpace(Title.Text))
+            {
+                return;
+            }
+
+            var gdiText = new GdiText
+            {
+                Content = Title.Text,
+                TextColor = Title.Color,
+                HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
+                VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Top,
+                Margin = new PointF(0, 10),
+                Font = new SlimFont(Title.FontName, Title.FontSize, FontStyle.Bold)
+            };
+            mainContainer.AddChild(gdiText);
         }
 
         protected virtual void AddSubTitle(GdiContainer mainContainer)
