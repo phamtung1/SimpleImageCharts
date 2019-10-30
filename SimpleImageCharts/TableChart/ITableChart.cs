@@ -13,5 +13,6 @@ namespace SimpleImageCharts.TableChart
         IEnumerable<DataGridMergedCell> MergedCells { get; set; }
         int Rows { get; set; }
         string[][] Texts { get; set; }
+        Color TextColor { get; set; }
     }
 }

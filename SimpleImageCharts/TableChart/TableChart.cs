@@ -21,6 +21,8 @@ namespace SimpleImageCharts.TableChart
 
         public string[][] Texts { get; set; }
 
+        public Color TextColor { get; set; } = Color.Black;
+
         protected override void BuildComponents(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
             base.BuildComponents(mainContainer, chartContainer);
@@ -31,7 +33,8 @@ namespace SimpleImageCharts.TableChart
                 Rows = Rows,
                 Columns = Columns,
                 MergedCells = MergedCells,
-                Texts = Texts
+                Texts = Texts,
+                TextColor = TextColor
             };
 
             chartContainer.AddChild(table);

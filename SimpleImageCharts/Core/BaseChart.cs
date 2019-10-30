@@ -85,7 +85,7 @@ namespace SimpleImageCharts.Core
             {
                 mainContainer.AddChild(new GdiLegend
                 {
-                    Margin = new PointF(this.Padding.Left, 20),
+                    Margin = new PointF(this.Padding.Left, 10),
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Bottom,
                     Size = new SizeF(
                         LegendWidth == 0 ? chartContainer.Size.Width : LegendWidth,
