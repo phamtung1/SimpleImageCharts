@@ -402,3 +402,7 @@ var chart = new BarGaugeChart
     }
 };
 ```
+
+# Lincese
+
+MIT
