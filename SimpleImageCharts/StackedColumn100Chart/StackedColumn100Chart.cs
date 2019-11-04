@@ -41,13 +41,13 @@ namespace SimpleImageCharts.StackedColumn100Chart
             _categoryWidth = chartContainer.Size.Width / Categories.Length;
 
             _heightUnit = chartContainer.Size.Height / 100;
+            this.LegendHeight = Padding.Bottom - 50;
         }
 
         protected override void BuildComponents(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
             base.BuildComponents(mainContainer, chartContainer);
             AddChartArea(chartContainer);
-            base.AddSubTitle(mainContainer);
             AddVerLabelAxis(mainContainer, chartContainer);
             AddHozLabelAxis(mainContainer, chartContainer);
         }

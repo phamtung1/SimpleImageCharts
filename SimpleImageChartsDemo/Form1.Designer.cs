@@ -41,6 +41,8 @@
             this.btnStackedBar100Percent = new System.Windows.Forms.Button();
             this.btnStackedColumn100Percent = new System.Windows.Forms.Button();
             this.btnBarGaugeChart = new System.Windows.Forms.Button();
+            this.btnTableChart = new System.Windows.Forms.Button();
+            this.lblSize = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -51,9 +53,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(22, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(22, 33);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1017, 429);
+            this.pictureBox1.Size = new System.Drawing.Size(1017, 408);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -160,6 +162,7 @@
             this.flowLayoutPanel1.Controls.Add(this.btnRadarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnSingleRangeBarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnBarGaugeChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnTableChart);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(22, 447);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1017, 142);
@@ -198,18 +201,41 @@
             this.btnBarGaugeChart.UseVisualStyleBackColor = true;
             this.btnBarGaugeChart.Click += new System.EventHandler(this.btnBarGaugeChart_Click);
             // 
+            // btnTableChart
+            // 
+            this.btnTableChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTableChart.Location = new System.Drawing.Point(375, 45);
+            this.btnTableChart.Name = "btnTableChart";
+            this.btnTableChart.Size = new System.Drawing.Size(118, 36);
+            this.btnTableChart.TabIndex = 12;
+            this.btnTableChart.Text = "Table Chart";
+            this.btnTableChart.UseVisualStyleBackColor = true;
+            this.btnTableChart.Click += new System.EventHandler(this.btnTableChart_Click);
+            // 
+            // lblSize
+            // 
+            this.lblSize.AutoSize = true;
+            this.lblSize.Location = new System.Drawing.Point(20, 7);
+            this.lblSize.Name = "lblSize";
+            this.lblSize.Size = new System.Drawing.Size(37, 13);
+            this.lblSize.TabIndex = 10;
+            this.lblSize.Text = "lblSize";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1051, 601);
+            this.Controls.Add(this.lblSize);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -228,6 +254,8 @@
         private System.Windows.Forms.Button btnStackedBar100Percent;
         private System.Windows.Forms.Button btnStackedColumn100Percent;
         private System.Windows.Forms.Button btnBarGaugeChart;
+        private System.Windows.Forms.Button btnTableChart;
+        private System.Windows.Forms.Label lblSize;
     }
 }
 

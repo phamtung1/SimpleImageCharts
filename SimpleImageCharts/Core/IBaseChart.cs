@@ -1,6 +1,7 @@
-﻿using System.Drawing;
-using GdiSharp.Models;
+﻿using GdiSharp.Models;
 using SimpleImageCharts.Core.Models;
+using System;
+using System.Drawing;
 
 namespace SimpleImageCharts.Core
 {
@@ -10,7 +11,10 @@ namespace SimpleImageCharts.Core
         LegendModel Legend { get; set; }
         Padding Padding { get; set; }
         Size Size { get; set; }
-        SubTitleModel SubTitle { get; set; }
+        TitleModel Title { get; set; }
+        TitleModel SubTitle { get; set; }
+
+        Action<Graphics> AfterDraw { get; set; }
 
         IImageFile CreateImage();
     }

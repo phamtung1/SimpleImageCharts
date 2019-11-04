@@ -9,5 +9,7 @@ namespace SimpleImageCharts.Core.Models
         public Color Color { get; set; }
 
         public float Value { get; set; }
+
+        public int BarSize { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace SimpleImageCharts.Core.GdiChartComponents
         internal const int RectWidth = 25;
         internal const int RectHeight = 15;
         internal const int GapWidth = 10;
-        internal const int LineHeight = 25;
+        internal const int LineHeight = 40;
 
         public string Text { get; set; }
 

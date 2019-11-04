@@ -2,7 +2,7 @@
 
 namespace SimpleImageCharts.Core.Models
 {
-    public class SubTitleModel
+    public class TitleModel
     {
         public string Text { get; set; }
 

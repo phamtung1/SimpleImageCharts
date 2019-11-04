@@ -106,7 +106,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
             {
                 chartContainer.AddChild(new GdiText
                 {
-                    BackgroundColor = TextColor,
+                    TextColor = TextColor,
                     Content = LeftLabel,
                     Font = Font,
                     Margin = margin
@@ -117,7 +117,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
             {
                 chartContainer.AddChild(new GdiText
                 {
-                    BackgroundColor = TextColor,
+                    TextColor = TextColor,
                     Content = CenterLabel,
                     Font = Font,
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
@@ -129,7 +129,7 @@ namespace SimpleImageCharts.SingleRangeBarChart
             {
                 chartContainer.AddChild(new GdiText
                 {
-                    BackgroundColor = TextColor,
+                    TextColor = TextColor,
                     Content = RightLabel,
                     Font = Font,
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Right,

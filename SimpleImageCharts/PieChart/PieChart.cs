@@ -24,8 +24,6 @@ namespace SimpleImageCharts.PieChart
 
         public bool IsDonut { get; set; } = false;
 
-        public Action<Graphics> AfterDraw { get; set; }
-
         public HorizontalAlign PieAlign { get; set; } = HorizontalAlign.Left;
 
         public PieChart()
@@ -69,11 +67,6 @@ namespace SimpleImageCharts.PieChart
 
             float total = Entries.Sum(x => x.Value);
             DrawLegend(graphics);
-
-            if (AfterDraw != null)
-            {
-                AfterDraw(graphics);
-            }
         }
 
         private void DrawLegend(Graphics graphic)

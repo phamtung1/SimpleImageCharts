@@ -18,7 +18,7 @@ namespace WindowsFormsChart.Charts
                     VerticalAlign = VerticalAlign.Bottom,
                     HorizontalAlign = HorizontalAlign.Center
                 },
-                SubTitle = new SubTitleModel { Text = "AAAAAAA" },
+                SubTitle = new TitleModel { Text = "AAAAAAA" },
                 Size = size,
                 Categories = new[] { "Product A", "Product B", "Product C" },
                 DataSet = new[]

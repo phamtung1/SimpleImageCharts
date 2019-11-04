@@ -47,7 +47,6 @@ namespace SimpleImageCharts.StackedBar100Chart
         {
             base.BuildComponents(mainContainer, chartContainer);
             AddChartArea(chartContainer);
-            base.AddSubTitle(mainContainer);
             AddVerLabelAxis(mainContainer, chartContainer);
             AddHozLabelAxis(mainContainer, chartContainer);
         }

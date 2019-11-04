@@ -23,7 +23,7 @@ namespace SimpleImageCharts.BarGaugeChart
 
         public BarGaugeChart()
         {
-            Padding = new Padding(50, 50, 50, 150);
+            Padding = new Padding(50, 50, 50, 100);
         }
 
         protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
@@ -106,7 +106,8 @@ namespace SimpleImageCharts.BarGaugeChart
                 }
 
                 graphics.FillPie(new SolidBrush(item.Color), rect, StartAngle, (float)(item.Value * sweepAngle));
-                rect.Inflate(barSize);
+                var itemBarSize = item.BarSize == 0 ? barSize : new Size(-item.BarSize, -item.BarSize);
+                rect.Inflate(itemBarSize);
                 graphics.FillEllipse(new SolidBrush(Color.White), rect);
 
                 DrawValueLines(graphics, rect.Width / 2, center, sweepAngle);

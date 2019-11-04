@@ -17,12 +17,13 @@ namespace WindowsFormsChart.Charts
                     VerticalAlign = VerticalAlign.Bottom,
                     HorizontalAlign = HorizontalAlign.Center
                 },
-                Padding = new Padding(80, 20, 20, 120),
+                Padding = new Padding(80, 40, 20, 120),
                 BarSetting = new BarSettingModel
                 {
                     Size = 70,
                 },
-                SubTitle = new SubTitleModel { Text = "AAAAAAA" },
+                Title = new TitleModel { Text = "Title here" },
+                SubTitle = new TitleModel { Text = "Subtitle here" },
                 Size = size,
                 Categories = new[] { "Product A", "Product B", "Product C" },
                 DataSet = new[]
