@@ -403,6 +403,6 @@ var chart = new BarGaugeChart
 };
 ```
 
-# Lincese
+# License
 
 MIT
