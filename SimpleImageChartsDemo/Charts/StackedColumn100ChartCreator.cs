@@ -32,7 +32,7 @@ namespace WindowsFormsChart.Charts
                     {
                         Label = "LightBlue",
                         Color = Color.LightBlue,
-                        Data = new[] { 25f, 3f, 3f },
+                        Data = new[] { 1f, 3f, 3f },
                     },
                     new DataSeries
                     {
@@ -45,14 +45,14 @@ namespace WindowsFormsChart.Charts
                     {
                         Label = "LightGreen",
                         Color = Color.LightGreen,
-                        Data = new[] { 50f, 3f, 5f },
+                        Data = new[] { 25f, 3f, 5f },
                     }
                     ,
                     new DataSeries
                     {
                         Label = "Red",
                         Color = Color.Red,
-                        Data = new[] { 50f, 3f, 5f },
+                        Data = new[] { 25f, 3f, 5f },
                     }
                 }
             };

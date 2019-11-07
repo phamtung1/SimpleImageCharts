@@ -105,7 +105,8 @@ namespace SimpleImageCharts.BarGaugeChart
                     throw new ArgumentException("Invalid chart size or setting.");
                 }
 
-                graphics.FillPie(new SolidBrush(item.Color), rect, StartAngle, (float)(item.Value * sweepAngle));
+                var itemValue = float.IsNaN(item.Value) ? 0 : item.Value;
+                graphics.FillPie(new SolidBrush(item.Color), rect, StartAngle, (float)(itemValue * sweepAngle));
                 var itemBarSize = item.BarSize == 0 ? barSize : new Size(-item.BarSize, -item.BarSize);
                 rect.Inflate(itemBarSize);
                 graphics.FillEllipse(new SolidBrush(Color.White), rect);

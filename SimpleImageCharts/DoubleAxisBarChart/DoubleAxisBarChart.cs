@@ -126,16 +126,18 @@ namespace SimpleImageCharts.DoubleAxisBarChart
             using (var font = BarValueFont.ToFatFont())
             {
                 stringFormat.LineAlignment = StringAlignment.Center;
-                stringFormat.Alignment = StringAlignment.Far;
+                
                 for (int i = 0; i < series.Data.Length; i++)
                 {
                     var value = series.Data[i];
+                    stringFormat.Alignment = value <= 2 ? StringAlignment.Near : StringAlignment.Far;
                     var color = series.Colors == null ? series.Color : series.Colors[i];
                     using (var brush = new SolidBrush(color))
                     {
                         var length = _widthUnit * value;
                         graphics.FillRectangle(brush, Padding.Left, y, length, BarSize);
-                        graphics.DrawString(string.Format(FormatBarValue, value), font, Brushes.White, Padding.Left + length - 2, y + (BarSize / 2), stringFormat);
+                        Brush textBrush = value <= 2 ? Brushes.DarkBlue : Brushes.White;
+                        graphics.DrawString(string.Format(FormatBarValue, value), font, textBrush, Padding.Left + length, y + (BarSize / 2), stringFormat);
                         y += spaceY;
                     }
                 }
@@ -156,7 +158,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                 {
                     var value = series.Data[i];
 
-                    stringFormat.Alignment = value <= 1 ? StringAlignment.Far : StringAlignment.Near;
+                    stringFormat.Alignment = value <= 2 ? StringAlignment.Far : StringAlignment.Near;
                     var color = series.Colors == null ? series.Color : series.Colors[i];
                     using (var brush = new SolidBrush(color))
                     {
@@ -165,7 +167,7 @@ namespace SimpleImageCharts.DoubleAxisBarChart
                         graphics.FillRectangle(brush, x, y, length, BarSize);
 
                         x -= 2;
-                        Brush textBrush = value <= 1 ? Brushes.DarkBlue : Brushes.White;
+                        Brush textBrush = value <= 2 ? Brushes.DarkBlue : Brushes.White;
 
                         graphics.DrawString(string.Format(FormatBarValue, value), font, textBrush, x + 2, y + (BarSize / 2), stringFormat);
                         y += spaceY;

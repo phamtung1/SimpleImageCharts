@@ -43,6 +43,7 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                     Margin = new PointF(0, y - height),
                     Size = new SizeF(size.Width, height)
                 };
+
                 var text = new GdiText
                 {
                     Content = string.Format(TextFormat, percent),
@@ -50,6 +51,13 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle,
                     Font = font
                 };
+
+                // move the text outside the column
+                if(percent <= 2)
+                {
+                    text.Margin = new PointF(size.Width, 0);
+                    text.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Left;
+                }
                 section.AddChild(text);
 
                 this.AddChild(section);
