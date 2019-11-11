@@ -30,6 +30,7 @@ namespace WindowsFormsChart.Charts
                {
                     new DataSeries
                     {
+                        TextColor = Color.Cyan,
                         Label = "LightBlue",
                         Color = Color.LightBlue,
                         Data = new[] { 1f, 3f, 3f },

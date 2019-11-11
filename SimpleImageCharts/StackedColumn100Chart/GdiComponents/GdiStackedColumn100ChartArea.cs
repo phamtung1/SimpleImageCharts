@@ -29,7 +29,7 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
             // render bars one by one
             var categoriesLength = DataSet.First().Data.Length;
             var colors = DataSet.Select(x => x.Color).ToArray();
-
+            var textColors = DataSet.Select(x => x.TextColor).ToArray();
             for (int i = 0; i < categoriesLength; i++)
             {
                 var values = new List<float>();
@@ -43,7 +43,8 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                     Size = new SizeF(BarSettingModel.Size, this.Size.Height),
                     Margin = new PointF(offsetX, 0),
                     Colors = colors,
-                    Values = values.ToArray()
+                    Values = values.ToArray(),
+                    TextColors = textColors
                 };
 
                 this.AddChild(column);

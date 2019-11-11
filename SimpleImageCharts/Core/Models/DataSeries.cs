@@ -8,6 +8,8 @@ namespace SimpleImageCharts.Core.Models
 
         public Color Color { get; set; }
 
+        public Color TextColor { get; set; } = Color.Black;
+
         public float[] Data { get; set; }
     }
 }

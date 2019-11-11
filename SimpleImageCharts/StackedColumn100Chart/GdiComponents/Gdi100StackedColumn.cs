@@ -14,10 +14,12 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
 
         public Color[] Colors { get; set; }
 
+        public Color[] TextColors { get; set; }
+
         public override void BeforeRendering(Graphics graphics)
         {
             base.BeforeRendering(graphics);
-            if (Values.Length != Colors.Length)
+            if (Values.Length != Colors.Length || Values.Length != TextColors.Length)
             {
                 throw new ArgumentException("Values and Colors must have the same number of items.");
             }
@@ -49,7 +51,8 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                     Content = string.Format(TextFormat, percent),
                     HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
                     VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle,
-                    Font = font
+                    Font = font,
+                    TextColor = TextColors[i]
                 };
 
                 // move the text outside the column
@@ -57,6 +60,7 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                 {
                     text.Margin = new PointF(size.Width, 0);
                     text.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Left;
+                    text.TextColor = Color.Black;
                 }
                 section.AddChild(text);
 
