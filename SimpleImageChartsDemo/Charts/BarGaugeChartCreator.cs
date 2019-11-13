@@ -12,6 +12,8 @@ namespace WindowsFormsChart.Charts
         {
             var chart = new BarGaugeChart
             {
+                LeftCaption = "aaaaaaa",
+                RightCaption = "bbbbbbb",
                 Legend = new LegendModel
                 {
                     Margin = new PointF(40, 80),

@@ -1,11 +1,11 @@
-﻿using GdiSharp.Components;
-using GdiSharp.Components.Base;
-using SimpleImageCharts.Core;
-using SimpleImageCharts.Core.Models;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using GdiSharp.Components;
+using GdiSharp.Components.Base;
+using SimpleImageCharts.Core;
+using SimpleImageCharts.Core.Models;
 
 namespace SimpleImageCharts.BarGaugeChart
 {
@@ -21,26 +21,72 @@ namespace SimpleImageCharts.BarGaugeChart
 
         public int GapSize { get; set; } = 10;
 
+        public string LeftCaption { get; set; }
+
+        public string RightCaption { get; set; }
+
+        private Rectangle _chartRect;
+
         public BarGaugeChart()
         {
-            Padding = new Padding(50, 50, 50, 100);
+            Padding = new Padding(100, 50, 100, 100);
         }
 
         protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
             base.Init(mainContainer, chartContainer);
             this.MainContainer.BackgroundColor = Color.Transparent;
-            var chartRect = CalculateChartRect();
-            this.LegendWidth = chartRect.Width;
-            this.LegendHeight = this.Size.Height - this.Padding.Top - chartRect.Height / 2 - 50;
+            _chartRect = CalculateChartRect();
+            this.LegendWidth = _chartRect.Width;
+            this.LegendHeight = this.Size.Height - this.Padding.Top - _chartRect.Height / 2 - 50;
+        }
+
+        protected override void BuildComponents(GdiContainer mainContainer, GdiRectangle chartContainer)
+        {
+            base.BuildComponents(mainContainer, chartContainer);
+
+            // Add left, right captions
+            const int RectWidth = 200;
+            var rectTop = Padding.Top + _chartRect.Height / 2 + 10;
+            if (!string.IsNullOrWhiteSpace(LeftCaption)) {
+                var rect = new GdiRectangle
+                {
+                    Margin = new PointF(_chartRect.Left - RectWidth / 2, rectTop),
+                    Size = new SizeF(RectWidth, 30)
+                };
+                mainContainer.AddChild(rect);
+                rect.AddChild(new GdiText
+                {
+                    Content = LeftCaption,
+                    HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
+                    VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle,
+                    TextAlign = StringAlignment.Center
+                });
+            }
+
+            if (!string.IsNullOrWhiteSpace(RightCaption))
+            {
+                var rect = new GdiRectangle
+                {
+                    Margin = new PointF(Padding.Left + _chartRect.Width - RectWidth / 2, rectTop),
+                    Size = new SizeF(RectWidth, 30)
+                };
+                mainContainer.AddChild(rect);
+                rect.AddChild(new GdiText
+                {
+                    Content = RightCaption,
+                    HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Center,
+                    VerticalAlignment = GdiSharp.Enum.GdiVerticalAlign.Middle,
+                    TextAlign = StringAlignment.Center
+                });
+            }
         }
 
         protected override void DrawBeforeRender(Graphics graphics)
         {
             base.DrawBeforeRender(graphics);
 
-            var chartRect = CalculateChartRect();
-            var center = new PointF(Padding.Left + chartRect.Width / 2f, Padding.Top + chartRect.Height / 2f);
+            var center = new PointF(Padding.Left + _chartRect.Width / 2f, Padding.Top + _chartRect.Height / 2f);
 
             var sweepAngle = 180f / MaxValue;
 
@@ -49,9 +95,9 @@ namespace SimpleImageCharts.BarGaugeChart
             graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
             graphics.Clear(Color.White);
 
-            DrawDataItems(graphics, chartRect, center, sweepAngle);
+            DrawDataItems(graphics, _chartRect, center, sweepAngle);
 
-            DrawValueTexts(graphics, chartRect, center, sweepAngle);
+            DrawValueTexts(graphics, _chartRect, center, sweepAngle);
         }
 
         protected override void CreateLegendItems()
