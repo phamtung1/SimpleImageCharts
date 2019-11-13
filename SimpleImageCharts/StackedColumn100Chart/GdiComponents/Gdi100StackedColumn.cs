@@ -24,9 +24,15 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                 throw new ArgumentException("Values and Colors must have the same number of items.");
             }
 
+            var sum = this.Values.Sum();
+            if(sum == 0)
+            {
+                return;
+            }
+
             var size = this.Size;
             var pixelUnit = size.Height / 100;
-            var sum = this.Values.Sum();
+            
             var y = size.Height;
             var font = SlimFont.Default;
             font.Size = 10;
@@ -46,6 +52,16 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                     Size = new SizeF(size.Width, height)
                 };
 
+                if (i < Values.Length - 1)
+                {
+                    section.AddChild(new GdiHozLine
+                    {
+                        Length = size.Width,
+                        BackgroundColor = Color.White,
+                        LineHeight = 2
+                    });
+                }
+
                 var text = new GdiText
                 {
                     Content = string.Format(TextFormat, percent),
@@ -56,12 +72,13 @@ namespace SimpleImageCharts.StackedBar100Chart.GdiComponents
                 };
 
                 // move the text outside the column
-                if(percent <= 2)
+                if (percent <= 2)
                 {
                     text.Margin = new PointF(size.Width, 0);
                     text.HorizontalAlignment = GdiSharp.Enum.GdiHorizontalAlign.Left;
                     text.TextColor = Color.Black;
                 }
+
                 section.AddChild(text);
 
                 this.AddChild(section);

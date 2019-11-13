@@ -33,27 +33,27 @@ namespace WindowsFormsChart.Charts
                         TextColor = Color.Cyan,
                         Label = "LightBlue",
                         Color = Color.LightBlue,
-                        Data = new[] { 1f, 3f, 3f },
+                        Data = new[] { 0f, 3f, 3f },
                     },
                     new DataSeries
                     {
                         Label = "LightCoral",
                         Color = Color.LightCoral,
-                        Data = new[] { 25f, 3f, 2f },
+                        Data = new[] { 0f, 3f, 2f },
                     }
                     ,
                     new DataSeries
                     {
                         Label = "LightGreen",
                         Color = Color.LightGreen,
-                        Data = new[] { 25f, 3f, 5f },
+                        Data = new[] { 0f, 3f, 5f },
                     }
                     ,
                     new DataSeries
                     {
                         Label = "Red",
                         Color = Color.Red,
-                        Data = new[] { 25f, 3f, 5f },
+                        Data = new[] { 0f, 3f, 5f },
                     }
                 }
             };

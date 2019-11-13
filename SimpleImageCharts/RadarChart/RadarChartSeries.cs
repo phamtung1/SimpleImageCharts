@@ -8,6 +8,6 @@ namespace SimpleImageCharts.RadarChart
 
         public string Label { get; set; }
 
-        public int[] Data { get; set; }
+        public float[] Data { get; set; }
     }
 }

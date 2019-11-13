@@ -61,7 +61,7 @@ namespace SimpleImageCharts.RadarChart
 
             maxDataValue = (int)Math.Ceiling((double)maxDataValue / StepSize) * StepSize; // round it
 
-            _numberOfSteps = maxDataValue / StepSize + 1;
+            _numberOfSteps = (int)Math.Ceiling(maxDataValue / StepSize) + 1;
 
             // remove this variable
             _stepSizeInPixel = _maxRadius / _numberOfSteps;
