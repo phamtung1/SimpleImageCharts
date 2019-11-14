@@ -21,7 +21,7 @@ var image = chart.CreateImage();
 8. [100% Stacked Column Chart](#8-100-stacked-column-chart)
 9. [Radar Chart](#9-radar-chart)
 10. [Single Range Bar Chart](#10-single-range-bar-chart)
-11. [Bar Gauge Chart](#11-bar-gauge-chart)
+11. [Semi Circle Gauge Chart](#11-semi-circle-gauge-chart)
 
 
 ## 1. Pie Chart
@@ -376,11 +376,11 @@ var chart = new SingleRangeBarChart
 };
 ```
 
-## 11. Bar Gauge Chart
-<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/BarGaugeChart.jpg" />
+## 11. Semi Circle Gauge Chart
+<img src="https://raw.githubusercontent.com/phamtung1/SimpleImageCharts/master/screenshots/SemiCircleGaugeChart.jpg" />
 
 ```csharp
-var chart = new BarGaugeChart
+var chart = new SemiCircleGaugeChart
 {
     Legend = new LegendModel
     {

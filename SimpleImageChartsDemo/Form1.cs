@@ -29,7 +29,7 @@ namespace WindowsFormsChart
 
             if (!string.IsNullOrEmpty(saveFileName))
             {
-                //pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\" + saveFileName);
+                pictureBox1.Image.Save(@"D:\GitHub\SimpleImageCharts\screenshots\" + saveFileName);
             }
         }
 
@@ -93,10 +93,10 @@ namespace WindowsFormsChart
             SetImageToPictureBox(chart, "StackedColumn100Chart.jpg");
         }
 
-        private void btnBarGaugeChart_Click(object sender, EventArgs e)
+        private void btnSemiCircleGaugeChart_Click(object sender, EventArgs e)
         {
-            var chart = BarGaugeChartCreator.CreateChart(pictureBox1.Size);
-            SetImageToPictureBox(chart, "BarGaugeChart.jpg");
+            var chart = SemiCircleGaugeChartCreator.CreateChart(pictureBox1.Size);
+            SetImageToPictureBox(chart, "SemiCircleGaugeChart.jpg");
         }
 
         private void btnTableChart_Click(object sender, EventArgs e)

@@ -1,9 +1,9 @@
 ﻿using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.Models;
 
-namespace SimpleImageCharts.BarGaugeChart
+namespace SimpleImageCharts.SemiCircleGaugeChart
 {
-    public interface IBarGaugeChart : IBaseChart
+    public interface ISemiCircleGaugeChart : IBaseChart
     {
         int BarSize { get; set; }
         DataItem[] DataItems { get; set; }

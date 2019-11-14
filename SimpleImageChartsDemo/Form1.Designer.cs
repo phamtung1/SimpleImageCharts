@@ -40,7 +40,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnStackedBar100Percent = new System.Windows.Forms.Button();
             this.btnStackedColumn100Percent = new System.Windows.Forms.Button();
-            this.btnBarGaugeChart = new System.Windows.Forms.Button();
+            this.btnSemiCircleGaugeChart = new System.Windows.Forms.Button();
             this.btnTableChart = new System.Windows.Forms.Button();
             this.lblSize = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -161,7 +161,7 @@
             this.flowLayoutPanel1.Controls.Add(this.btnStackedColumn100Percent);
             this.flowLayoutPanel1.Controls.Add(this.btnRadarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnSingleRangeBarChart);
-            this.flowLayoutPanel1.Controls.Add(this.btnBarGaugeChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnSemiCircleGaugeChart);
             this.flowLayoutPanel1.Controls.Add(this.btnTableChart);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(22, 447);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -190,16 +190,16 @@
             this.btnStackedColumn100Percent.UseVisualStyleBackColor = true;
             this.btnStackedColumn100Percent.Click += new System.EventHandler(this.btnStackedColumn100Percent_Click);
             // 
-            // btnBarGaugeChart
+            // btnSemiCircleGaugeChart
             // 
-            this.btnBarGaugeChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBarGaugeChart.Location = new System.Drawing.Point(251, 45);
-            this.btnBarGaugeChart.Name = "btnBarGaugeChart";
-            this.btnBarGaugeChart.Size = new System.Drawing.Size(118, 36);
-            this.btnBarGaugeChart.TabIndex = 11;
-            this.btnBarGaugeChart.Text = "Bar Gauge Chart";
-            this.btnBarGaugeChart.UseVisualStyleBackColor = true;
-            this.btnBarGaugeChart.Click += new System.EventHandler(this.btnBarGaugeChart_Click);
+            this.btnSemiCircleGaugeChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSemiCircleGaugeChart.Location = new System.Drawing.Point(251, 45);
+            this.btnSemiCircleGaugeChart.Name = "btnSemiCircleGaugeChart";
+            this.btnSemiCircleGaugeChart.Size = new System.Drawing.Size(118, 36);
+            this.btnSemiCircleGaugeChart.TabIndex = 11;
+            this.btnSemiCircleGaugeChart.Text = "Semi Circle Gauge Chart";
+            this.btnSemiCircleGaugeChart.UseVisualStyleBackColor = true;
+            this.btnSemiCircleGaugeChart.Click += new System.EventHandler(this.btnSemiCircleGaugeChart_Click);
             // 
             // btnTableChart
             // 
@@ -253,7 +253,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnStackedBar100Percent;
         private System.Windows.Forms.Button btnStackedColumn100Percent;
-        private System.Windows.Forms.Button btnBarGaugeChart;
+        private System.Windows.Forms.Button btnSemiCircleGaugeChart;
         private System.Windows.Forms.Button btnTableChart;
         private System.Windows.Forms.Label lblSize;
     }

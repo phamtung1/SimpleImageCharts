@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Charts\BarGaugeChartCreator.cs" />
+    <Compile Include="Charts\SemiCircleGaugeChartCreator.cs" />
     <Compile Include="Charts\TableChartCreator.cs" />
     <Compile Include="Charts\StackedColumn100ChartCreator.cs" />
     <Compile Include="Charts\StackedBar100ChartCreator.cs" />
