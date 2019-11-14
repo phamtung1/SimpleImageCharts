@@ -49,7 +49,8 @@ namespace SimpleImageCharts.SemiCircleGaugeChart
             // Add left, right captions
             const int RectWidth = 200;
             var rectTop = Padding.Top + _chartRect.Height / 2 + 10;
-            if (!string.IsNullOrWhiteSpace(LeftCaption)) {
+            if (!string.IsNullOrWhiteSpace(LeftCaption))
+            {
                 var rect = new GdiRectangle
                 {
                     Margin = new PointF(_chartRect.Left - RectWidth / 2, rectTop),
