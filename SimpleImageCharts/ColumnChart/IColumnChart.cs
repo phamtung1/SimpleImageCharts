@@ -5,6 +5,7 @@ namespace SimpleImageCharts.ColumnChart
 {
     public interface IColumnChart : IBaseChart
     {
+        float CategoryWidth { get; }
         string[] Categories { get; set; }
         int ColumnSize { get; set; }
         SlimFont ColumnValueFont { get; set; }

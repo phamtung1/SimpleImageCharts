@@ -23,7 +23,7 @@ namespace SimpleImageCharts.ColumnChart
 
         public ColumnSeries[] DataSets { get; set; }
 
-        private float _categoryWidth;
+        public float CategoryWidth { get; private set; }
 
         private float _rootY;
 
@@ -41,7 +41,7 @@ namespace SimpleImageCharts.ColumnChart
         protected override void Init(GdiContainer mainContainer, GdiRectangle chartContainer)
         {
             base.Init(mainContainer, chartContainer);
-            _categoryWidth = chartContainer.Size.Width / Categories.Length;
+            CategoryWidth = chartContainer.Size.Width / Categories.Length;
 
             _maxValue = DataSets.SelectMany(x => x.Data).Max(x => x) * 1.1f;
             _minValue = DataSets.SelectMany(x => x.Data).Min(x => x) * 1.1f;
@@ -92,7 +92,7 @@ namespace SimpleImageCharts.ColumnChart
             foreach (var item in Categories)
             {
                 graphic.DrawLine(Pens.LightGray, x, Padding.Top, x, Size.Height - Padding.Bottom);
-                x += _categoryWidth;
+                x += CategoryWidth;
             }
 
             graphic.DrawLine(Pens.LightGray, x, Padding.Top, x, Size.Height - Padding.Bottom);
@@ -100,7 +100,7 @@ namespace SimpleImageCharts.ColumnChart
 
         private void DrawCategoyLabels(Graphics graphic)
         {
-            var x = Padding.Left + _categoryWidth / 2;
+            var x = Padding.Left + CategoryWidth / 2;
             using (StringFormat stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Center;
@@ -108,14 +108,14 @@ namespace SimpleImageCharts.ColumnChart
                 {
                     // graphic.DrawString(item, this.Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
                     DrawRotatedText(graphic, item, x, Size.Height - Padding.Bottom / 2);
-                    x += _categoryWidth;
+                    x += CategoryWidth;
                 }
             }
         }
 
         private void DrawColumnSeries(Graphics graphics, ColumnSeries series, int offsetX)
         {
-            var spaceX = _categoryWidth;
+            var spaceX = CategoryWidth;
             var x = Padding.Left + (spaceX / 2) + offsetX;
             using (var stringFormat = new StringFormat())
             {
@@ -145,7 +145,7 @@ namespace SimpleImageCharts.ColumnChart
 
         private void DrawColumnSeriesValues(Graphics graphics, ColumnSeries series, int offsetX)
         {
-            var spaceX = _categoryWidth;
+            var spaceX = CategoryWidth;
             var x = Padding.Left + (spaceX / 2) + offsetX;
             using (var stringFormat = new StringFormat())
             using (var font = ColumnValueFont.ToFatFont())
