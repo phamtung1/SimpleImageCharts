@@ -15,5 +15,7 @@ namespace SimpleImageCharts.ColumnChart
         public Color[] Colors { get; set; }
 
         public float[] Data { get; set; }
+
+        public int ZIndex { get; set; }
     }
 }

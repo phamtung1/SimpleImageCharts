@@ -4,6 +4,7 @@ using GdiSharp.Models;
 using SimpleImageCharts.Core;
 using SimpleImageCharts.Core.Models;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
@@ -68,11 +69,19 @@ namespace SimpleImageCharts.ColumnChart
             graphics.DrawLine(Pens.Black, Padding.Left, _rootY, Size.Width - Padding.Right, _rootY);
 
             DrawVerticalLines(graphics);
+            var offsetList = new List<int>();
             var offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
             foreach (var data in DataSets)
             {
-                DrawColumnSeries(graphics, data, offsetX + data.OffsetX);
+                offsetList.Add(offsetX + data.OffsetX);
                 offsetX += ColumnSize;
+            }
+
+            // Draw from right to left to make sure the left column overlaps the right one
+            for(var i = DataSets.Length - 1; i >= 0; i--)
+            {
+                var data = DataSets[i];
+                DrawColumnSeries(graphics, data, offsetList[i]);
             }
 
             // draw column values after draw all columns so that if the column will not overlap the texts
@@ -123,6 +132,7 @@ namespace SimpleImageCharts.ColumnChart
                 for (int i = 0; i < series.Data.Length; i++)
                 {
                     var color = series.Colors == null ? series.Color : series.Colors[i];
+                    
                     using (var brush = new SolidBrush(color))
                     {
                         var value = series.Data[i];

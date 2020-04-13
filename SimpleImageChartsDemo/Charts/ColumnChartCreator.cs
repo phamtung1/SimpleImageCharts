@@ -16,7 +16,7 @@ namespace WindowsFormsChart.Charts
                 var data = new float[categories.Length];
                 for (int j = 0; j < categories.Length; j++)
                 {
-                    data[j] = rand.Next(30) - 10;
+                    data[j] = i * 10 + 2;// rand.Next(30) - 10;
                 }
 
                 var dataset = new ColumnSeries
@@ -27,10 +27,11 @@ namespace WindowsFormsChart.Charts
                 datasets[i] = dataset;
             }
 
-            datasets[0].OffsetX = 10;
+            datasets[0].OffsetX = 20;
+            datasets[1].OffsetX = 10;
             var chart = new ColumnChart
             {
-                ColumnSize = 30,
+                ColumnSize = 50,
                 Size = size,
                 Categories = categories,
                 DataSets = datasets
