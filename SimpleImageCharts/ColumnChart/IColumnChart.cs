@@ -12,5 +12,6 @@ namespace SimpleImageCharts.ColumnChart
         ColumnSeries[] DataSets { get; set; }
         string FormatColumnValue { get; set; }
         int StepSize { get; set; }
+        float CategoryLabelXOffset { get; set; }
     }
 }

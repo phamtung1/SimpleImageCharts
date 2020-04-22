@@ -26,6 +26,8 @@ namespace SimpleImageCharts.ColumnChart
 
         public float CategoryWidth { get; private set; }
 
+        public float CategoryLabelXOffset { get; set; }
+
         private float _rootY;
 
         private float _heightUnit;
@@ -109,7 +111,7 @@ namespace SimpleImageCharts.ColumnChart
 
         private void DrawCategoyLabels(Graphics graphic)
         {
-            var x = Padding.Left + CategoryWidth / 2;
+            var x = Padding.Left + CategoryWidth / 2 + CategoryLabelXOffset;
             using (StringFormat stringFormat = new StringFormat())
             {
                 stringFormat.Alignment = StringAlignment.Center;
