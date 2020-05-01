@@ -28,6 +28,14 @@ namespace SimpleImageCharts.ColumnChart
 
         public float CategoryLabelXOffset { get; set; }
 
+        public bool ColumnValuesVisible { get; set; } = true;
+
+        public bool IsOneHundredPercentChart { get; set; } = false;
+
+        public string YAxisMinText { get; set; }
+
+        public string YAxisMaxText { get; set; }
+
         private float _rootY;
 
         private float _heightUnit;
@@ -46,8 +54,8 @@ namespace SimpleImageCharts.ColumnChart
             base.Init(mainContainer, chartContainer);
             CategoryWidth = chartContainer.Size.Width / Categories.Length;
 
-            _maxValue = DataSets.SelectMany(x => x.Data).Max(x => x) * 1.1f;
-            _minValue = DataSets.SelectMany(x => x.Data).Min(x => x) * 1.1f;
+            _maxValue = DataSets.SelectMany(x => x.Data).Max(x => x) * (IsOneHundredPercentChart ? 1f : 1.1f);
+            _minValue = DataSets.SelectMany(x => x.Data).Min(x => x) * (IsOneHundredPercentChart ? 1f : 1.1f);
 
             if (_minValue > 0)
             {
@@ -70,6 +78,8 @@ namespace SimpleImageCharts.ColumnChart
             // Y axis line
             graphics.DrawLine(Pens.Black, Padding.Left, _rootY, Size.Width - Padding.Right, _rootY);
 
+            DrawYAxisTexts(graphics);
+
             DrawVerticalLines(graphics);
             var offsetList = new List<int>();
             var offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
@@ -80,21 +90,48 @@ namespace SimpleImageCharts.ColumnChart
             }
 
             // Draw from right to left to make sure the left column overlaps the right one
-            for(var i = DataSets.Length - 1; i >= 0; i--)
+            for (var i = DataSets.Length - 1; i >= 0; i--)
             {
                 var data = DataSets[i];
                 DrawColumnSeries(graphics, data, offsetList[i]);
             }
 
-            // draw column values after draw all columns so that if the column will not overlap the texts
-            offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
-            foreach (var data in DataSets)
+            if (ColumnValuesVisible)
             {
-                DrawColumnSeriesValues(graphics, data, offsetX + data.OffsetX);
-                offsetX += ColumnSize;
+                // draw column values after draw all columns so that if the column will not overlap the texts
+                offsetX = -(DataSets.Length * ColumnSize) / 2 - DataSets.Select(x => x.OffsetX).Sum() / 2;
+                foreach (var data in DataSets)
+                {
+                    DrawColumnSeriesValues(graphics, data, offsetX + data.OffsetX);
+                    offsetX += ColumnSize;
+                }
             }
 
             DrawCategoyLabels(graphics);
+        }
+
+        private void DrawYAxisTexts(Graphics graphics)
+        {
+            if (!string.IsNullOrEmpty(YAxisMinText) || !string.IsNullOrEmpty(YAxisMaxText))
+            {
+                using (var stringFormat = new StringFormat())
+                {
+                    stringFormat.Alignment = StringAlignment.Far;
+                    stringFormat.LineAlignment = StringAlignment.Center;
+                    using (var font = this.Font.ToFatFont())
+                    {
+                        if (!string.IsNullOrEmpty(YAxisMinText))
+                        {
+                            graphics.DrawString(YAxisMinText, font, Brushes.DarkBlue, Padding.Left - 10, _rootY, stringFormat);
+                        }
+
+                        if (!string.IsNullOrEmpty(YAxisMaxText))
+                        {
+                            graphics.DrawString(YAxisMaxText, font, Brushes.DarkBlue, Padding.Left - 10, Padding.Top, stringFormat);
+                        }
+                    }
+                }
+            }
         }
 
         private void DrawVerticalLines(Graphics graphic)
@@ -139,7 +176,6 @@ namespace SimpleImageCharts.ColumnChart
                     {
                         var value = series.Data[i];
                         var length = _heightUnit * value;
-                        var text = string.Format(FormatColumnValue, value);
                         if (length >= 0)
                         {
                             graphics.FillRectangle(brush, x, _rootY - length, ColumnSize, length);
