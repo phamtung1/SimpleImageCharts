@@ -9,7 +9,7 @@ namespace WindowsFormsChart.Charts
     {
         public static ColumnChart CreateChart(Size size)
         {
-            var categories = new[] { "Product A", "Product B", "Product C", "Product D", "Product E" };
+            var categories = new[] { "Product dfg dfg A", "Product B", "Product C", "Pert ẻtrtroduct D", "Product E" };
             var rand = new Random();
             var datasets = new ColumnSeries[1];
             var colors = new Color[categories.Length];

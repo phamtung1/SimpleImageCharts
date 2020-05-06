@@ -28,6 +28,8 @@ namespace SimpleImageCharts.ColumnChart
 
         public float CategoryLabelXOffset { get; set; }
 
+        public float CategoryLabelYOffset { get; set; } = 10;
+
         public bool ColumnValuesVisible { get; set; } = true;
 
         public bool IsOneHundredPercentChart { get; set; } = false;
@@ -63,7 +65,7 @@ namespace SimpleImageCharts.ColumnChart
             }
 
             var maxLength = (Math.Abs(_minValue) + _maxValue);
-            
+
             _heightUnit = maxLength == 0 ? 1 : chartContainer.Size.Height / maxLength;
 
             _rootY = Padding.Top + (_heightUnit * Math.Abs(_maxValue));
@@ -149,15 +151,11 @@ namespace SimpleImageCharts.ColumnChart
         private void DrawCategoyLabels(Graphics graphic)
         {
             var x = Padding.Left + CategoryWidth / 2 + CategoryLabelXOffset;
-            using (StringFormat stringFormat = new StringFormat())
+
+            foreach (var item in Categories)
             {
-                stringFormat.Alignment = StringAlignment.Center;
-                foreach (var item in Categories)
-                {
-                    // graphic.DrawString(item, this.Font, Brushes.Gray, x, Height - MarginBottom, stringFormat);
-                    DrawRotatedText(graphic, item, x, Size.Height - Padding.Bottom / 2);
-                    x += CategoryWidth;
-                }
+                DrawRotatedText(graphic, item, x, Size.Height - Padding.Bottom + CategoryLabelYOffset);
+                x += CategoryWidth;
             }
         }
 
@@ -171,7 +169,7 @@ namespace SimpleImageCharts.ColumnChart
                 for (int i = 0; i < series.Data.Length; i++)
                 {
                     var color = series.Colors == null ? series.Color : series.Colors[i];
-                    
+
                     using (var brush = new SolidBrush(color))
                     {
                         var value = series.Data[i];
@@ -223,7 +221,7 @@ namespace SimpleImageCharts.ColumnChart
             using (var format = new StringFormat())
             using (var font = Font.ToFatFont())
             {
-                format.Alignment = StringAlignment.Center;
+                format.Alignment = StringAlignment.Far;
                 // move the origin to the drawing point
                 graphic.TranslateTransform(x, y);
                 graphic.RotateTransform(-45);

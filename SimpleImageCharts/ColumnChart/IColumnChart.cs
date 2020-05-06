@@ -13,6 +13,7 @@ namespace SimpleImageCharts.ColumnChart
         string FormatColumnValue { get; set; }
         int StepSize { get; set; }
         float CategoryLabelXOffset { get; set; }
+        float CategoryLabelYOffset { get; set; }
         bool ColumnValuesVisible { get; set; }
         bool IsOneHundredPercentChart { get; set; }
         string YAxisMinText { get; set; }
