@@ -54,11 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Charts\ColumnChartMultiDatasetCreator.cs" />
     <Compile Include="Charts\SemiCircleGaugeChartCreator.cs" />
     <Compile Include="Charts\TableChartCreator.cs" />
     <Compile Include="Charts\StackedColumn100ChartCreator.cs" />
     <Compile Include="Charts\StackedBar100ChartCreator.cs" />
-    <Compile Include="Charts\ColumnChartCreator.cs" />
+    <Compile Include="Charts\ColumnChartSingleDatasetCreator.cs" />
     <Compile Include="Charts\DoubleAxisBarChartCreator.cs" />
     <Compile Include="Charts\RadarChartCreator.cs" />
     <Compile Include="Charts\StackedBarChartCreator.cs" />

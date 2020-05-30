@@ -32,7 +32,7 @@
             this.btnPieChart = new System.Windows.Forms.Button();
             this.btnDonutChart = new System.Windows.Forms.Button();
             this.btnBarChart = new System.Windows.Forms.Button();
-            this.btnColumnChart = new System.Windows.Forms.Button();
+            this.btnColumnChartSingleDataset = new System.Windows.Forms.Button();
             this.btnDoubleAxisBar = new System.Windows.Forms.Button();
             this.btnStackedBar = new System.Windows.Forms.Button();
             this.btnRadarChart = new System.Windows.Forms.Button();
@@ -43,6 +43,7 @@
             this.btnSemiCircleGaugeChart = new System.Windows.Forms.Button();
             this.btnTableChart = new System.Windows.Forms.Button();
             this.lblSize = new System.Windows.Forms.Label();
+            this.btnColumnChartMultiDataset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -92,16 +93,16 @@
             this.btnBarChart.UseVisualStyleBackColor = true;
             this.btnBarChart.Click += new System.EventHandler(this.BtnBarChart_Click);
             // 
-            // btnColumnChart
+            // btnColumnChartSingleDataset
             // 
-            this.btnColumnChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnColumnChart.Location = new System.Drawing.Point(747, 3);
-            this.btnColumnChart.Name = "btnColumnChart";
-            this.btnColumnChart.Size = new System.Drawing.Size(118, 36);
-            this.btnColumnChart.TabIndex = 4;
-            this.btnColumnChart.Text = "Column Chart";
-            this.btnColumnChart.UseVisualStyleBackColor = true;
-            this.btnColumnChart.Click += new System.EventHandler(this.BtnColumnChart_Click);
+            this.btnColumnChartSingleDataset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnColumnChartSingleDataset.Location = new System.Drawing.Point(747, 3);
+            this.btnColumnChartSingleDataset.Name = "btnColumnChartSingleDataset";
+            this.btnColumnChartSingleDataset.Size = new System.Drawing.Size(118, 36);
+            this.btnColumnChartSingleDataset.TabIndex = 4;
+            this.btnColumnChartSingleDataset.Text = "Column Chart (Single Dataset)";
+            this.btnColumnChartSingleDataset.UseVisualStyleBackColor = true;
+            this.btnColumnChartSingleDataset.Click += new System.EventHandler(this.btnColumnChartSingleDataset_Click);
             // 
             // btnDoubleAxisBar
             // 
@@ -128,7 +129,7 @@
             // btnRadarChart
             // 
             this.btnRadarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRadarChart.Location = new System.Drawing.Point(3, 45);
+            this.btnRadarChart.Location = new System.Drawing.Point(127, 45);
             this.btnRadarChart.Name = "btnRadarChart";
             this.btnRadarChart.Size = new System.Drawing.Size(118, 36);
             this.btnRadarChart.TabIndex = 7;
@@ -139,7 +140,7 @@
             // btnSingleRangeBarChart
             // 
             this.btnSingleRangeBarChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSingleRangeBarChart.Location = new System.Drawing.Point(127, 45);
+            this.btnSingleRangeBarChart.Location = new System.Drawing.Point(251, 45);
             this.btnSingleRangeBarChart.Name = "btnSingleRangeBarChart";
             this.btnSingleRangeBarChart.Size = new System.Drawing.Size(118, 36);
             this.btnSingleRangeBarChart.TabIndex = 8;
@@ -157,7 +158,8 @@
             this.flowLayoutPanel1.Controls.Add(this.btnStackedBar);
             this.flowLayoutPanel1.Controls.Add(this.btnDoubleAxisBar);
             this.flowLayoutPanel1.Controls.Add(this.btnStackedBar100Percent);
-            this.flowLayoutPanel1.Controls.Add(this.btnColumnChart);
+            this.flowLayoutPanel1.Controls.Add(this.btnColumnChartSingleDataset);
+            this.flowLayoutPanel1.Controls.Add(this.btnColumnChartMultiDataset);
             this.flowLayoutPanel1.Controls.Add(this.btnStackedColumn100Percent);
             this.flowLayoutPanel1.Controls.Add(this.btnRadarChart);
             this.flowLayoutPanel1.Controls.Add(this.btnSingleRangeBarChart);
@@ -182,7 +184,7 @@
             // btnStackedColumn100Percent
             // 
             this.btnStackedColumn100Percent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStackedColumn100Percent.Location = new System.Drawing.Point(871, 3);
+            this.btnStackedColumn100Percent.Location = new System.Drawing.Point(3, 45);
             this.btnStackedColumn100Percent.Name = "btnStackedColumn100Percent";
             this.btnStackedColumn100Percent.Size = new System.Drawing.Size(118, 36);
             this.btnStackedColumn100Percent.TabIndex = 10;
@@ -193,7 +195,7 @@
             // btnSemiCircleGaugeChart
             // 
             this.btnSemiCircleGaugeChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSemiCircleGaugeChart.Location = new System.Drawing.Point(251, 45);
+            this.btnSemiCircleGaugeChart.Location = new System.Drawing.Point(375, 45);
             this.btnSemiCircleGaugeChart.Name = "btnSemiCircleGaugeChart";
             this.btnSemiCircleGaugeChart.Size = new System.Drawing.Size(118, 36);
             this.btnSemiCircleGaugeChart.TabIndex = 11;
@@ -204,7 +206,7 @@
             // btnTableChart
             // 
             this.btnTableChart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTableChart.Location = new System.Drawing.Point(375, 45);
+            this.btnTableChart.Location = new System.Drawing.Point(499, 45);
             this.btnTableChart.Name = "btnTableChart";
             this.btnTableChart.Size = new System.Drawing.Size(118, 36);
             this.btnTableChart.TabIndex = 12;
@@ -220,6 +222,17 @@
             this.lblSize.Size = new System.Drawing.Size(37, 13);
             this.lblSize.TabIndex = 10;
             this.lblSize.Text = "lblSize";
+            // 
+            // btnColumnChartMultiDataset
+            // 
+            this.btnColumnChartMultiDataset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnColumnChartMultiDataset.Location = new System.Drawing.Point(871, 3);
+            this.btnColumnChartMultiDataset.Name = "btnColumnChartMultiDataset";
+            this.btnColumnChartMultiDataset.Size = new System.Drawing.Size(118, 36);
+            this.btnColumnChartMultiDataset.TabIndex = 13;
+            this.btnColumnChartMultiDataset.Text = "Column Chart (Single Dataset)";
+            this.btnColumnChartMultiDataset.UseVisualStyleBackColor = true;
+            this.btnColumnChartMultiDataset.Click += new System.EventHandler(this.btnColumnChartMultiDataset_Click);
             // 
             // Form1
             // 
@@ -245,7 +258,7 @@
         private System.Windows.Forms.Button btnPieChart;
         private System.Windows.Forms.Button btnDonutChart;
         private System.Windows.Forms.Button btnBarChart;
-        private System.Windows.Forms.Button btnColumnChart;
+        private System.Windows.Forms.Button btnColumnChartSingleDataset;
         private System.Windows.Forms.Button btnDoubleAxisBar;
         private System.Windows.Forms.Button btnStackedBar;
         private System.Windows.Forms.Button btnRadarChart;
@@ -256,6 +269,7 @@
         private System.Windows.Forms.Button btnSemiCircleGaugeChart;
         private System.Windows.Forms.Button btnTableChart;
         private System.Windows.Forms.Label lblSize;
+        private System.Windows.Forms.Button btnColumnChartMultiDataset;
     }
 }
 

@@ -5,11 +5,11 @@ using System.Drawing;
 
 namespace WindowsFormsChart.Charts
 {
-    public static class ColumnChartCreator
+    public static class ColumnChartSingleDatasetCreator
     {
         public static ColumnChart CreateChart(Size size)
         {
-            var categories = new[] { "Product dfg dfg A", "Product B", "Product C", "Pert ẻtrtroduct D", "Product E" };
+            var categories = new[] { "A Long Product Name", "Product B", "Product C", "Another Long Name D", "Product E" };
             var rand = new Random();
             var datasets = new ColumnSeries[1];
             var colors = new Color[categories.Length];
@@ -22,7 +22,7 @@ namespace WindowsFormsChart.Charts
                 var data = new float[categories.Length];
                 for (int j = 0; j < categories.Length; j++)
                 {
-                    data[j] =  100- (j*10);
+                    data[j] = 100 - (j * 10);
                 }
 
                 var dataset = new ColumnSeries
@@ -33,10 +33,9 @@ namespace WindowsFormsChart.Charts
                 datasets[i] = dataset;
             }
 
-            
             var chart = new ColumnChart
             {
-                Padding = new Padding(60, 50, 30, 120),
+                Padding = new Padding(60, 50, 30, 150),
                 YAxisMinText = "Min",
                 YAxisMaxText = "Max",
                 ColumnValuesVisible = false,

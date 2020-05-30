@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SimpleImageCharts.Core;
+using System;
 using System.Windows.Forms;
-using SimpleImageCharts.Core;
 using WindowsFormsChart.Charts;
 
 namespace WindowsFormsChart
@@ -63,10 +63,16 @@ namespace WindowsFormsChart
             SetImageToPictureBox(chart, "DoubleAxisBarChart.jpg");
         }
 
-        private void BtnColumnChart_Click(object sender, EventArgs e)
+        private void btnColumnChartSingleDataset_Click(object sender, EventArgs e)
         {
-            var chart = ColumnChartCreator.CreateChart(pictureBox1.Size);
-            SetImageToPictureBox(chart, "ColumnChart.jpg");
+            var chart = ColumnChartSingleDatasetCreator.CreateChart(pictureBox1.Size);
+            SetImageToPictureBox(chart, "ColumnChartSingleDataset.jpg");
+        }
+
+        private void btnColumnChartMultiDataset_Click(object sender, EventArgs e)
+        {
+            var chart = ColumnChartMultiDatasetCreator.CreateChart(pictureBox1.Size);
+            SetImageToPictureBox(chart, "ColumnChartMultiDataset.jpg");
         }
 
         private void BtnRadarChart_Click(object sender, EventArgs e)
