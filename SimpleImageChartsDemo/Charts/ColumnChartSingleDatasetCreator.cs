@@ -17,6 +17,7 @@ namespace WindowsFormsChart.Charts
             {
                 colors[i] = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256));
             }
+
             for (int i = 0; i < datasets.Length; i++)
             {
                 var data = new float[categories.Length];
@@ -25,12 +26,11 @@ namespace WindowsFormsChart.Charts
                     data[j] = 100 - (j * 10);
                 }
 
-                var dataset = new ColumnSeries
+                datasets[i] = new ColumnSeries
                 {
                     Colors = colors,
                     Data = data
                 };
-                datasets[i] = dataset;
             }
 
             var chart = new ColumnChart
