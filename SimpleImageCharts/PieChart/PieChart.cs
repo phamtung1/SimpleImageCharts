@@ -76,7 +76,7 @@ namespace SimpleImageCharts.PieChart
             const int BoxHeight = 15;
             const int LineHeight = 20;
 
-            var left = PieAlign == HorizontalAlign.Left ? this.Size.Height + 40 : Size.Width - Size.Height - 150;
+            var left = PieAlign == HorizontalAlign.Left ? this.Size.Height + 40 : 50;
             var top = 20;
 
             using (var textBrush = new SolidBrush(Color.FromArgb(70, 70, 70)))
